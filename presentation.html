@@ -313,8 +313,11 @@
 
         @media (max-width:900px) {
             .slide {
+                height: auto;
+                min-height: 100vh;
                 padding: 60px 20px 100px;
-                overflow-y: auto;
+                overflow: visible;
+                justify-content: flex-start;
             }
 
             .slide-inner {
