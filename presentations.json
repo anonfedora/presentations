@@ -1,0 +1,457 @@
+[
+  {
+    "id": "blink-pitch-deck-2026",
+    "title": "Blink — Spend Crypto Like Cash",
+    "description": "Pitch deck for Blink, a mobile application that enables users spend crypto like cash and merchants to accept crypto payments via Bluetooth and receive instant settlement in their local currency.",
+    "tags": ["PRE-SEED", "PAYMENTS INFRASTRUCTURE", "AFRICA"],
+    "slides": [
+      {
+        "type": "cover",
+        "title": "SPEND CRYPTO LIKE CASH.",
+        "subtitle": "Blink is a mobile application that enables users spend crypto like cash and merchants to accept crypto payments via Bluetooth and receive instant settlement in their local currency.",
+        "tags": ["PRE-SEED", "PAYMENTS INFRASTRUCTURE", "AFRICA"],
+        "meta": "BLINK / PITCH DECK<br>2026"
+      },
+      {
+        "type": "problem",
+        "eyebrow": "01 — The Problem",
+        "title": "CRYPTO IS EVERYWHERE.<br>SPENDABLE NOWHERE.",
+        "columns": [
+          {
+            "title": "USERS",
+            "icon": "users",
+            "points": [
+              "No seamless way to spend crypto at checkout — holders are stuck converting before they can pay.",
+              "P2P conversion carries real fraud risk. Binance estimates P2P scam losses reached <strong style=\"color:inherit\">$3B in 2025.</strong>",
+              "Very few real-world places actually accept crypto payment today."
+            ]
+          },
+          {
+            "title": "MERCHANTS",
+            "icon": "home",
+            "points": [
+              "Most merchants avoid crypto entirely — the integration feels too complex.",
+              "Price volatility between sale and settlement is a real, unmanaged risk.",
+              "No accessible infrastructure exists for blockchain-powered commerce at the till."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "why-it-matters",
+        "eyebrow": "02 — Why It Matters",
+        "title": "REAL ADOPTION<br>NEEDS A REAL ON-RAMP.",
+        "grid": [
+          {
+            "question": "Who it affects",
+            "answer": "<strong style=\"color:inherit\">Users</strong> can't spend USDC day-to-day without routing through P2P first.<br><br><strong style=\"color:inherit\">Merchants</strong> lose customers because accepting crypto today feels risky."
+          },
+          {
+            "question": "Why people should care",
+            "answer": "Millions of crypto holders across Africa want to <em>spend</em>, not just hold. Today's tooling blocks real financial inclusion at the exact moment it's needed most."
+          },
+          {
+            "question": "Why now",
+            "answer": "Over <strong style=\"color:inherit\">54 million Africans</strong> use crypto today. The region processed <strong style=\"color:inherit\">$200B+</strong> in crypto transactions in 2025 driven by need, not hype."
+          }
+        ]
+      },
+      {
+        "type": "solution",
+        "isLight": true,
+        "eyebrow": "03 — The Solution",
+        "title": "ONE TAP.<br>INSTANT SETTLEMENT.",
+        "columns": [
+          {
+            "title": "FOR USERS",
+            "icon": "mobile",
+            "points": [
+              "Spend crypto instantly in real-world transactions, over Bluetooth.",
+              "Zero technical knowledge required. Pay the way you already pay with cash."
+            ]
+          },
+          {
+            "title": "FOR MERCHANTS",
+            "icon": "layers",
+            "points": [
+              "Accept crypto with zero volatility exposure — settlement lands in local currency.",
+              "Instant settlement at the point of sale, no waiting on confirmations.",
+              "Accept payment via Bluetooth, QR code, or the Blink Crypto POS."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "vision",
+        "title": "EVERY DIGITAL ASSET<br><span class=\"accent-line\">SHOULD BE SPENDABLE</span><br>EVERYWHERE."
+      },
+      {
+        "type": "bignum",
+        "eyebrow": "04 — Why Now",
+        "title": "DIGITAL COMMERCE IS<br>ENTERING A NEW ERA.",
+        "numbers": [
+          {
+            "value": "$59B",
+            "desc": "Crypto inflow to Nigeria in a single year. Stablecoins drive ~60% of Sub-Saharan Africa's crypto activity."
+          },
+          {
+            "value": "~9%",
+            "desc": "Average cross-border remittance cost in Sub-Saharan Africa, among the highest globally."
+          },
+          {
+            "value": "$200B+",
+            "desc": "Annual crypto transaction volume across Africa, with merchant acceptance still limited."
+          },
+          {
+            "value": "Millions",
+            "desc": "Of African businesses still lack blockchain-native payment infrastructure today."
+          }
+        ]
+      },
+      {
+        "type": "tam",
+        "isLight": true,
+        "eyebrow": "05 — Market Opportunity",
+        "title": "SIZING THE<br>OPPORTUNITY.",
+        "tams": [
+          {
+            "label": "TAM",
+            "width": 100,
+            "value": "<b>$2.5T+</b>Global crypto market"
+          },
+          {
+            "label": "SAM",
+            "width": 35,
+            "value": "<b>$200B+</b>Annual crypto volume in Africa"
+          },
+          {
+            "label": "SOM",
+            "width": 6,
+            "value": "<b>$1B–$2B</b>Blink's target payment volume"
+          }
+        ],
+        "note": "Africa is one of the world's fastest-growing crypto markets driven by remittances, everyday payments, and currency instability, not speculation."
+      },
+      {
+        "type": "business-model",
+        "eyebrow": "06 — Business Model",
+        "title": "SIMPLE, PROVEN<br>REVENUE MECHANICS.",
+        "flow": [
+          {
+            "title": "Transaction Fees",
+            "icon": "circle-plus",
+            "figure": "1%",
+            "desc": "Charged per transaction processed through the network, scales directly with volume."
+          },
+          {
+            "title": "FX / Settlement Margin",
+            "icon": "grid",
+            "figure": "₦15<span style=\"font-size:18px;color:var(--grey-4);\"> /USD</span>",
+            "desc": "Captured on every conversion at the point of instant settlement into local currency."
+          }
+        ]
+      },
+      {
+        "type": "gtm",
+        "isLight": true,
+        "eyebrow": "07 — Go-To-Market",
+        "title": "MERCHANTS FIRST.<br>NETWORK SECOND.",
+        "phases": [
+          {
+            "num": "PHASE 01",
+            "title": "Merchant First",
+            "points": ["Onboard small merchants, retail shops, vendors", "Focus on high-traffic areas"]
+          },
+          {
+            "num": "PHASE 02",
+            "title": "User Activation",
+            "points": ["Target crypto-native users", "Incentivize first transactions"]
+          },
+          {
+            "num": "PHASE 03",
+            "title": "Network Effects",
+            "points": ["More merchants drive more users — and back again", "Launch infrastructure products", "Scale across Africa"]
+          }
+        ],
+        "channels": ["On-ground agents", "Crypto communities", "Social / viral campaigns", "Strategic partnerships"]
+      },
+      {
+        "type": "traction",
+        "eyebrow": "08 — Traction",
+        "title": "EARLY. LIVE.<br>ALREADY GROWING.",
+        "liveBadge": "LIVE ON iOS (TESTFLIGHT) &amp; PLAY STORE",
+        "stats": [
+          {
+            "num": "$26K",
+            "label": "USD in transaction value"
+          },
+          {
+            "num": "250+",
+            "label": "Active users"
+          },
+          {
+            "num": "$0",
+            "label": "Spent on marketing"
+          }
+        ],
+        "chart": [
+          {
+            "val": "100",
+            "height": 38,
+            "cap": "LAUNCH"
+          },
+          {
+            "val": "250+",
+            "height": 95,
+            "cap": "TODAY"
+          }
+        ],
+        "chartNote": "+150% user growth in 2 months of operation — with $0 spent on marketing."
+      },
+      {
+        "type": "roadmap",
+        "isLight": true,
+        "eyebrow": "09 — Roadmap",
+        "title": "FROM PAYMENTS<br>TO INFRASTRUCTURE.",
+        "items": [
+          {
+            "date": "PHASE 1 — 2026",
+            "phase": "CURRENT PHASE",
+            "title": "Enable Payments",
+            "desc": "Launch the core payment network.",
+            "list": ["Blink Wallet", "Blink for Merchants", "Merchant Discovery"],
+            "outcome": "Outcome: Make crypto spendable in everyday commerce."
+          },
+          {
+            "date": "PHASE 2 — Q1 2027",
+            "phase": "NEXT",
+            "title": "Expand Commerce",
+            "desc": "Extend Blink across online and offline businesses.",
+            "list": ["Blink POS", "Multi-chain Acceptance", "Checkout Widget"],
+            "outcome": "Outcome: Enable businesses to accept payments anywhere."
+          },
+          {
+            "date": "PHASE 3 — Q2 2027",
+            "phase": "FUTURE",
+            "title": "Power Businesses",
+            "desc": "Become the financial infrastructure layer.",
+            "list": ["APIs", "Mass Payouts"],
+            "outcome": "Outcome: Power businesses beyond payments."
+          }
+        ]
+      },
+      {
+        "type": "fundraise",
+        "eyebrow": "10 — The Raise",
+        "title": "$100K",
+        "subtitle": "Pre-seed capital to scale merchant acquisition, harden settlement infrastructure, and accelerate the path to network effects.",
+        "allocation": [
+          { "name": "Merchant Growth", "pct": 30 },
+          { "name": "Settlement Infra", "pct": 25 },
+          { "name": "Engineering", "pct": 22 },
+          { "name": "Compliance", "pct": 13 },
+          { "name": "Product Expansion", "pct": 10 }
+        ],
+        "targets": [
+          { "num": "10,000+", "desc": "Active users" },
+          { "num": "1,000+", "desc": "Live merchants" },
+          { "num": "$2M+", "desc": "Annualized payment volume" },
+          { "num": "Multi-country", "desc": "Settlement coverage" }
+        ]
+      },
+      {
+        "type": "team",
+        "isLight": true,
+        "eyebrow": "11 — The Team",
+        "title": "BUILDERS WHO'VE<br>SHIPPED BEFORE.",
+        "members": [
+          {
+            "name": "Ebube Ebuka Onuora",
+            "role": "CEO &amp; FOUNDER",
+            "bio": "Ebube is the rare founder who has sat on both sides of the problem he is solving. Nearly 5 years inside the Nigerian banking system gave him an intimate understanding of exactly how and where the system fails ordinary people, knowledge that no classroom or accelerator program can teach. He carried that frustration into software development, completing ALX SE program, Utiva Full Stack bootcamp and multiple blockchain programs before putting his skills to work through open source contributions on OnlyDust and Drips shipping real code in real Web3 projects long before Blink existed. That combination of financial sector experience and hands-on builder credibility is what earned him a $25,000 grant from the Starknet Foundation to build Fortichain and it is what makes him uniquely qualified to build the payment infrastructure Africa has always needed.",
+            "link": "https://www.linkedin.com/in/onuoraebube"
+          },
+          {
+            "name": "Eleazar Shekoaga Musa",
+            "role": "LEAD SOFTWARE ENGINEER &amp; CO-FOUNDER",
+            "bio": "Eleazar Shekoaga Musa is a Software and Blockchain Engineer with 5 years experience and a strong background in backend systems, decentralized infrastructure, and scalable application architecture. He has experience building Web2 and Web3 solutions across fintech, and payment infrastructure, contributing to projects focused on transparency, accessibility, and open digital ecosystems. Eleazar has contributed to open-source projects within ecosystems, working on smart contract integrations, payment rails, wallet infrastructure, and developer tooling. He has contributed to open source projects such as Autoswapp and this reflects his focus on building interoperable systems that bridge traditional software engineering with decentralized technologies, he has developed and contributed to enterprise-grade applications including multi-chain wallets, blockchain payment SDKs, and public infrastructure solutions.",
+            "link": "https://www.linkedin.com/in/eleazar-shekoaga-musa-09a70519a"
+          },
+          {
+            "name": "Jethro Adamu",
+            "role": "CTO &amp; CO-FOUNDER",
+            "bio": "Jethro Adamu is a Fullstack, Mobile, and Blockchain Developer with 8 years of experience building scalable Web2 and Web3 applications across Europe, the United States, and Africa. He has contributed to globally used products, including leading development at EcoHotels, where he managed a cross-functional team building a sustainable hotel booking platform for international travelers which generated 300k EUR last year in revenue, processed 160k bookings in total. He also led the development team of Nextup and built high-performance microservices and mobile applications for Nextup, United States. In the Web3 and fintech space, he engineered AutoRamp at TheBuidl Grid, a B2B platform enabling seamless fiat on-ramping and off-ramping infrastructure and also build Runescard, a crypto giftcard platform and has processed 3k giftcards during 6 months of operations.",
+            "link": "https://www.linkedin.com/in/jaykosai/"
+          }
+        ]
+      },
+      {
+        "type": "closing",
+        "lines": [
+          "<strong>Commerce is becoming digital.</strong>",
+          "<strong>Payments are becoming programmable.</strong>",
+          "Blink is building the infrastructure that connects them."
+        ],
+        "thanks": "THANK YOU.",
+        "cta": [
+          { "text": "Back to Top", "type": "filled" },
+          { "text": "Contact the Team", "type": "outline", "link": "https://www.linkedin.com/in/jaykosai/" }
+        ],
+        "meta": "BLINK / 2026<br>SPEND CRYPTO LIKE CASH"
+      }
+    ]
+  },
+  {
+    "id": "faith-in-digital-age",
+    "title": "Faith in a Digital Age",
+    "description": "Staying God-Centered in a Tech-Driven World",
+    "tags": ["FAITH", "TECHNOLOGY", "DIGITAL AGE"],
+    "slides": [
+      {
+        "type": "faith-cover",
+        "title": "FAITH IN A DIGITAL AGE",
+        "subtitle": "Staying God-Centered in a Tech-Driven World",
+        "keyVerse": "“And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God.",
+        "keyVerseReference": "Romans 12:2 (KJV)",
+        "meta": "FAITH &amp; TECHNOLOGY<br>2026"
+      },
+      {
+        "type": "faith-intro",
+        "eyebrow": "01 — THE QUESTION OF OUR TIME",
+        "title": "CONNECTED, YET DISTRACTED",
+        "points": [
+          "We are the most connected generation in human history, yet paradoxically one of the most distracted, anxious, and spiritually fatigued.",
+          "Phones wake us up. Algorithms shape our opinions. Screens dominate our attention.",
+          "Yet the Bible says: “Be still, and know that I am God.” — Psalm 46:10",
+          "The central question is not: Is technology evil? But rather: How do we remain God-centered when technology competes for our attention, identity, and devotion?",
+          "Technology is not new. What is new is speed, scale, and intimacy—technology now lives with us, on us, and inside our thinking patterns."
+        ]
+      },
+      {
+        "type": "faith-digital-age",
+        "eyebrow": "02 — UNDERSTANDING THE DIGITAL AGE",
+        "title": "KEY CHARACTERISTICS",
+        "grid": [
+          {
+            "title": "Speed Over Depth",
+            "points": ["Instant messages", "Short videos", "Rapid consumption",
+            "But spiritual growth requires time, patience, and silence"
+            ]
+          },
+          {
+            "title": "Visibility Over Integrity",
+            "points": ["Likes, shares, followers", "Online validation",
+            "God values who we are in secret, not what trends publicly. “Man looketh on the outward appearance, but the Lord looketh on the heart.” — 1 Samuel 16:7"
+            ]
+          },
+          {
+            "title": "Information Without Transformation",
+            "points": ["Endless sermons, podcasts, devotionals", "Yet little obedience or heart change",
+            "We know about God more than ever—but knowing God is different from consuming content about Him."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "faith-biblical-foundations",
+        "eyebrow": "03 — BIBLICAL FOUNDATIONS",
+        "title": "FAITH IN CHANGING TIMES",
+        "examples": [
+          {
+            "character": "Daniel",
+            "verse": "“Daniel purposed in his heart that he would not defile himself.",
+            "verseReference": "Daniel 1:8",
+            "lesson": "God-centered faith starts with internal conviction, not external control."
+          },
+          {
+            "character": "Jesus",
+            "verse": "“And he withdrew himself into the wilderness, and prayed.",
+            "verseReference": "Luke 5:16",
+            "lesson": "If Jesus needed silence, how much more do we in an age of constant notifications?"
+          },
+          {
+            "character": "Romans 12:2",
+            "verse": "“Be not conformed to this world, but be ye transformed by the renewing of your mind.",
+            "verseReference": "Romans 12:2",
+            "lesson": "The danger today is digital conformity—thinking, reacting, and valuing what algorithms reward."
+          }
+        ]
+      },
+      {
+        "type": "faith-threats",
+        "eyebrow": "04 — SPIRITUAL THREATS",
+        "title": "OF A TECH-DRIVEN WORLD",
+        "threats": [
+          {
+            "title": "Digital Idolatry",
+            "points": ["Anything that commands our attention, shapes our identity, controls our emotions can become an idol.", "Phones don’t bow to us—we bow to them."]
+          },
+          {
+            "title": "Fragmented Attention = Weakened Prayer",
+            "points": ["Prayer requires stillness, focus, presence.", "But the digital world trains us to multitask, scroll, rush.", "A distracted mind struggles to hear a still, small voice."]
+          },
+          {
+            "title": "Performance Christianity",
+            "points": ["Posting scriptures but lacking obedience", "Public faith without private devotion",
+            "Jesus warned: “This people draweth nigh unto me with their mouth… but their heart is far from me.” — Matthew 15:8"]
+          },
+          {
+            "title": "Moral Desensitization",
+            "points": ["Constant exposure to pornography, violence, pride culture, mockery of holiness slowly dulls spiritual sensitivity."]
+          }
+        ]
+      },
+      {
+        "type": "faith-tool-idol-assignment",
+        "isLight": true,
+        "eyebrow": "05 — TOOL, IDOL, OR ASSIGNMENT?",
+        "title": "TECHNOLOGY IS NEUTRAL",
+        "verse": "“All things are lawful for me, but I will not be brought under the power of any.",
+        "verseReference": "1 Corinthians 6:12",
+        "ways": [
+          { "title": "As a Tool", "points": ["Learning", "Evangelism", "Community building"]},
+          { "title": "As an Idol", "points": ["Validation", "Escape", "Identity"]},
+          { "title": "As an Assignment", "points": ["Using digital spaces intentionally for God’s purposes", "We don’t just consume technology—we design, shape, and govern it."]}
+        ]
+      },
+      {
+        "type": "faith-practices",
+        "eyebrow": "06 — PRACTICING GOD-CENTERED FAITH",
+        "title": "IN A DIGITAL WORLD",
+        "practices": [
+          {
+            "title": "Practice Digital Discernment",
+            "points": ["Ask regularly: Does this draw me closer to God or dull my spirit?", "Does this control me or serve me?"]
+          },
+          {
+            "title": "Establish Sacred Rhythms",
+            "points": ["Screen-free prayer time", "Tech-free devotion moments", "Intentional fasting from digital noise", "What you don’t schedule, technology will replace."]
+          },
+          {
+            "title": "Be a Light in Digital Spaces",
+            "points": ["“Ye are the light of the world.” — Matthew 5:14", "Integrity online, Truth without toxicity, Faith without performance"]
+          },
+          {
+            "title": "Redefine Success",
+            "points": ["Not: Followers, Views, Virality", "But: Obedience, Fruit, Faithfulness"]
+          }
+        ]
+      },
+      {
+        "type": "faith-closing",
+        "lines": [
+          "<strong>This generation does not need believers who escape technology,</strong>",
+          "<strong>but believers who:</strong>",
+          "Are spiritually rooted, Digitally wise, God-centered in identity",
+          "",
+          "We are not called to be offline saints, but anchored disciples.",
+          "The future of faith is not anti-technology—it is Christ-centered people navigating technology without losing their soul."
+        ],
+        "closingVerse": "“What shall it profit a man, if he shall gain the whole world, and lose his soul?",
+        "closingVerseReference": "Mark 8:36",
+        "thanks": "THANK YOU.",
+        "meta": "FAITH IN A DIGITAL AGE<br>2026"
+      }
+    ]
+  }
+]
