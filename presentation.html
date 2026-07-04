@@ -1917,6 +1917,73 @@
                 font-size: 18vw;
             }
         }
+
+        /* PDF Generation Styles */
+        .pdf-generation {
+            overflow: visible !important;
+            height: auto !important;
+        }
+
+        .pdf-generation html,
+        .pdf-generation body {
+            overflow: visible !important;
+            height: auto !important;
+        }
+
+        .pdf-generation .deck {
+            overflow: visible !important;
+            height: auto !important;
+            scroll-snap-type: none !important;
+        }
+
+        .pdf-generation .slide {
+            height: 100vh !important;
+            page-break-after: always !important;
+            page-break-inside: avoid !important;
+            break-after: page !important;
+        }
+
+        .pdf-generation .top-nav,
+        .pdf-generation .dots,
+        .pdf-generation .progress-rail,
+        .pdf-generation .slide-index {
+            display: none !important;
+        }
+
+        /* PDF Print Styles */
+        @media print {
+            html, body {
+                height: auto;
+                overflow: visible;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            #deck {
+                overflow: visible !important;
+                height: auto !important;
+                scroll-snap-type: none !important;
+            }
+
+            .slide {
+                page-break-after: always;
+                page-break-inside: avoid;
+                break-after: page;
+            }
+
+            #navControls,
+            #progressBar,
+            .download-btn,
+            .back-btn {
+                display: none !important;
+            }
+
+            .dots,
+            .progress-rail,
+            .top-nav {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 
@@ -2584,17 +2651,57 @@
             }
         }
 
-        function downloadPDF() {
-            const element = document.getElementById('deck');
+        async function downloadPDF() {
+            const deck = document.getElementById('deck');
+            
+            // Add a temporary class for PDF generation
+            document.body.classList.add('pdf-generation');
+            
+            // Temporarily adjust styles for PDF generation
+            const originalDeckStyle = deck.getAttribute('style') || '';
+            deck.style.overflow = 'visible';
+            deck.style.height = 'auto';
+            deck.style.scrollSnapType = 'none';
+            deck.style.paddingTop = '0';
+
+            // Make all slides visible, trigger animations
+            slides.forEach(slide => {
+                slide.querySelectorAll('.reveal').forEach(r => r.classList.add('in'));
+                animateSlideExtras(slide);
+                // Ensure all bars/animations are visible
+                slide.querySelectorAll('.bar[data-height]').forEach(b => {
+                    b.style.height = b.dataset.height + '%';
+                });
+                slide.querySelectorAll('.tam-bar-fill[data-width], .alloc-bar-fill[data-width]').forEach(b => {
+                    b.style.width = b.dataset.width + '%';
+                });
+            });
+
+            // Wait a bit for everything to render
+            await new Promise(resolve => setTimeout(resolve, 800));
+
             const opt = {
                 margin: 0,
                 filename: `${currentPresentation.title}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, scrollY: -window.scrollY },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true, 
+                    backgroundColor: null,
+                    logging: false,
+                    allowTaint: true
+                },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' },
+                pagebreak: { mode: ['css', 'legacy'] }
             };
 
-            html2pdf().set(opt).from(element).save();
+            try {
+                await html2pdf().set(opt).from(deck).save();
+            } finally {
+                // Restore original styles
+                document.body.classList.remove('pdf-generation');
+                deck.setAttribute('style', originalDeckStyle);
+            }
         }
 
         loadPresentation();
