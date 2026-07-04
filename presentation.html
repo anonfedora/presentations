@@ -92,6 +92,32 @@
             z-index: 1001;
         }
 
+        @media (max-width:900px) {
+            .top-nav {
+                height: 60px;
+                padding: 0 15px;
+                background: transparent;
+                backdrop-filter: none;
+            }
+
+            .progress-rail {
+                display: none;
+            }
+
+            .download-btn {
+                padding: 6px 15px;
+                font-size: 11px;
+            }
+
+            .back-btn {
+                font-size: 12px;
+            }
+
+            .progress-rail {
+                top: 60px;
+            }
+        }
+
         .back-btn {
             display: flex;
             align-items: center;
@@ -234,7 +260,8 @@
             height: 100vh;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
-            padding-top: 50px;
+            padding-top: 100px; /* More space for header */
+            padding-bottom: 120px; /* for bottom nav */
         }
 
         .slide {
@@ -244,8 +271,8 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 90px 100px;
+            justify-content: flex-start;
+            padding: 110px 100px;
             overflow: hidden;
             background: var(--black);
             color: var(--white);
@@ -312,10 +339,16 @@
         }
 
         @media (max-width:900px) {
+            .deck {
+                padding-top: 100px;
+                padding-bottom: 150px;
+                scroll-snap-type: y proximity;
+            }
+
             .slide {
                 height: auto;
                 min-height: 100vh;
-                padding: 60px 20px 100px;
+                padding: 50px 20px;
                 overflow: visible;
                 justify-content: flex-start;
             }
@@ -340,6 +373,15 @@
 
             .lede {
                 font-size: clamp(14px, 3vw, 20px);
+            }
+
+            .eyebrow {
+                margin-bottom: 20px;
+                font-size: 14px;
+            }
+
+            .deck-nav {
+                padding-bottom: env(safe-area-inset-bottom, 20px);
             }
         }
 
@@ -1845,8 +1887,79 @@
         
         @media (max-width: 900px) {
             .faith-practices-grid {
-                grid-template-columns: 1fr;
+              grid-template-columns: 1fr;
             }
+        }
+
+        /* Faith Ambassadors */
+        .faith-ambassadors-keyverse {
+          font-size: clamp(16px, 1.8vw, 24px);
+          color: var(--grey-4);
+          margin-top: 24px;
+          max-width: 900px;
+        }
+        
+        .faith-ambassadors-verse {
+          font-size: 22px;
+          color: var(--white);
+          margin-bottom: 12px;
+        }
+        
+        .slide.light .faith-ambassadors-keyverse {
+          color: var(--grey-3);
+        }
+        
+        .slide.light .faith-ambassadors-verse {
+          color: var(--black);
+        }
+        
+        .faith-ambassadors-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 24px;
+          margin-top: 40px;
+        }
+        
+        .faith-ambassador-item {
+          padding: 28px;
+          border: 1px solid var(--line);
+          border-radius: 16px;
+        }
+        
+        .slide.light .faith-ambassador-item {
+          border-color: var(--line-dark);
+        }
+        
+        .faith-ambassador-item h3 {
+          font-family: 'Archivo Black', sans-serif;
+          font-size: 20px;
+          text-transform: uppercase;
+          margin-bottom: 16px;
+        }
+        
+        .faith-ambassador-item ul {
+          list-style: none;
+        }
+        
+        .faith-ambassador-item li {
+          font-size: 16px;
+          color: var(--grey-5);
+          line-height: 1.6;
+          margin-bottom: 10px;
+        }
+        
+        .slide.light .faith-ambassador-item h3 {
+          color: var(--black);
+        }
+        
+        .slide.light .faith-ambassador-item li {
+          color: var(--grey-2);
+        }
+        
+        @media (max-width: 900px) {
+          .faith-ambassadors-grid {
+            grid-template-columns: 1fr;
+          }
         }
 
         /* Closing */
@@ -2103,6 +2216,11 @@
             renderSlides();
             initNavigation();
             updateUI();
+            
+            // Scroll to first slide after a short delay to allow rendering
+            setTimeout(() => {
+                scrollToSlide(0);
+            }, 100);
         }
 
         function renderSlides() {
@@ -2271,6 +2389,32 @@
                                             <h4>${practice.title}</h4>
                                             <ul>
                                                 ${practice.points.map(p => `<li>${p}</li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+                        
+                    case 'faith-ambassadors-1':
+                    case 'faith-ambassadors-2':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                ${slide.keyVerse ? `
+                                <div class="faith-ambassadors-keyverse reveal r3">
+                                    <div class="faith-ambassadors-verse">${slide.keyVerse}</div>
+                                    <div>— ${slide.keyVerseReference}</div>
+                                </div>
+                                ` : ''}
+                                <div class="faith-ambassadors-grid">
+                                    ${slide.ambassadorPoints.map((point, i) => `
+                                        <div class="faith-ambassador-item reveal r${Math.floor(i/2) + 4}">
+                                            <h3>${point.title}</h3>
+                                            <ul>
+                                                ${point.points.map(p => `<li>${p}</li>`).join('')}
                                             </ul>
                                         </div>
                                     `).join('')}
@@ -2605,27 +2749,29 @@
             slides.forEach((s, i) => {
                 const d = document.createElement('div');
                 d.className = 'dot' + (i === 0 ? ' active' : '');
-                d.addEventListener('click', () => s.scrollIntoView({ behavior: 'smooth' }));
+                d.addEventListener('click', () => scrollToSlide(i));
                 dotsNav.appendChild(d);
             });
 
             document.getElementById('prevBtn').addEventListener('click', () => {
                 const target = Math.max(0, currentIndex - 1);
-                slides[target].scrollIntoView({ behavior: 'smooth' });
+                scrollToSlide(target);
             });
 
             document.getElementById('nextBtn').addEventListener('click', () => {
                 const target = Math.min(slides.length - 1, currentIndex + 1);
-                slides[target].scrollIntoView({ behavior: 'smooth' });
+                scrollToSlide(target);
             });
 
             window.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
                     e.preventDefault();
-                    slides[Math.min(slides.length - 1, currentIndex + 1)].scrollIntoView({ behavior: 'smooth' });
+                    const target = Math.min(slides.length - 1, currentIndex + 1);
+                    scrollToSlide(target);
                 } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
                     e.preventDefault();
-                    slides[Math.max(0, currentIndex - 1)].scrollIntoView({ behavior: 'smooth' });
+                    const target = Math.max(0, currentIndex - 1);
+                    scrollToSlide(target);
                 }
             });
 
@@ -2642,10 +2788,30 @@
             document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
         }
 
+        function scrollToSlide(index) {
+            const slide = slides[index];
+            // Calculate position: slide's offset inside the deck
+            const position = slide.offsetTop;
+            deck.scrollTo({
+                top: position,
+                behavior: 'smooth'
+            });
+        }
+
         function updateUI() {
             const scrollTop = deck.scrollTop;
-            const slideHeight = deck.clientHeight;
-            const idx = Math.round(scrollTop / slideHeight);
+            
+            // Find current slide by checking which slide's top is closest to scrollTop
+            let idx = 0;
+            let minDist = Infinity;
+            slides.forEach((slide, i) => {
+                const dist = Math.abs(slide.offsetTop - scrollTop);
+                if (dist < minDist) {
+                    minDist = dist;
+                    idx = i;
+                }
+            });
+            
             currentIndex = Math.max(0, Math.min(slides.length - 1, idx));
 
             document.getElementById('curSlide').textContent = String(currentIndex + 1).padStart(2, '0');
