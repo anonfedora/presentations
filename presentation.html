@@ -2440,6 +2440,449 @@
                         `;
                         break;
 
+                    case 'edu-cover':
+                        content = `
+                            <div class="slide-inner">
+                                <h1 class="display cover-headline reveal r1">${slide.title}</h1>
+                                <p class="lede cover-sub reveal r2">${slide.subtitle}</p>
+                                <div style="margin-top: 40px;" class="reveal r3">
+                                    <p style="color: var(--grey-4); font-size: 16px; margin-bottom: 8px;">Facilitator</p>
+                                    <p style="font-size: 20px; font-weight: 600;">${slide.facilitator}</p>
+                                    <p style="color: var(--grey-4); font-size: 16px; margin-top: 4px;">${slide.facilitatorRole}</p>
+                                </div>
+                                <div style="margin-top: 30px;" class="reveal r4">
+                                    <p style="color: var(--grey-4); font-size: 16px; margin-bottom: 8px;">Target Audience</p>
+                                    <p style="font-size: 18px; line-height: 1.6; max-width: 700px;">${slide.targetAudience}</p>
+                                </div>
+                            </div>
+                            <div class="cover-meta">${slide.meta}</div>
+                        `;
+                        break;
+
+                    case 'edu-intro':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <p class="lede reveal r3" style="margin-top: 24px;">${slide.theme}</p>
+                                <ul class="point-list reveal r4" style="margin-top: 40px;">
+                                    ${slide.points.map(p => `<li>${p}</li>`).join('')}
+                                </ul>
+                                <div style="margin-top: 40px; padding: 24px; border: 1px solid var(--line); border-radius: 12px;" class="reveal r5">
+                                    <p style="font-size: 24px; font-weight: 600; color: var(--white);">${slide.keyPoint}</p>
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-example':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div class="two-col reveal r3">
+                                    ${slide.comparison.map((item, i) => `
+                                        <div style="padding: 30px; border: 1px solid var(--line); border-radius: 16px;">
+                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">${item.label}</p>
+                                            <p style="font-size: 20px; line-height: 1.6;">${item.content}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <p style="margin-top: 40px; font-size: 20px; color: var(--grey-5); line-height: 1.6;" class="reveal r4">${slide.lesson}</p>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-skill-positioning':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px; padding: 30px; background: var(--grey-1); border-radius: 12px; border-left: 4px solid var(--white);" class="reveal r3">
+                                    <p style="font-size: 24px; font-weight: 600;">${slide.formula}</p>
+                                </div>
+                                <div style="margin-top: 40px;" class="reveal r4">
+                                    ${slide.examples.map((ex, i) => `
+                                        <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--line);">
+                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">${ex.role}</p>
+                                            <p style="font-size: 20px; line-height: 1.5;">${ex.statement}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-focus':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <ul class="point-list reveal r3" style="margin-top: 40px;">
+                                    ${slide.points.map(p => `<li>${p}</li>`).join('')}
+                                </ul>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-packaging':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div class="two-col reveal r3">
+                                    ${slide.comparison.map((item, i) => `
+                                        <div style="padding: 30px; border: 1px solid var(--line); border-radius: 16px;">
+                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">${item.label}</p>
+                                            <p style="font-size: 20px; line-height: 1.6;">${item.content}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <p style="margin-top: 40px; font-size: 20px; color: var(--grey-5); line-height: 1.6;" class="reveal r4">${slide.lesson}</p>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-service-parts':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px;" class="reveal r3">
+                                    ${slide.parts.map((part, i) => `
+                                        <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
+                                            <div style="width: 40px; height: 40px; background: var(--white); color: var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; margin-bottom: 16px;">${part.num}</div>
+                                            <p style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">${part.title}</p>
+                                            <p style="color: var(--grey-4); font-size: 16px;">${part.desc}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-value':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <p style="margin-top: 24px; font-size: 20px; color: var(--grey-5); line-height: 1.6;" class="reveal r3">${slide.lesson}</p>
+                                <ul class="point-list reveal r4" style="margin-top: 30px;">
+                                    ${slide.points.map(p => `<li>${p}</li>`).join('')}
+                                </ul>
+                                <div style="margin-top: 40px; padding: 24px; border: 1px solid var(--line); border-radius: 12px; border-left: 4px solid var(--white);" class="reveal r5">
+                                    <p style="font-size: 22px; font-weight: 600; font-style: italic;">${slide.quote}</p>
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-freelancing':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <p style="margin-top: 24px; font-size: 20px; color: var(--grey-5); line-height: 1.6;" class="reveal r3">${slide.definition}</p>
+                                <div class="two-col reveal r4" style="margin-top: 40px;">
+                                    <div>
+                                        <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Work Types</p>
+                                        <ul class="point-list">
+                                            ${slide.workTypes.map(w => `<li>${w}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Potential Clients</p>
+                                        <ul class="point-list">
+                                            ${slide.clients.map(c => `<li>${c}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-ecosystem':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 32px;" class="reveal r3">
+                                    ${slide.channels.map((ch, i) => `
+                                        <div style="padding: 28px; border: 1px solid var(--line); border-radius: 16px;">
+                                            <p style="font-weight: 600; font-size: 20px; margin-bottom: 16px;">${ch.title}</p>
+                                            <ul class="point-list">
+                                                ${ch.points.map(p => `<li>${p}</li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-mistakes':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;" class="reveal r3">
+                                    ${slide.mistakes.map((m, i) => `
+                                        <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
+                                            <p style="font-weight: 600; font-size: 18px; margin-bottom: 12px;">${m.title}</p>
+                                            <ul class="point-list" style="font-size: 18px;">
+                                                ${m.points.map(p => `<li>${p}</li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-clients':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px;" class="reveal r3">
+                                    ${slide.locations.map(l => `<span style="padding: 10px 20px; border: 1px solid var(--line); border-radius: 20px; font-size: 16px;">${l}</span>`).join('')}
+                                </div>
+                                <div style="margin-top: 40px; padding: 24px; background: var(--grey-1); border-radius: 12px;" class="reveal r4">
+                                    <p style="font-size: 22px; font-weight: 600;">${slide.question}</p>
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-profile':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 30px; padding: 24px; border: 1px solid var(--line); border-radius: 12px;" class="reveal r3">
+                                    <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Questions Your Profile Should Answer</p>
+                                    ${slide.questions.map((q, i) => `<p style="font-size: 18px; margin-bottom: 8px;">${i + 1}. ${q}</p>`).join('')}
+                                </div>
+                                <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 24px;" class="reveal r4">
+                                    ${slide.examples.map((ex, i) => `
+                                        <div style="padding: 20px; border: 1px solid var(--line); border-radius: 12px; ${ex.label === 'Bad Profile' ? 'border-color: #ff4444;' : ''}">
+                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">${ex.label}</p>
+                                            <p style="font-size: 18px; line-height: 1.5;">${ex.content}</p>
+                                            ${ex.note ? `<p style="color: var(--grey-4); font-size: 14px; margin-top: 8px;">${ex.note}</p>` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-communication':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div class="two-col reveal r3" style="margin-top: 40px;">
+                                    ${slide.examples.map((ex, i) => `
+                                        <div style="padding: 28px; border: 1px solid var(--line); border-radius: 16px;">
+                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">${ex.label}</p>
+                                            <p style="font-size: 18px; line-height: 1.6;">${ex.content}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-digital-safety':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <p style="margin-top: 24px; font-size: 18px; color: var(--grey-5); line-height: 1.6;" class="reveal r3">${slide.intro}</p>
+                                <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 24px;" class="reveal r4">
+                                    ${slide.rules.map((rule, i) => `
+                                        <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
+                                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                                <div style="width: 32px; height: 32px; background: var(--white); color: var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">${rule.num}</div>
+                                                <p style="font-weight: 600; font-size: 18px;">${rule.title}</p>
+                                            </div>
+                                            <ul class="point-list">
+                                                ${rule.points.map(p => `<li>${p}</li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div style="margin-top: 32px; padding: 20px; background: var(--grey-1); border-radius: 8px; border-left: 4px solid var(--white);" class="reveal r5">
+                                    <p style="font-size: 18px; font-weight: 600;">${slide.keyPrinciple}</p>
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-portfolio':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <p style="margin-top: 24px; font-size: 20px; color: var(--grey-5); line-height: 1.6;" class="reveal r3">${slide.definition}</p>
+                                <div style="margin-top: 30px;" class="reveal r4">
+                                    <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Portfolio Platforms</p>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                                        ${slide.platforms.map(p => `<span style="padding: 10px 20px; border: 1px solid var(--line); border-radius: 20px; font-size: 16px;">${p}</span>`).join('')}
+                                    </div>
+                                </div>
+                                <div style="margin-top: 32px; padding: 20px; background: var(--grey-1); border-radius: 8px;" class="reveal r5">
+                                    <p style="font-size: 18px; font-style: italic;">${slide.note}</p>
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-portfolio-content':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;" class="reveal r3">
+                                    ${slide.elements.map((el, i) => `
+                                        <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
+                                            <div style="width: 40px; height: 40px; background: var(--white); color: var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; margin-bottom: 16px;">${el.num}</div>
+                                            <p style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">${el.title}</p>
+                                            <p style="color: var(--grey-4); font-size: 16px; line-height: 1.5;">${el.desc}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-portfolio-example':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px; padding: 32px; border: 1px solid var(--line); border-radius: 16px;" class="reveal r3">
+                                    <p style="font-weight: 600; font-size: 22px; margin-bottom: 24px;">${slide.example.title}</p>
+                                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 24px;">
+                                        <div>
+                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">Problem</p>
+                                            <p style="font-size: 18px;">${slide.example.problem}</p>
+                                        </div>
+                                        <div>
+                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">Role</p>
+                                            <p style="font-size: 18px;">${slide.example.role}</p>
+                                        </div>
+                                    </div>
+                                    <div style="margin-bottom: 24px;">
+                                        <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">What I Built</p>
+                                        <ul class="point-list">
+                                            ${slide.example.built.map(b => `<li>${b}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                    <div style="margin-bottom: 24px;">
+                                        <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">Technologies</p>
+                                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                            ${slide.example.technologies.map(t => `<span style="padding: 6px 14px; border: 1px solid var(--line); border-radius: 16px; font-size: 14px;">${t}</span>`).join('')}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">Outcome</p>
+                                        <p style="font-size: 18px;">${slide.example.outcome}</p>
+                                    </div>
+                                </div>
+                                <p style="margin-top: 24px; font-size: 18px; color: var(--grey-5); font-style: italic;" class="reveal r4">${slide.note}</p>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-no-client-work':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 24px;" class="reveal r3">
+                                    ${slide.options.map((opt, i) => `
+                                        <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
+                                            <p style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">${opt.title}</p>
+                                            <p style="color: var(--grey-4); font-size: 16px; line-height: 1.5;">${opt.desc}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-portfolio-mistakes':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px;" class="reveal r3">
+                                    ${slide.mistakes.map((m, i) => `
+                                        <div style="padding: 20px; border-left: 4px solid #ff4444; background: rgba(255, 68, 68, 0.1); margin-bottom: 16px; border-radius: 0 8px 8px 0;">
+                                            <p style="font-size: 18px; line-height: 1.5;">${m}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-action-plan':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 16px;" class="reveal r3">
+                                    ${slide.days.map((d, i) => `
+                                        <div style="padding: 20px 24px; border: 1px solid var(--line); border-radius: 12px; display: grid; grid-template-columns: 100px 1fr; gap: 20px; align-items: start;">
+                                            <div style="font-weight: 700; font-size: 16px; color: var(--grey-4);">${d.day}</div>
+                                            <div>
+                                                <p style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">${d.title}</p>
+                                                <p style="color: var(--grey-4); font-size: 16px;">${d.task}</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-takeaways':
+                        content = `
+                            <div class="slide-inner">
+                                <div class="eyebrow reveal r1">${slide.eyebrow}</div>
+                                <h2 class="display reveal r2">${slide.title}</h2>
+                                <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 24px;" class="reveal r3">
+                                    ${slide.takeaways.map((t, i) => `
+                                        <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
+                                            <p style="font-weight: 600; font-size: 18px; margin-bottom: 12px;">${t.title}</p>
+                                            <p style="color: var(--grey-4); font-size: 16px; line-height: 1.5;">${t.desc}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'edu-closing':
+                        content = `
+                            <div class="pulse-field" id="pulseClosing"></div>
+                            <div class="slide-inner">
+                                <h2 class="display reveal r1">${slide.title}</h2>
+                                <div class="closing-lines reveal r2" style="margin-top: 40px;">
+                                    ${slide.lines.map(l => `<p style="font-size: 22px; line-height: 1.6; margin-bottom: 16px;">${l}</p>`).join('')}
+                                </div>
+                                <h2 class="display closing-thanks reveal r3" style="margin-top: 40px;">${slide.thanks}</h2>
+                                <div style="margin-top: 32px;" class="reveal r4">
+                                    <p style="color: var(--grey-4); font-size: 16px;">${slide.facilitator}</p>
+                                    <p style="color: var(--grey-4); font-size: 14px; margin-top: 4px;">${slide.facilitatorRole}</p>
+                                </div>
+                            </div>
+                            <div class="cover-meta">${slide.meta}</div>
+                        `;
+                        break;
+
                     case 'why-it-matters':
                         content = `
                             <div class="slide-inner">

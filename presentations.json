@@ -570,5 +570,528 @@
         "meta": "<h2>FAITH IN A DIGITAL AGE</h2><br>Staying God-Centered in a Tech-Driven World<br>2026"
       }
     ]
+  },
+  {
+    "id": "monetization-skill-positioning",
+    "title": "Monetization & Skill Positioning",
+    "description": "Packaging Your Skills, Introduction to Freelancing, Digital Safety & Portfolio Presentation",
+    "tags": ["FREELANCING", "SKILLS", "CAREER", "DIGITAL SAFETY"],
+    "slides": [
+      {
+        "type": "edu-cover",
+        "title": "MONETIZATION & SKILL POSITIONING",
+        "subtitle": "Packaging Your Skills, Introduction to Freelancing, Digital Safety & Portfolio Presentation",
+        "facilitator": "Eleazar Musa",
+        "facilitatorRole": "COO & Lead Software Engineer, Blink Labs",
+        "targetAudience": "Students, young professionals, creatives, developers, freelancers, and digital talent across Nigeria and Africa",
+        "meta": "MONETIZATION & SKILL POSITIONING<br>Packaging Your Skills, Introduction to Freelancing, Digital Safety & Portfolio Presentation"
+      },
+      {
+        "type": "edu-intro",
+        "eyebrow": "01 — INTRODUCTION & MINDSET",
+        "title": "YOUR SKILL HAS VALUE—BUT VALUE ALONE DOES NOT GUARANTEE INCOME",
+        "theme": "You must know how to position, package, present, protect, and sell that value.",
+        "points": [
+          "A lot of talented people across Nigeria and Africa have valuable skills.",
+          "The problem is not always a lack of talent.",
+          "People often do not know:",
+          "• What exactly they are selling",
+          "• Who they are selling it to",
+          "• How to communicate the value of what they do",
+          "• How to price or package their work",
+          "• How to present proof that they can actually deliver",
+          "• How to protect themselves in the digital economy"
+        ],
+        "keyPoint": "A skill is not automatically a business."
+      },
+      {
+        "type": "edu-example",
+        "eyebrow": "THE DIFFERENCE",
+        "title": "SKILL VS. POSITIONING",
+        "comparison": [
+          {
+            "label": "Designer A",
+            "content": "\"I am a graphic designer. I can design flyers, logos, banners, anything.\""
+          },
+          {
+            "label": "Designer B",
+            "content": "\"I help small businesses create professional social media designs that make their brand look credible and attract more customers.\""
+          }
+        ],
+        "lesson": "Both may have the same technical skill. But the second person has positioned their skill around a specific result for a specific audience."
+      },
+      {
+        "type": "edu-skill-positioning",
+        "eyebrow": "02 — SKILL POSITIONING",
+        "title": "HOW YOU WANT PEOPLE TO UNDERSTAND YOUR SKILL",
+        "formula": "I help [TARGET AUDIENCE] achieve [RESULT] using [YOUR SKILL].",
+        "examples": [
+          {
+            "role": "Software Developer",
+            "statement": "I help startups build fast and reliable web applications using modern technologies."
+          },
+          {
+            "role": "Graphic Designer",
+            "statement": "I help businesses create professional visual identities that improve brand perception."
+          },
+          {
+            "role": "Social Media Manager",
+            "statement": "I help small businesses maintain a consistent social media presence and connect with customers online."
+          },
+          {
+            "role": "Video Editor",
+            "statement": "I help creators transform raw footage into engaging content optimized for social media."
+          },
+          {
+            "role": "Virtual Assistant",
+            "statement": "I help busy entrepreneurs organize administrative tasks so they can focus on growing their business."
+          }
+        ]
+      },
+      {
+        "type": "edu-focus",
+        "eyebrow": "03 — DON'T TRY TO BE EVERYTHING",
+        "title": "CLARITY ATTRACTS OPPORTUNITY",
+        "points": [
+          "One major mistake beginners make is saying: \"I can do everything.\"",
+          "You may have multiple skills, but your communication should be clear.",
+          "If your profile lists too many specializations, potential clients may ask: \"What exactly is this person best at?\"",
+          "You do not necessarily need to have only one skill.",
+          "But you need to communicate your main professional value clearly."
+        ]
+      },
+      {
+        "type": "edu-packaging",
+        "eyebrow": "04 — PACKAGING YOUR SKILLS",
+        "title": "TURNING ABILITIES INTO CLEAR OFFERS",
+        "comparison": [
+          {
+            "label": "Skill",
+            "content": "Video Editing"
+          },
+          {
+            "label": "Offer",
+            "content": "I will edit 10 short-form videos per month for your business, including captions, transitions, basic motion graphics, and social-media-ready exports."
+          }
+        ],
+        "lesson": "People should not have to guess what you do, what they will receive, how long it takes, or what problem it solves."
+      },
+      {
+        "type": "edu-service-parts",
+        "eyebrow": "THE 5 PARTS OF A GOOD SERVICE PACKAGE",
+        "title": "STRUCTURE YOUR OFFER CLEARLY",
+        "parts": [
+          {
+            "num": "1",
+            "title": "The Service",
+            "desc": "What exactly are you doing?"
+          },
+          {
+            "num": "2",
+            "title": "The Deliverables",
+            "desc": "What will the client receive?"
+          },
+          {
+            "num": "3",
+            "title": "The Timeline",
+            "desc": "When will the work be delivered?"
+          },
+          {
+            "num": "4",
+            "title": "The Scope",
+            "desc": "What is included and what is not included?"
+          },
+          {
+            "num": "5",
+            "title": "The Price",
+            "desc": "Project-based, hourly, weekly, monthly, or packages"
+          }
+        ]
+      },
+      {
+        "type": "edu-value",
+        "eyebrow": "05 — COMMUNICATE YOUR VALUE",
+        "title": "DON'T JUST SELL YOUR TIME",
+        "lesson": "For example, a business owner may not care how many hours you spent designing something. They may care about:",
+        "points": [
+          "Whether it looks professional",
+          "Whether it represents their brand",
+          "Whether it helps them communicate better",
+          "Whether you deliver on time",
+          "Whether you are reliable"
+        ],
+        "quote": "Do not just sell your time. Learn to communicate your value."
+      },
+      {
+        "type": "edu-freelancing",
+        "eyebrow": "06 — INTRODUCTION TO FREELANCING",
+        "title": "OFFERING YOUR SKILLS INDEPENDENTLY",
+        "definition": "Freelancing means offering your skills and services independently to clients.",
+        "workTypes": [
+          "Project by project",
+          "On a contract",
+          "On a monthly retainer",
+          "On an hourly basis"
+        ],
+        "clients": [
+          "Individuals",
+          "Startups",
+          "Small businesses",
+          "Companies",
+          "Organizations",
+          "International clients"
+        ]
+      },
+      {
+        "type": "edu-ecosystem",
+        "eyebrow": "THE FREELANCING ECOSYSTEM",
+        "title": "THREE WAYS TO GET WORK",
+        "channels": [
+          {
+            "title": "1. Freelance Platforms",
+            "points": [
+              "Platforms where clients post jobs and freelancers apply or create service listings",
+              "Advantage: Access to a wider market",
+              "Challenge: Competition with professionals globally",
+              "Your profile, portfolio, communication, reviews, and proposal quality affect your chances"
+            ]
+          },
+          {
+            "title": "2. Direct Clients",
+            "points": [
+              "Clients you find yourself",
+              "Examples: A business on Instagram, a startup founder on LinkedIn, a local company, a church or organization, someone referred by a previous client",
+              "Requires networking and communication"
+            ]
+          },
+          {
+            "title": "3. Referrals",
+            "points": [
+              "One of the most powerful sources of work",
+              "A happy client can tell another person: \"This person did a good job for me.\"",
+              "That is why professionalism matters",
+              "Sometimes your next client is connected to your previous client"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "edu-mistakes",
+        "eyebrow": "07 — BEGINNER FREELANCING MISTAKES",
+        "title": "AVOID THESE COMMON PITFALLS",
+        "mistakes": [
+          {
+            "title": "Waiting Until You Are Perfect",
+            "points": ["Many say: \"I am still learning.\" Yes, keep learning. But you can also begin building.", "You do not need to know everything before creating practice projects, demo projects, case studies, or sample work."]
+          },
+          {
+            "title": "Copying Everyone Else",
+            "points": ["Do not build your career only by asking: \"What is everyone doing?\"", "Ask: \"Where can my skills solve real problems?\""]
+          },
+          {
+            "title": "Charging Without Understanding Scope",
+            "points": ["Before accepting a project, understand: What is required? How many deliverables? How many revisions? What is the deadline? What happens if the client adds more work?", "A clear agreement can prevent many problems."]
+          },
+          {
+            "title": "Saying Yes to Everything",
+            "points": ["Not every project is a good project.", "Learn to identify unrealistic deadlines, unclear requirements, excessive revision requests, and clients who refuse to define payment terms."]
+          }
+        ]
+      },
+      {
+        "type": "edu-clients",
+        "eyebrow": "08 — GETTING CLIENTS",
+        "title": "WHERE ARE YOUR CLIENTS?",
+        "locations": [
+          "LinkedIn",
+          "Instagram",
+          "X",
+          "Facebook",
+          "WhatsApp",
+          "Professional communities",
+          "Local business networks",
+          "Tech communities",
+          "Conferences and events"
+        ],
+        "question": "Can they clearly understand what you do when they find you?"
+      },
+      {
+        "type": "edu-profile",
+        "eyebrow": "THE IMPORTANCE OF YOUR DIGITAL PRESENCE",
+        "title": "CLARITY IS POWERFUL",
+        "questions": [
+          "Who are you?",
+          "What do you do?",
+          "Who do you help?",
+          "Can you prove that you can do it?",
+          "How can they contact you?"
+        ],
+        "examples": [
+          {
+            "label": "Bad Profile",
+            "content": "\"Creative | Tech | Business | Dreamer | CEO\"",
+            "note": "It may sound interesting, but it does not tell a client what you actually offer."
+          },
+          {
+            "label": "Better Profile",
+            "content": "\"Frontend Developer | Building fast and responsive web applications for startups and businesses.\"",
+            "note": ""
+          },
+          {
+            "label": "Better Profile",
+            "content": "\"Video Editor | Helping brands and creators produce engaging short-form content.\"",
+            "note": ""
+          }
+        ]
+      },
+      {
+        "type": "edu-communication",
+        "eyebrow": "CLIENT COMMUNICATION",
+        "title": "PROFESSIONAL COMMUNICATION BUILDS TRUST",
+        "examples": [
+          {
+            "label": "Instead of",
+            "content": "\"I can do anything you want, sir. Please give me the job.\""
+          },
+          {
+            "label": "Try",
+            "content": "\"Thank you for reaching out. Based on your requirements, I can help with [specific service]. The project would include [deliverables]. Before we proceed, I would like to confirm the timeline and scope.\""
+          }
+        ]
+      },
+      {
+        "type": "edu-digital-safety",
+        "eyebrow": "09 — DIGITAL SAFETY",
+        "title": "PROTECT YOURSELF IN THE DIGITAL ECONOMY",
+        "intro": "Your digital career can be affected by account hacking, scams, fake clients, phishing links, payment fraud, identity theft, malware, and social engineering.",
+        "rules": [
+          {
+            "num": "1",
+            "title": "PROTECT YOUR ACCOUNTS",
+            "points": ["Use strong passwords", "Different passwords for important accounts", "A reputable password manager where possible", "Two-factor authentication", "Do not use the same password everywhere"]
+          },
+          {
+            "num": "2",
+            "title": "WATCH OUT FOR PHISHING",
+            "points": ["A scammer may send a message claiming you received a payment or your account will be suspended", "Always check: The sender, the website address, whether the request makes sense", "Do not enter passwords or sensitive information on suspicious websites"]
+          },
+          {
+            "num": "3",
+            "title": "BE CAREFUL WITH CLIENT FILES",
+            "points": ["Files can contain malware", "Be cautious with unknown executable files, suspicious ZIP files, unexpected attachments, and fake software installers"]
+          },
+          {
+            "num": "4",
+            "title": "DON'T SHARE SENSITIVE INFORMATION CARELESSLY",
+            "points": ["Be careful with passwords, one-time verification codes, recovery phrases, private keys, banking credentials, and government identification documents", "No legitimate person needs your password or one-time verification code to send you money"]
+          },
+          {
+            "num": "5",
+            "title": "USE CLEAR PAYMENT ARRANGEMENTS",
+            "points": ["Before beginning major work, clarify: Total project cost, payment structure, deposit requirements, payment milestones, final delivery terms", "For certain projects, consider upfront deposits, milestone payments, or platform escrow where available and appropriate"]
+          }
+        ],
+        "keyPrinciple": "Urgency is often used to make people stop thinking."
+      },
+      {
+        "type": "edu-portfolio",
+        "eyebrow": "10 — PORTFOLIO PRESENTATION",
+        "title": "SHOW YOUR WORK PROFESSIONALLY",
+        "definition": "A portfolio is evidence. It answers the question: \"Can you actually do what you claim to do?\"",
+        "platforms": [
+          "A personal website",
+          "GitHub",
+          "Behance",
+          "Dribbble",
+          "LinkedIn",
+          "Notion",
+          "Google Drive",
+          "A well-organized PDF",
+          "A professional social media page"
+        ],
+        "note": "The most important thing is not the platform. It is the presentation."
+      },
+      {
+        "type": "edu-portfolio-content",
+        "eyebrow": "WHAT SHOULD A GOOD PORTFOLIO SHOW?",
+        "title": "FOUR KEY ELEMENTS",
+        "elements": [
+          {
+            "num": "1",
+            "title": "Who You Are",
+            "desc": "A short introduction. Example: \"I am a frontend developer focused on building responsive and user-friendly web applications.\""
+          },
+          {
+            "num": "2",
+            "title": "What You Do",
+            "desc": "Clearly list your services or areas of expertise."
+          },
+          {
+            "num": "3",
+            "title": "Your Best Work",
+            "desc": "Do not upload everything you have ever done. Show your strongest and most relevant work."
+          },
+          {
+            "num": "4",
+            "title": "Context",
+            "desc": "Explain: What was the problem? What was your role? What tools did you use? What was the solution? What was the outcome?"
+          }
+        ]
+      },
+      {
+        "type": "edu-portfolio-example",
+        "eyebrow": "PORTFOLIO EXAMPLE",
+        "title": "FOR A SOFTWARE DEVELOPER",
+        "example": {
+          "title": "E-Commerce Platform",
+          "problem": "The business needed a simple way for customers to browse products and place orders.",
+          "role": "Frontend Developer",
+          "built": [
+            "Product catalogue",
+            "Shopping cart",
+            "Mobile-responsive interface",
+            "Checkout flow"
+          ],
+          "technologies": [
+            "React",
+            "Next.js",
+            "API integration"
+          ],
+          "outcome": "Created a functional demo showing the complete customer journey."
+        },
+        "note": "This gives the viewer more confidence in your ability."
+      },
+      {
+        "type": "edu-no-client-work",
+        "eyebrow": "WHAT IF YOU DON'T HAVE CLIENT WORK?",
+        "title": "OPTIONS FOR BEGINNERS",
+        "options": [
+          {
+            "title": "1. Personal Projects",
+            "desc": "Build something based on your interests."
+          },
+          {
+            "title": "2. Redesign Projects",
+            "desc": "Take an existing concept and redesign it for practice. Clearly indicate that it is a concept or practice project if it was not commissioned."
+          },
+          {
+            "title": "3. Volunteer Work",
+            "desc": "Where appropriate, work with student organizations, communities, NGOs, churches, or small businesses. But do not allow \"free work\" to become permanent exploitation."
+          },
+          {
+            "title": "4. Case Studies",
+            "desc": "Show how you would solve a particular problem."
+          }
+        ]
+      },
+      {
+        "type": "edu-portfolio-mistakes",
+        "eyebrow": "PORTFOLIO MISTAKES",
+        "title": "AVOID THESE ERRORS",
+        "mistakes": [
+          "Too Much Work — More work does not always mean a better portfolio.",
+          "No Explanation — Don't just dump images and screenshots.",
+          "Poor Organization — Make it easy for people to navigate.",
+          "Fake Claims — Never claim you worked for a company when you did not. Trust takes time to build and seconds to destroy."
+        ]
+      },
+      {
+        "type": "edu-action-plan",
+        "eyebrow": "11 — PRACTICAL ACTION PLAN",
+        "title": "THE 7-DAY SKILL POSITIONING CHALLENGE",
+        "days": [
+          {
+            "day": "Day 1",
+            "title": "Identify Your Main Skill",
+            "task": "Write down: What you can do, What you enjoy doing, What problems you can solve"
+          },
+          {
+            "day": "Day 2",
+            "title": "Choose an Audience",
+            "task": "Who needs this skill? Examples: Businesses, Startups, Creators, Organizations"
+          },
+          {
+            "day": "Day 3",
+            "title": "Create Your Positioning Statement",
+            "task": "Use: I help [AUDIENCE] achieve [RESULT] using [SKILL]."
+          },
+          {
+            "day": "Day 4",
+            "title": "Package One Service",
+            "task": "Define: Deliverables, Timeline, Scope, Revisions, Pricing approach"
+          },
+          {
+            "day": "Day 5",
+            "title": "Create or Improve One Portfolio Project",
+            "task": "Document the project properly."
+          },
+          {
+            "day": "Day 6",
+            "title": "Improve Your Online Presence",
+            "task": "Update: LinkedIn, Portfolio, Professional bio, Contact information"
+          },
+          {
+            "day": "Day 7",
+            "title": "Reach Out",
+            "task": "Take action. Apply for an opportunity, Contact a potential client professionally, Join a professional community, Publish your work, Ask for feedback"
+          }
+        ]
+      },
+      {
+        "type": "edu-takeaways",
+        "eyebrow": "FINAL TAKEAWAYS",
+        "title": "KEY POINTS TO REMEMBER",
+        "takeaways": [
+          {
+            "title": "1. Your Skill Is Only the Beginning",
+            "desc": "Having a skill is important. Knowing how to communicate its value is equally important."
+          },
+          {
+            "title": "2. Clarity Attracts Opportunity",
+            "desc": "People should understand: What you do, Who you help, What result you provide"
+          },
+          {
+            "title": "3. Package Your Work",
+            "desc": "Turn \"I am good at this\" into \"This is the specific service I offer, this is what you receive, and this is the problem it solves.\""
+          },
+          {
+            "title": "4. Build Proof",
+            "desc": "Do not wait for a perfect opportunity before building a portfolio. Create. Document. Publish. Improve."
+          },
+          {
+            "title": "5. Protect Yourself",
+            "desc": "The digital economy creates opportunities, but it also creates risks. Protect: Your accounts, Your identity, Your devices, Your finances, Your professional reputation"
+          },
+          {
+            "title": "6. Start Before You Feel Completely Ready",
+            "desc": "Your first portfolio may not be perfect. Your first proposal may not be perfect. Your first client conversation may not be perfect. But: You cannot improve from opportunities you never pursue."
+          }
+        ]
+      },
+      {
+        "type": "edu-closing",
+        "title": "YOUR SKILL CAN BECOME INCOME",
+        "lines": [
+          "<strong>Africa does not lack talented people.</strong>",
+          "<strong>Nigeria does not lack skilled young people.</strong>",
+          "What we often need is better positioning, better execution, stronger proof of work, professional communication, and the confidence to participate in the global digital economy.",
+          "",
+          "Your location should not limit your ambition.",
+          "Your current level should not stop your growth.",
+          "Start with what you know, improve continuously, package your value, protect yourself, and let your work speak.",
+          "",
+          "The goal is not just to have a skill.",
+          "The goal is to build a skill that solves problems, create proof that you can deliver, and position yourself where opportunities can find you.",
+          "",
+          "<strong>Your skill can become income.</strong>",
+          "<strong>Your income can become independence.</strong>",
+          "But first, you must learn how to position your value."
+        ],
+        "thanks": "THANK YOU.",
+        "facilitator": "Eleazar Musa",
+        "facilitatorRole": "COO & Lead Software Engineer, Blink Labs",
+        "meta": "MONETIZATION & SKILL POSITIONING<br>Packaging Your Skills, Introduction to Freelancing, Digital Safety & Portfolio Presentation"
+      }
+    ]
   }
 ]
