@@ -3215,6 +3215,15 @@
                     e.preventDefault();
                     const target = Math.max(0, currentIndex - 1);
                     scrollToSlide(target);
+                } else if (e.key === 'f' || e.key === 'F') {
+                    e.preventDefault();
+                    if (!document.fullscreenElement) {
+                        document.documentElement.requestFullscreen().catch(err => {
+                            console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                        });
+                    } else {
+                        document.exitFullscreen();
+                    }
                 }
             });
 
