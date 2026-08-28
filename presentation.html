@@ -259,13 +259,13 @@
         .deck {
             height: 100vh;
             overflow-y: scroll;
-            scroll-snap-type: y mandatory;
+            scroll-snap-type: y proximity;
             padding-top: 100px; /* More space for header */
             padding-bottom: 120px; /* for bottom nav */
         }
 
         .slide {
-            height: 100vh;
+            min-height: 100vh;
             width: 100%;
             scroll-snap-align: start;
             position: relative;
@@ -273,7 +273,6 @@
             flex-direction: column;
             justify-content: flex-start;
             padding: 110px 100px;
-            overflow: hidden;
             background: var(--black);
             color: var(--white);
         }
