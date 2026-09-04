@@ -5,21 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presentation</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('pref-theme') === 'light') {
+                    document.documentElement.classList.add('app-light');
+                }
+            } catch (e) {}
+        })();
+    </script>
     <style>
         :root {
             --black: #000000;
             --white: #F5F5F2;
             --grey-1: #1A1A1A;
-            --grey-2: #2E2E2E;
-            --grey-3: #666666;
+            --grey-2: #1C1C1C;
+            --grey-3: #454545;
             --grey-4: #A3A3A3;
             --grey-5: #D9D9D6;
             --line: rgba(245, 245, 242, 0.16);
             --line-dark: rgba(0, 0, 0, 0.14);
             --ease: cubic-bezier(.16, .8, .24, 1);
+            /* Theme-adaptive tokens: used by inline slide-content styles so they
+               automatically flip when a slide (or the whole app) is in light mode. */
+            --muted: var(--grey-4);
+            --muted-soft: var(--grey-5);
+            --panel: var(--grey-1);
+            --accent: var(--white);
+            --accent-contrast: var(--black);
+        }
+
+        :is(.slide.light, html.app-light .slide) {
+            --line: var(--line-dark);
+            --muted: var(--grey-3);
+            --muted-soft: var(--grey-2);
+            --panel: var(--grey-5);
+            --accent: var(--black);
+            --accent-contrast: var(--white);
         }
 
         * {
@@ -176,9 +198,8 @@
             align-items: center;
             gap: 14px;
             z-index: 999;
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--line);
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 40px;
             padding: 10px 18px;
         }
@@ -260,7 +281,7 @@
             height: 100vh;
             overflow-y: scroll;
             scroll-snap-type: y proximity;
-            padding-top: 100px; /* More space for header */
+            padding-top: 64px; /* clearance for fixed header */
             padding-bottom: 120px; /* for bottom nav */
         }
 
@@ -272,12 +293,12 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            padding: 110px 100px;
+            padding: 72px 100px 110px;
             background: var(--black);
             color: var(--white);
         }
 
-        .slide.light {
+        :is(.slide.light, html.app-light .slide) {
             background: var(--white);
             color: var(--black);
         }
@@ -298,11 +319,11 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 28px;
+            margin-bottom: 18px;
             font-weight: 800;
         }
 
-        .slide.light .eyebrow {
+        :is(.slide.light, html.app-light .slide) .eyebrow {
             color: var(--grey-3);
         }
 
@@ -325,7 +346,7 @@
             z-index: 3;
         }
 
-        .slide.light .slide-index {
+        :is(.slide.light, html.app-light .slide) .slide-index {
             color: var(--grey-3);
         }
 
@@ -333,13 +354,13 @@
             color: var(--white);
         }
 
-        .slide.light .slide-index b {
+        :is(.slide.light, html.app-light .slide) .slide-index b {
             color: var(--black);
         }
 
         @media (max-width:900px) {
             .deck {
-                padding-top: 100px;
+                padding-top: 70px;
                 padding-bottom: 150px;
                 scroll-snap-type: y proximity;
             }
@@ -347,7 +368,7 @@
             .slide {
                 height: auto;
                 min-height: 100vh;
-                padding: 50px 20px;
+                padding: 36px 20px 50px;
                 overflow: visible;
                 justify-content: flex-start;
             }
@@ -400,7 +421,7 @@
             opacity: 0;
         }
 
-        .slide.light .pulse-ring {
+        :is(.slide.light, html.app-light .slide) .pulse-ring {
             border-color: var(--line-dark);
         }
 
@@ -453,7 +474,7 @@
             font-weight: 400;
         }
 
-        .slide.light .lede {
+        :is(.slide.light, html.app-light .slide) .lede {
             color: var(--grey-2);
         }
 
@@ -463,7 +484,7 @@
             color: var(--grey-4);
         }
 
-        .slide.light p.body-text {
+        :is(.slide.light, html.app-light .slide) p.body-text {
             color: var(--grey-3);
         }
 
@@ -483,7 +504,7 @@
             color: var(--grey-4);
         }
 
-        .slide.light .tag {
+        :is(.slide.light, html.app-light .slide) .tag {
             border-color: var(--line-dark);
             color: var(--grey-3);
         }
@@ -495,7 +516,7 @@
             margin: 36px 0;
         }
 
-        .slide.light .divider {
+        :is(.slide.light, html.app-light .slide) .divider {
             background: var(--line-dark);
         }
 
@@ -510,7 +531,7 @@
             flex-shrink: 0;
         }
 
-        .slide.light .icon-box {
+        :is(.slide.light, html.app-light .slide) .icon-box {
             border-color: var(--line-dark);
         }
 
@@ -582,7 +603,7 @@
             margin-top: 50px;
         }
 
-        .slide.light .stat-grid {
+        :is(.slide.light, html.app-light .slide) .stat-grid {
             background: var(--line-dark);
             border-color: var(--line-dark);
         }
@@ -592,7 +613,7 @@
             padding: 34px 30px;
         }
 
-        .slide.light .stat-cell {
+        :is(.slide.light, html.app-light .slide) .stat-cell {
             background: var(--white);
         }
 
@@ -609,7 +630,7 @@
             line-height: 1.4;
         }
 
-        .slide.light .stat-label {
+        :is(.slide.light, html.app-light .slide) .stat-label {
             color: var(--grey-3);
         }
 
@@ -639,7 +660,7 @@
             padding-top: 16px;
         }
 
-        .slide.light .col-card {
+        :is(.slide.light, html.app-light .slide) .col-card {
             border-color: var(--line-dark);
         }
 
@@ -665,11 +686,12 @@
             padding-left: 22px;
             margin-bottom: 14px;
             font-size: 24px;
+            font-weight: 500;
             line-height: 1.55;
             color: var(--grey-5);
         }
 
-        .slide.light .point-list li {
+        :is(.slide.light, html.app-light .slide) .point-list li {
             color: var(--grey-2);
         }
 
@@ -781,7 +803,7 @@
             border-top: 1px solid var(--line);
         }
 
-        .slide.light .tam-row {
+        :is(.slide.light, html.app-light .slide) .tam-row {
             border-color: var(--line-dark);
         }
 
@@ -789,7 +811,7 @@
             border-bottom: 1px solid var(--line);
         }
 
-        .slide.light .tam-row:last-child {
+        :is(.slide.light, html.app-light .slide) .tam-row:last-child {
             border-color: var(--line-dark);
         }
 
@@ -806,7 +828,7 @@
             position: relative;
         }
 
-        .slide.light .tam-bar-track {
+        :is(.slide.light, html.app-light .slide) .tam-bar-track {
             background: var(--grey-5);
         }
 
@@ -818,7 +840,7 @@
             transition: width 1.4s var(--ease);
         }
 
-        .slide.light .tam-bar-fill {
+        :is(.slide.light, html.app-light .slide) .tam-bar-fill {
             background: var(--black);
         }
 
@@ -828,7 +850,7 @@
             color: var(--grey-4);
         }
 
-        .slide.light .tam-value {
+        :is(.slide.light, html.app-light .slide) .tam-value {
             color: var(--grey-3);
         }
 
@@ -840,7 +862,7 @@
             margin-bottom: 2px;
         }
 
-        .slide.light .tam-value b {
+        :is(.slide.light, html.app-light .slide) .tam-value b {
             color: var(--black);
         }
 
@@ -874,7 +896,7 @@
             position: relative;
         }
 
-        .slide.light .model-card {
+        :is(.slide.light, html.app-light .slide) .model-card {
             border-color: var(--line-dark);
         }
 
@@ -901,7 +923,7 @@
             line-height: 1.5;
         }
 
-        .slide.light .model-card p {
+        :is(.slide.light, html.app-light .slide) .model-card p {
             color: var(--grey-3);
         }
 
@@ -930,7 +952,7 @@
             border-top: 1px solid var(--line);
         }
 
-        .slide.light .phase-row {
+        :is(.slide.light, html.app-light .slide) .phase-row {
             border-color: var(--line-dark);
         }
 
@@ -938,7 +960,7 @@
             border-bottom: 1px solid var(--line);
         }
 
-        .slide.light .phase-row:last-child {
+        :is(.slide.light, html.app-light .slide) .phase-row:last-child {
             border-color: var(--line-dark);
         }
 
@@ -971,7 +993,7 @@
             padding-left: 16px;
         }
 
-        .slide.light .phase-points span {
+        :is(.slide.light, html.app-light .slide) .phase-points span {
             color: var(--grey-2);
         }
 
@@ -1020,7 +1042,7 @@
             margin-bottom: 30px;
         }
 
-        .slide.light .live-badge {
+        :is(.slide.light, html.app-light .slide) .live-badge {
             border-color: var(--line-dark);
         }
 
@@ -1032,7 +1054,7 @@
             animation: livePulse 1.6s ease-in-out infinite;
         }
 
-        .slide.light .live-dot {
+        :is(.slide.light, html.app-light .slide) .live-dot {
             background: #000;
         }
 
@@ -1055,7 +1077,7 @@
             padding: 20px 10px 0 10px;
         }
 
-        .slide.light .growth-chart {
+        :is(.slide.light, html.app-light .slide) .growth-chart {
             border-color: var(--line-dark);
         }
 
@@ -1086,7 +1108,7 @@
             transition: height 1.2s var(--ease);
         }
 
-        .slide.light .bar {
+        :is(.slide.light, html.app-light .slide) .bar {
             background: linear-gradient(180deg, var(--black), var(--grey-2));
         }
 
@@ -1114,7 +1136,7 @@
             margin-bottom: 0;
         }
 
-        .slide.light .timeline-track {
+        :is(.slide.light, html.app-light .slide) .timeline-track {
             background: var(--line-dark);
         }
 
@@ -1128,7 +1150,7 @@
             transition: width 1.6s var(--ease);
         }
 
-        .slide.light .timeline-track-fill {
+        :is(.slide.light, html.app-light .slide) .timeline-track-fill {
             background: var(--black);
         }
 
@@ -1194,7 +1216,7 @@
             transition: border-color .4s var(--ease), background .4s var(--ease), transform .4s var(--ease);
         }
 
-        .slide.light .roadmap-node {
+        :is(.slide.light, html.app-light .slide) .roadmap-node {
             background: var(--white);
         }
 
@@ -1205,7 +1227,7 @@
             transform: scale(1.15);
         }
 
-        .slide.light .roadmap-node.lit {
+        :is(.slide.light, html.app-light .slide) .roadmap-node.lit {
             border-color: var(--black);
             background: var(--black);
             box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.12);
@@ -1232,7 +1254,7 @@
             display: block;
         }
 
-        .slide.light .roadmap-date {
+        :is(.slide.light, html.app-light .slide) .roadmap-date {
             color: var(--grey-3);
         }
 
@@ -1246,7 +1268,7 @@
             transition: background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease);
         }
 
-        .slide.light .roadmap-card {
+        :is(.slide.light, html.app-light .slide) .roadmap-card {
             border-color: var(--line-dark);
         }
 
@@ -1256,7 +1278,7 @@
             border-color: var(--white);
         }
 
-        .slide.light .roadmap-card.active {
+        :is(.slide.light, html.app-light .slide) .roadmap-card.active {
             background: var(--black);
             color: var(--white);
             border-color: var(--black);
@@ -1267,8 +1289,8 @@
             color: var(--grey-2);
         }
 
-        .slide.light .roadmap-card.active .body-text,
-        .slide.light .roadmap-card.active p {
+        :is(.slide.light, html.app-light .slide) .roadmap-card.active .body-text,
+        :is(.slide.light, html.app-light .slide) .roadmap-card.active p {
             color: var(--grey-5);
         }
 
@@ -1294,7 +1316,7 @@
             color: #000;
         }
 
-        .slide.light .roadmap-card.active .roadmap-phase {
+        :is(.slide.light, html.app-light .slide) .roadmap-card.active .roadmap-phase {
             color: var(--grey-4);
         }
 
@@ -1337,7 +1359,7 @@
             color: var(--grey-2);
         }
 
-        .slide.light .roadmap-card.active .roadmap-list li {
+        :is(.slide.light, html.app-light .slide) .roadmap-card.active .roadmap-list li {
             border-color: var(--line);
             color: var(--grey-5);
         }
@@ -1359,7 +1381,7 @@
             color: var(--grey-3);
         }
 
-        .slide.light .roadmap-card.active .roadmap-outcome {
+        :is(.slide.light, html.app-light .slide) .roadmap-card.active .roadmap-outcome {
             border-color: var(--line);
             color: var(--grey-4);
         }
@@ -1393,7 +1415,7 @@
             border-top: 1px solid var(--line);
         }
 
-        .slide.light .alloc-row {
+        :is(.slide.light, html.app-light .slide) .alloc-row {
             border-color: var(--line-dark);
         }
 
@@ -1401,7 +1423,7 @@
             border-bottom: 1px solid var(--line);
         }
 
-        .slide.light .alloc-row:last-child {
+        :is(.slide.light, html.app-light .slide) .alloc-row:last-child {
             border-color: var(--line-dark);
         }
 
@@ -1419,7 +1441,7 @@
             overflow: hidden;
         }
 
-        .slide.light .alloc-bar-track {
+        :is(.slide.light, html.app-light .slide) .alloc-bar-track {
             background: var(--grey-5);
         }
 
@@ -1431,7 +1453,7 @@
             transition: width 1.2s var(--ease);
         }
 
-        .slide.light .alloc-bar-fill {
+        :is(.slide.light, html.app-light .slide) .alloc-bar-fill {
             background: var(--black);
         }
 
@@ -1442,7 +1464,7 @@
             text-align: right;
         }
 
-        .slide.light .alloc-pct {
+        :is(.slide.light, html.app-light .slide) .alloc-pct {
             color: var(--grey-3);
         }
 
@@ -1458,7 +1480,7 @@
             border-top: 1px solid var(--line);
         }
 
-        .slide.light .target-list li {
+        :is(.slide.light, html.app-light .slide) .target-list li {
             border-color: var(--line-dark);
         }
 
@@ -1466,7 +1488,7 @@
             border-bottom: 1px solid var(--line);
         }
 
-        .slide.light .target-list li:last-child {
+        :is(.slide.light, html.app-light .slide) .target-list li:last-child {
             border-color: var(--line-dark);
         }
 
@@ -1481,7 +1503,7 @@
             color: var(--grey-4);
         }
 
-        .slide.light .target-desc {
+        :is(.slide.light, html.app-light .slide) .target-desc {
             color: var(--grey-3);
         }
 
@@ -1514,7 +1536,7 @@
             transition: transform 0.3s var(--ease);
         }
 
-        .slide.light .team-card {
+        :is(.slide.light, html.app-light .slide) .team-card {
             border-color: var(--line-dark);
         }
 
@@ -1550,7 +1572,7 @@
             margin-bottom: 14px;
         }
 
-        .slide.light .team-role {
+        :is(.slide.light, html.app-light .slide) .team-role {
             color: var(--grey-3);
         }
 
@@ -1561,7 +1583,7 @@
             margin-bottom: 16px;
         }
 
-        .slide.light .team-bio {
+        :is(.slide.light, html.app-light .slide) .team-bio {
             color: var(--grey-2);
         }
 
@@ -1576,7 +1598,7 @@
             padding-bottom: 2px;
         }
 
-        .slide.light .team-link {
+        :is(.slide.light, html.app-light .slide) .team-link {
             color: var(--black);
             border-color: var(--grey-3);
         }
@@ -1601,11 +1623,11 @@
             margin-bottom: 12px;
         }
         
-        .slide.light .faith-cover-keyverse {
+        :is(.slide.light, html.app-light .slide) .faith-cover-keyverse {
             color: var(--grey-3);
         }
         
-        .slide.light .faith-cover-verse {
+        :is(.slide.light, html.app-light .slide) .faith-cover-verse {
             color: var(--black);
         }
 
@@ -1623,7 +1645,7 @@
             line-height: 1.7;
         }
         
-        .slide.light .faith-intro-points p {
+        :is(.slide.light, html.app-light .slide) .faith-intro-points p {
             color: var(--grey-2);
         }
 
@@ -1648,16 +1670,17 @@
         
         .faith-digital-item li {
             font-size: 18px;
+            font-weight: 500;
             color: var(--grey-5);
             line-height: 1.6;
             margin-bottom: 10px;
         }
         
-        .slide.light .faith-digital-item h3 {
+        :is(.slide.light, html.app-light .slide) .faith-digital-item h3 {
             color: var(--black);
         }
         
-        .slide.light .faith-digital-item li {
+        :is(.slide.light, html.app-light .slide) .faith-digital-item li {
             color: var(--grey-2);
         }
         
@@ -1701,11 +1724,11 @@
             line-height: 1.6;
         }
         
-        .slide.light .faith-biblical-item {
+        :is(.slide.light, html.app-light .slide) .faith-biblical-item {
             border-color: var(--line-dark);
         }
         
-        .slide.light .faith-biblical-verse {
+        :is(.slide.light, html.app-light .slide) .faith-biblical-verse {
             color: var(--black);
         }
         
@@ -1742,20 +1765,21 @@
         
         .faith-threat-item li {
             font-size: 18px;
+            font-weight: 500;
             color: var(--grey-5);
             line-height: 1.6;
             margin-bottom: 10px;
         }
         
-        .slide.light .faith-threat-item {
+        :is(.slide.light, html.app-light .slide) .faith-threat-item {
             border-color: var(--line-dark);
         }
         
-        .slide.light .faith-threat-item h3 {
+        :is(.slide.light, html.app-light .slide) .faith-threat-item h3 {
             color: var(--black);
         }
         
-        .slide.light .faith-threat-item li {
+        :is(.slide.light, html.app-light .slide) .faith-threat-item li {
             color: var(--grey-2);
         }
         
@@ -1807,30 +1831,31 @@
         
         .faith-ways-item li {
             font-size: 18px;
+            font-weight: 500;
             color: var(--grey-5);
             line-height: 1.6;
             margin-bottom: 10px;
         }
         
-        .slide.light .faith-verse-box {
+        :is(.slide.light, html.app-light .slide) .faith-verse-box {
             background: rgba(0,0,0,0.02);
             border-color: var(--line-dark);
         }
         
-        .slide.light .faith-verse-box h3,
-        .slide.light .faith-verse-text {
+        :is(.slide.light, html.app-light .slide) .faith-verse-box h3,
+        :is(.slide.light, html.app-light .slide) .faith-verse-text {
             color: var(--black);
         }
         
-        .slide.light .faith-ways-item {
+        :is(.slide.light, html.app-light .slide) .faith-ways-item {
             border-color: var(--line-dark);
         }
         
-        .slide.light .faith-ways-item h4 {
+        :is(.slide.light, html.app-light .slide) .faith-ways-item h4 {
             color: var(--black);
         }
         
-        .slide.light .faith-ways-item li {
+        :is(.slide.light, html.app-light .slide) .faith-ways-item li {
             color: var(--grey-2);
         }
         
@@ -1867,20 +1892,21 @@
         
         .faith-practice-card li {
             font-size: 18px;
+            font-weight: 500;
             color: var(--grey-5);
             line-height: 1.6;
             margin-bottom: 10px;
         }
         
-        .slide.light .faith-practice-card {
+        :is(.slide.light, html.app-light .slide) .faith-practice-card {
             border-color: var(--line-dark);
         }
         
-        .slide.light .faith-practice-card h4 {
+        :is(.slide.light, html.app-light .slide) .faith-practice-card h4 {
             color: var(--black);
         }
         
-        .slide.light .faith-practice-card li {
+        :is(.slide.light, html.app-light .slide) .faith-practice-card li {
             color: var(--grey-2);
         }
         
@@ -1904,11 +1930,11 @@
           margin-bottom: 12px;
         }
         
-        .slide.light .faith-ambassadors-keyverse {
+        :is(.slide.light, html.app-light .slide) .faith-ambassadors-keyverse {
           color: var(--grey-3);
         }
         
-        .slide.light .faith-ambassadors-verse {
+        :is(.slide.light, html.app-light .slide) .faith-ambassadors-verse {
           color: var(--black);
         }
         
@@ -1925,7 +1951,7 @@
           border-radius: 16px;
         }
         
-        .slide.light .faith-ambassador-item {
+        :is(.slide.light, html.app-light .slide) .faith-ambassador-item {
           border-color: var(--line-dark);
         }
         
@@ -1942,16 +1968,17 @@
         
         .faith-ambassador-item li {
           font-size: 16px;
+          font-weight: 500;
           color: var(--grey-5);
           line-height: 1.6;
           margin-bottom: 10px;
         }
         
-        .slide.light .faith-ambassador-item h3 {
+        :is(.slide.light, html.app-light .slide) .faith-ambassador-item h3 {
           color: var(--black);
         }
         
-        .slide.light .faith-ambassador-item li {
+        :is(.slide.light, html.app-light .slide) .faith-ambassador-item li {
           color: var(--grey-2);
         }
         
@@ -2063,84 +2090,213 @@
             }
         }
 
-        /* PDF Generation Styles */
-        .pdf-generation {
-            overflow: visible !important;
-            height: auto !important;
-        }
-
-        .pdf-generation html,
-        .pdf-generation body {
-            overflow: visible !important;
-            height: auto !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
-        .pdf-generation .deck {
-            overflow: visible !important;
-            height: auto !important;
-            scroll-snap-type: none !important;
-            padding-top: 0 !important;
-        }
-
-        .pdf-generation .slide {
-            height: 8.27in !important; /* A4 landscape height */
-            width: 11.69in !important; /* A4 landscape width */
-            page-break-after: always !important;
-            page-break-inside: avoid !important;
-            break-after: page !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-            margin: 0 !important;
-            padding: 90px 100px !important;
-            box-sizing: border-box !important;
-            overflow: hidden !important;
-        }
-
-        .pdf-generation .top-nav,
-        .pdf-generation .dots,
-        .pdf-generation .progress-rail,
-        .pdf-generation .slide-index,
-        .pdf-generation .deck-nav {
-            display: none !important;
-        }
-
-        /* PDF Print Styles */
+        /* ===== PRINT / SAVE AS PDF =====
+           Uses the browser's native print pipeline (the Download PDF button
+           calls window.print()) instead of a canvas-rasterization library,
+           so fonts, vector text and the current theme's colors print
+           exactly as rendered on screen. Each slide is one printed page
+           unless its content is taller than a page, in which case it flows
+           onto additional pages instead of being clipped. */
         @media print {
-            html, body {
-                height: auto;
-                overflow: visible;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+            @page {
+                size: landscape;
+                margin: 0;
             }
 
-            #deck {
-                overflow: visible !important;
+            html, body {
                 height: auto !important;
+                overflow: visible !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .deck {
+                height: auto !important;
+                overflow: visible !important;
                 scroll-snap-type: none !important;
+                padding: 0 !important;
             }
 
             .slide {
+                min-height: 100vh;
+                height: auto !important;
+                scroll-snap-align: none !important;
                 page-break-after: always;
-                page-break-inside: avoid;
                 break-after: page;
+                page-break-inside: auto;
+                break-inside: auto;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
-            #navControls,
-            #progressBar,
-            .download-btn,
-            .back-btn {
+            .slide:last-child {
+                page-break-after: auto;
+                break-after: auto;
+            }
+
+            /* Keep individual cards/rows intact where possible instead of
+               splitting them across a page boundary. */
+            .model-card, .roadmap-card, .team-card, .stat-cell, .bignum-cell,
+            .col-card, .why-item, .faith-biblical-item, .faith-threat-item,
+            .faith-ways-item, .faith-practice-card, .faith-ambassador-item,
+            .alloc-row, .tam-row, .phase-row, .target-list li, .roadmap-col,
+            .live-badge, .growth-chart {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            /* Decorative infinite animations would otherwise print at
+               whatever random frame the page happened to freeze on. */
+            .pulse-field {
                 display: none !important;
             }
 
-            .dots,
-            .progress-rail,
-            .top-nav {
+            .live-dot {
+                animation: none !important;
+                opacity: 1 !important;
+            }
+
+            .top-nav, .dots, .progress-rail, .slide-index, .deck-nav,
+            .theme-toggle-btn, .download-btn, .back-btn {
                 display: none !important;
             }
+        }
+
+        /* ===== LIGHT MODE (app-wide) ===== */
+        html.app-light,
+        html.app-light body {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        html.app-light ::selection {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        html.app-light ::-webkit-scrollbar-track {
+            background: var(--white);
+        }
+
+        html.app-light .top-nav {
+            background: rgba(245, 245, 242, 0.7);
+        }
+
+        html.app-light .back-btn {
+            color: var(--black);
+        }
+
+        html.app-light .download-btn {
+            border-color: var(--black);
+            color: var(--black);
+        }
+
+        html.app-light .download-btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        html.app-light .theme-toggle-btn {
+            border-color: var(--black);
+            color: var(--black);
+        }
+
+        html.app-light .theme-toggle-btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        html.app-light .progress-rail {
+            background: var(--grey-5);
+        }
+
+        html.app-light .progress-fill {
+            background: var(--black);
+        }
+
+        html.app-light .deck-nav {
+            background: rgba(245, 245, 242, 0.6);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        html.app-light .nav-arrow {
+            border-color: var(--line-dark);
+            color: var(--black);
+        }
+
+        html.app-light .nav-arrow:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        html.app-light .nav-counter {
+            color: var(--grey-3);
+        }
+
+        html.app-light .nav-counter b {
+            color: var(--black);
+        }
+
+        html.app-light .dot {
+            background: var(--grey-4);
+        }
+
+        html.app-light .dot.active {
+            background: var(--black);
+        }
+
+        @media (max-width:900px) {
+            html.app-light .top-nav {
+                background: transparent;
+            }
+        }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-toggle-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--white);
+            color: var(--white);
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .theme-toggle-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .theme-toggle-btn .icon-moon {
+            display: block;
+        }
+
+        .theme-toggle-btn .icon-sun {
+            display: none;
+        }
+
+        html.app-light .theme-toggle-btn .icon-moon {
+            display: none;
+        }
+
+        html.app-light .theme-toggle-btn .icon-sun {
+            display: block;
+        }
+
+        .top-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
     </style>
 </head>
@@ -2153,7 +2309,18 @@
             </svg>
             Back
         </a>
-        <button class="download-btn" id="downloadBtn">Download PDF</button>
+        <div class="top-nav-right">
+            <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle light/dark mode">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                </svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                </svg>
+            </button>
+            <button class="download-btn" id="downloadBtn">Download PDF</button>
+        </div>
     </nav>
 
     <div class="progress-rail">
@@ -2191,6 +2358,24 @@
             grid: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 17h18M7 3v18M17 3v18"/></svg>`,
             external: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>`
         };
+
+        // Theme
+        function applyTheme(theme) {
+            document.documentElement.classList.toggle('app-light', theme === 'light');
+            try { localStorage.setItem('pref-theme', theme); } catch (e) {}
+        }
+
+        function initTheme() {
+            let saved = null;
+            try { saved = localStorage.getItem('pref-theme'); } catch (e) {}
+            applyTheme(saved === 'light' ? 'light' : 'dark');
+
+            const btn = document.getElementById('themeToggleBtn');
+            btn.addEventListener('click', () => {
+                const isLight = document.documentElement.classList.contains('app-light');
+                applyTheme(isLight ? 'dark' : 'light');
+            });
+        }
 
         let currentPresentation = null;
         let slides = [];
@@ -2361,7 +2546,7 @@
                                 <h2 class="display reveal r2">${slide.title}</h2>
                                 <div class="faith-verse-box reveal r3">
                                     <h3 class="faith-verse-text">${slide.verse}</h3>
-                                    <p style="color: var(--grey-4); font-size: 16px;">— ${slide.verseReference}</p>
+                                    <p style="color: var(--muted); font-size: 16px;">— ${slide.verseReference}</p>
                                 </div>
                                 <div class="faith-ways-grid reveal r4">
                                     ${slide.ways.map((way, i) => `
@@ -2431,7 +2616,7 @@
                                 </div>
                                 <div class="faith-cover-keyverse reveal r2">
                                     <div class="faith-cover-verse">${slide.closingVerse}</div>
-                                    <div style="color: var(--grey-4); font-size: 16px;">— ${slide.closingVerseReference}</div>
+                                    <div style="color: var(--muted); font-size: 16px;">— ${slide.closingVerseReference}</div>
                                 </div>
                                 <h2 class="display closing-thanks reveal r3">${slide.thanks}</h2>
                             </div>
@@ -2445,12 +2630,12 @@
                                 <h1 class="display cover-headline reveal r1">${slide.title}</h1>
                                 <p class="lede cover-sub reveal r2">${slide.subtitle}</p>
                                 <div style="margin-top: 40px;" class="reveal r3">
-                                    <p style="color: var(--grey-4); font-size: 16px; margin-bottom: 8px;">Facilitator</p>
+                                    <p style="color: var(--muted); font-size: 16px; margin-bottom: 8px;">Facilitator</p>
                                     <p style="font-size: 20px; font-weight: 600;">${slide.facilitator}</p>
-                                    <p style="color: var(--grey-4); font-size: 16px; margin-top: 4px;">${slide.facilitatorRole}</p>
+                                    <p style="color: var(--muted); font-size: 16px; margin-top: 4px;">${slide.facilitatorRole}</p>
                                 </div>
                                 <div style="margin-top: 30px;" class="reveal r4">
-                                    <p style="color: var(--grey-4); font-size: 16px; margin-bottom: 8px;">Target Audience</p>
+                                    <p style="color: var(--muted); font-size: 16px; margin-bottom: 8px;">Target Audience</p>
                                     <p style="font-size: 18px; line-height: 1.6; max-width: 700px;">${slide.targetAudience}</p>
                                 </div>
                             </div>
@@ -2468,7 +2653,7 @@
                                     ${slide.points.map(p => `<li>${p}</li>`).join('')}
                                 </ul>
                                 <div style="margin-top: 40px; padding: 24px; border: 1px solid var(--line); border-radius: 12px;" class="reveal r5">
-                                    <p style="font-size: 24px; font-weight: 600; color: var(--white);">${slide.keyPoint}</p>
+                                    <p style="font-size: 24px; font-weight: 600;">${slide.keyPoint}</p>
                                 </div>
                             </div>
                         `;
@@ -2482,12 +2667,12 @@
                                 <div class="two-col reveal r3">
                                     ${slide.comparison.map((item, i) => `
                                         <div style="padding: 30px; border: 1px solid var(--line); border-radius: 16px;">
-                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">${item.label}</p>
+                                            <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">${item.label}</p>
                                             <p style="font-size: 20px; line-height: 1.6;">${item.content}</p>
                                         </div>
                                     `).join('')}
                                 </div>
-                                <p style="margin-top: 40px; font-size: 20px; color: var(--grey-5); line-height: 1.6;" class="reveal r4">${slide.lesson}</p>
+                                <p style="margin-top: 40px; font-size: 20px; color: var(--muted-soft); line-height: 1.6;" class="reveal r4">${slide.lesson}</p>
                             </div>
                         `;
                         break;
@@ -2497,13 +2682,13 @@
                             <div class="slide-inner">
                                 <div class="eyebrow reveal r1">${slide.eyebrow}</div>
                                 <h2 class="display reveal r2">${slide.title}</h2>
-                                <div style="margin-top: 40px; padding: 30px; background: var(--grey-1); border-radius: 12px; border-left: 4px solid var(--white);" class="reveal r3">
+                                <div style="margin-top: 40px; padding: 30px; background: var(--panel); border-radius: 12px; border-left: 4px solid var(--accent);" class="reveal r3">
                                     <p style="font-size: 24px; font-weight: 600;">${slide.formula}</p>
                                 </div>
                                 <div style="margin-top: 40px;" class="reveal r4">
                                     ${slide.examples.map((ex, i) => `
                                         <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--line);">
-                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">${ex.role}</p>
+                                            <p style="color: var(--muted); font-size: 14px; margin-bottom: 8px;">${ex.role}</p>
                                             <p style="font-size: 20px; line-height: 1.5;">${ex.statement}</p>
                                         </div>
                                     `).join('')}
@@ -2532,12 +2717,12 @@
                                 <div class="two-col reveal r3">
                                     ${slide.comparison.map((item, i) => `
                                         <div style="padding: 30px; border: 1px solid var(--line); border-radius: 16px;">
-                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">${item.label}</p>
+                                            <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">${item.label}</p>
                                             <p style="font-size: 20px; line-height: 1.6;">${item.content}</p>
                                         </div>
                                     `).join('')}
                                 </div>
-                                <p style="margin-top: 40px; font-size: 20px; color: var(--grey-5); line-height: 1.6;" class="reveal r4">${slide.lesson}</p>
+                                <p style="margin-top: 40px; font-size: 20px; color: var(--muted-soft); line-height: 1.6;" class="reveal r4">${slide.lesson}</p>
                             </div>
                         `;
                         break;
@@ -2550,9 +2735,9 @@
                                 <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px;" class="reveal r3">
                                     ${slide.parts.map((part, i) => `
                                         <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
-                                            <div style="width: 40px; height: 40px; background: var(--white); color: var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; margin-bottom: 16px;">${part.num}</div>
+                                            <div style="width: 40px; height: 40px; background: var(--accent); color: var(--accent-contrast); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; margin-bottom: 16px;">${part.num}</div>
                                             <p style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">${part.title}</p>
-                                            <p style="color: var(--grey-4); font-size: 16px;">${part.desc}</p>
+                                            <p style="color: var(--muted); font-size: 16px;">${part.desc}</p>
                                         </div>
                                     `).join('')}
                                 </div>
@@ -2565,11 +2750,11 @@
                             <div class="slide-inner">
                                 <div class="eyebrow reveal r1">${slide.eyebrow}</div>
                                 <h2 class="display reveal r2">${slide.title}</h2>
-                                <p style="margin-top: 24px; font-size: 20px; color: var(--grey-5); line-height: 1.6;" class="reveal r3">${slide.lesson}</p>
+                                <p style="margin-top: 24px; font-size: 20px; color: var(--muted-soft); line-height: 1.6;" class="reveal r3">${slide.lesson}</p>
                                 <ul class="point-list reveal r4" style="margin-top: 30px;">
                                     ${slide.points.map(p => `<li>${p}</li>`).join('')}
                                 </ul>
-                                <div style="margin-top: 40px; padding: 24px; border: 1px solid var(--line); border-radius: 12px; border-left: 4px solid var(--white);" class="reveal r5">
+                                <div style="margin-top: 40px; padding: 24px; border: 1px solid var(--line); border-radius: 12px; border-left: 4px solid var(--accent);" class="reveal r5">
                                     <p style="font-size: 22px; font-weight: 600; font-style: italic;">${slide.quote}</p>
                                 </div>
                             </div>
@@ -2581,16 +2766,16 @@
                             <div class="slide-inner">
                                 <div class="eyebrow reveal r1">${slide.eyebrow}</div>
                                 <h2 class="display reveal r2">${slide.title}</h2>
-                                <p style="margin-top: 24px; font-size: 20px; color: var(--grey-5); line-height: 1.6;" class="reveal r3">${slide.definition}</p>
+                                <p style="margin-top: 24px; font-size: 20px; color: var(--muted-soft); line-height: 1.6;" class="reveal r3">${slide.definition}</p>
                                 <div class="two-col reveal r4" style="margin-top: 40px;">
                                     <div>
-                                        <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Work Types</p>
+                                        <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Work Types</p>
                                         <ul class="point-list">
                                             ${slide.workTypes.map(w => `<li>${w}</li>`).join('')}
                                         </ul>
                                     </div>
                                     <div>
-                                        <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Potential Clients</p>
+                                        <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Potential Clients</p>
                                         <ul class="point-list">
                                             ${slide.clients.map(c => `<li>${c}</li>`).join('')}
                                         </ul>
@@ -2646,7 +2831,7 @@
                                 <div style="margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px;" class="reveal r3">
                                     ${slide.locations.map(l => `<span style="padding: 10px 20px; border: 1px solid var(--line); border-radius: 20px; font-size: 16px;">${l}</span>`).join('')}
                                 </div>
-                                <div style="margin-top: 40px; padding: 24px; background: var(--grey-1); border-radius: 12px;" class="reveal r4">
+                                <div style="margin-top: 40px; padding: 24px; background: var(--panel); border-radius: 12px;" class="reveal r4">
                                     <p style="font-size: 22px; font-weight: 600;">${slide.question}</p>
                                 </div>
                             </div>
@@ -2659,15 +2844,15 @@
                                 <div class="eyebrow reveal r1">${slide.eyebrow}</div>
                                 <h2 class="display reveal r2">${slide.title}</h2>
                                 <div style="margin-top: 30px; padding: 24px; border: 1px solid var(--line); border-radius: 12px;" class="reveal r3">
-                                    <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Questions Your Profile Should Answer</p>
+                                    <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Questions Your Profile Should Answer</p>
                                     ${slide.questions.map((q, i) => `<p style="font-size: 18px; margin-bottom: 8px;">${i + 1}. ${q}</p>`).join('')}
                                 </div>
                                 <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 24px;" class="reveal r4">
                                     ${slide.examples.map((ex, i) => `
                                         <div style="padding: 20px; border: 1px solid var(--line); border-radius: 12px; ${ex.label === 'Bad Profile' ? 'border-color: #ff4444;' : ''}">
-                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">${ex.label}</p>
+                                            <p style="color: var(--muted); font-size: 14px; margin-bottom: 8px;">${ex.label}</p>
                                             <p style="font-size: 18px; line-height: 1.5;">${ex.content}</p>
-                                            ${ex.note ? `<p style="color: var(--grey-4); font-size: 14px; margin-top: 8px;">${ex.note}</p>` : ''}
+                                            ${ex.note ? `<p style="color: var(--muted); font-size: 14px; margin-top: 8px;">${ex.note}</p>` : ''}
                                         </div>
                                     `).join('')}
                                 </div>
@@ -2683,7 +2868,7 @@
                                 <div class="two-col reveal r3" style="margin-top: 40px;">
                                     ${slide.examples.map((ex, i) => `
                                         <div style="padding: 28px; border: 1px solid var(--line); border-radius: 16px;">
-                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">${ex.label}</p>
+                                            <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">${ex.label}</p>
                                             <p style="font-size: 18px; line-height: 1.6;">${ex.content}</p>
                                         </div>
                                     `).join('')}
@@ -2697,12 +2882,12 @@
                             <div class="slide-inner">
                                 <div class="eyebrow reveal r1">${slide.eyebrow}</div>
                                 <h2 class="display reveal r2">${slide.title}</h2>
-                                <p style="margin-top: 24px; font-size: 18px; color: var(--grey-5); line-height: 1.6;" class="reveal r3">${slide.intro}</p>
+                                <p style="margin-top: 24px; font-size: 18px; color: var(--muted-soft); line-height: 1.6;" class="reveal r3">${slide.intro}</p>
                                 <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 24px;" class="reveal r4">
                                     ${slide.rules.map((rule, i) => `
                                         <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
                                             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                                                <div style="width: 32px; height: 32px; background: var(--white); color: var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">${rule.num}</div>
+                                                <div style="width: 32px; height: 32px; background: var(--accent); color: var(--accent-contrast); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">${rule.num}</div>
                                                 <p style="font-weight: 600; font-size: 18px;">${rule.title}</p>
                                             </div>
                                             <ul class="point-list">
@@ -2711,7 +2896,7 @@
                                         </div>
                                     `).join('')}
                                 </div>
-                                <div style="margin-top: 32px; padding: 20px; background: var(--grey-1); border-radius: 8px; border-left: 4px solid var(--white);" class="reveal r5">
+                                <div style="margin-top: 32px; padding: 20px; background: var(--panel); border-radius: 8px; border-left: 4px solid var(--accent);" class="reveal r5">
                                     <p style="font-size: 18px; font-weight: 600;">${slide.keyPrinciple}</p>
                                 </div>
                             </div>
@@ -2723,14 +2908,14 @@
                             <div class="slide-inner">
                                 <div class="eyebrow reveal r1">${slide.eyebrow}</div>
                                 <h2 class="display reveal r2">${slide.title}</h2>
-                                <p style="margin-top: 24px; font-size: 20px; color: var(--grey-5); line-height: 1.6;" class="reveal r3">${slide.definition}</p>
+                                <p style="margin-top: 24px; font-size: 20px; color: var(--muted-soft); line-height: 1.6;" class="reveal r3">${slide.definition}</p>
                                 <div style="margin-top: 30px;" class="reveal r4">
-                                    <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Portfolio Platforms</p>
+                                    <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em;">Portfolio Platforms</p>
                                     <div style="display: flex; flex-wrap: wrap; gap: 12px;">
                                         ${slide.platforms.map(p => `<span style="padding: 10px 20px; border: 1px solid var(--line); border-radius: 20px; font-size: 16px;">${p}</span>`).join('')}
                                     </div>
                                 </div>
-                                <div style="margin-top: 32px; padding: 20px; background: var(--grey-1); border-radius: 8px;" class="reveal r5">
+                                <div style="margin-top: 32px; padding: 20px; background: var(--panel); border-radius: 8px;" class="reveal r5">
                                     <p style="font-size: 18px; font-style: italic;">${slide.note}</p>
                                 </div>
                             </div>
@@ -2745,9 +2930,9 @@
                                 <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;" class="reveal r3">
                                     ${slide.elements.map((el, i) => `
                                         <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
-                                            <div style="width: 40px; height: 40px; background: var(--white); color: var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; margin-bottom: 16px;">${el.num}</div>
+                                            <div style="width: 40px; height: 40px; background: var(--accent); color: var(--accent-contrast); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; margin-bottom: 16px;">${el.num}</div>
                                             <p style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">${el.title}</p>
-                                            <p style="color: var(--grey-4); font-size: 16px; line-height: 1.5;">${el.desc}</p>
+                                            <p style="color: var(--muted); font-size: 16px; line-height: 1.5;">${el.desc}</p>
                                         </div>
                                     `).join('')}
                                 </div>
@@ -2764,32 +2949,32 @@
                                     <p style="font-weight: 600; font-size: 22px; margin-bottom: 24px;">${slide.example.title}</p>
                                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 24px;">
                                         <div>
-                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">Problem</p>
+                                            <p style="color: var(--muted); font-size: 14px; margin-bottom: 8px;">Problem</p>
                                             <p style="font-size: 18px;">${slide.example.problem}</p>
                                         </div>
                                         <div>
-                                            <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">Role</p>
+                                            <p style="color: var(--muted); font-size: 14px; margin-bottom: 8px;">Role</p>
                                             <p style="font-size: 18px;">${slide.example.role}</p>
                                         </div>
                                     </div>
                                     <div style="margin-bottom: 24px;">
-                                        <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">What I Built</p>
+                                        <p style="color: var(--muted); font-size: 14px; margin-bottom: 8px;">What I Built</p>
                                         <ul class="point-list">
                                             ${slide.example.built.map(b => `<li>${b}</li>`).join('')}
                                         </ul>
                                     </div>
                                     <div style="margin-bottom: 24px;">
-                                        <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">Technologies</p>
+                                        <p style="color: var(--muted); font-size: 14px; margin-bottom: 8px;">Technologies</p>
                                         <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                                             ${slide.example.technologies.map(t => `<span style="padding: 6px 14px; border: 1px solid var(--line); border-radius: 16px; font-size: 14px;">${t}</span>`).join('')}
                                         </div>
                                     </div>
                                     <div>
-                                        <p style="color: var(--grey-4); font-size: 14px; margin-bottom: 8px;">Outcome</p>
+                                        <p style="color: var(--muted); font-size: 14px; margin-bottom: 8px;">Outcome</p>
                                         <p style="font-size: 18px;">${slide.example.outcome}</p>
                                     </div>
                                 </div>
-                                <p style="margin-top: 24px; font-size: 18px; color: var(--grey-5); font-style: italic;" class="reveal r4">${slide.note}</p>
+                                <p style="margin-top: 24px; font-size: 18px; color: var(--muted-soft); font-style: italic;" class="reveal r4">${slide.note}</p>
                             </div>
                         `;
                         break;
@@ -2803,7 +2988,7 @@
                                     ${slide.options.map((opt, i) => `
                                         <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
                                             <p style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">${opt.title}</p>
-                                            <p style="color: var(--grey-4); font-size: 16px; line-height: 1.5;">${opt.desc}</p>
+                                            <p style="color: var(--muted); font-size: 16px; line-height: 1.5;">${opt.desc}</p>
                                         </div>
                                     `).join('')}
                                 </div>
@@ -2835,10 +3020,10 @@
                                 <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 16px;" class="reveal r3">
                                     ${slide.days.map((d, i) => `
                                         <div style="padding: 20px 24px; border: 1px solid var(--line); border-radius: 12px; display: grid; grid-template-columns: 100px 1fr; gap: 20px; align-items: start;">
-                                            <div style="font-weight: 700; font-size: 16px; color: var(--grey-4);">${d.day}</div>
+                                            <div style="font-weight: 700; font-size: 16px; color: var(--muted);">${d.day}</div>
                                             <div>
                                                 <p style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">${d.title}</p>
-                                                <p style="color: var(--grey-4); font-size: 16px;">${d.task}</p>
+                                                <p style="color: var(--muted); font-size: 16px;">${d.task}</p>
                                             </div>
                                         </div>
                                     `).join('')}
@@ -2856,7 +3041,7 @@
                                     ${slide.takeaways.map((t, i) => `
                                         <div style="padding: 24px; border: 1px solid var(--line); border-radius: 12px;">
                                             <p style="font-weight: 600; font-size: 18px; margin-bottom: 12px;">${t.title}</p>
-                                            <p style="color: var(--grey-4); font-size: 16px; line-height: 1.5;">${t.desc}</p>
+                                            <p style="color: var(--muted); font-size: 16px; line-height: 1.5;">${t.desc}</p>
                                         </div>
                                     `).join('')}
                                 </div>
@@ -2874,8 +3059,8 @@
                                 </div>
                                 <h2 class="display closing-thanks reveal r3" style="margin-top: 40px;">${slide.thanks}</h2>
                                 <div style="margin-top: 32px;" class="reveal r4">
-                                    <p style="color: var(--grey-4); font-size: 16px;">${slide.facilitator}</p>
-                                    <p style="color: var(--grey-4); font-size: 14px; margin-top: 4px;">${slide.facilitatorRole}</p>
+                                    <p style="color: var(--muted); font-size: 16px;">${slide.facilitator}</p>
+                                    <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">${slide.facilitatorRole}</p>
                                 </div>
                             </div>
                             <div class="cover-meta">${slide.meta}</div>
@@ -3001,7 +3186,7 @@
                                             <div class="figure">${item.figure}</div>
                                             <p>${item.desc}</p>
                                         </div>
-                                        ${i < slide.flow.length - 1 ? `<svg class="model-arrow" width="40" height="24" viewBox="0 0 40 24" fill="none"><path d="M2 12h34M26 4l10 8-10 8" stroke="#F5F5F2" stroke-width="1.6"/></svg>` : ''}
+                                        ${i < slide.flow.length - 1 ? `<svg class="model-arrow" width="40" height="24" viewBox="0 0 40 24" fill="none"><path d="M2 12h34M26 4l10 8-10 8" stroke="currentColor" stroke-width="1.6"/></svg>` : ''}
                                     `).join('')}
                                 </div>
                             </div>
@@ -3111,7 +3296,7 @@
                                 <p class="lede reveal r3" style="margin-top:14px;">${slide.subtitle}</p>
                                 <div class="raise-grid">
                                     <div class="reveal r4">
-                                        <h3 class="display" style="font-size:24px;color:#fff;margin-bottom:10px;">Use of Funds</h3>
+                                        <h3 class="display" style="font-size:24px;margin-bottom:10px;">Use of Funds</h3>
                                         ${slide.allocation.map(a => `
                                             <div class="alloc-row">
                                                 <div class="alloc-name">${a.name}</div>
@@ -3123,7 +3308,7 @@
                                         `).join('')}
                                     </div>
                                     <div class="reveal r5">
-                                        <h3 class="display" style="font-size:24px;color:#fff;margin-bottom:10px;">Target Outcomes</h3>
+                                        <h3 class="display" style="font-size:24px;margin-bottom:10px;">Target Outcomes</h3>
                                         <ul class="target-list">
                                             ${slide.targets.map(t => `<li><span class="target-num">${t.num}</span><span class="target-desc">${t.desc}</span></li>`).join('')}
                                         </ul>
@@ -3333,96 +3518,25 @@
             }
         }
 
-        async function downloadPDF() {
-            const deck = document.getElementById('deck');
-            const originalBodyStyle = document.body.getAttribute('style') || '';
-            
-            // Add a temporary class for PDF generation
-            document.body.classList.add('pdf-generation');
-            
-            // Force background colors to be preserved
-            document.body.style.webkitPrintColorAdjust = 'exact';
-            document.body.style.printColorAdjust = 'exact';
-            
-            // Temporarily adjust styles for PDF generation
-            const originalDeckStyle = deck.getAttribute('style') || '';
-            deck.style.overflow = 'visible';
-            deck.style.height = 'auto';
-            deck.style.scrollSnapType = 'none';
-            deck.style.paddingTop = '0';
-
-            // Make all slides visible, trigger animations
+        function downloadPDF() {
+            // Reveal every slide's content (normally revealed only as you
+            // scroll to it) and finish its chart/bar animations, so the
+            // printed output shows every slide fully, not just the one
+            // currently in view. The actual PDF is produced by the
+            // browser's own print pipeline (see the @media print rules),
+            // which reproduces real text and the current theme's colors
+            // exactly, and lets a slide taller than one page flow onto the
+            // next instead of being cropped.
             slides.forEach(slide => {
                 slide.querySelectorAll('.reveal').forEach(r => r.classList.add('in'));
                 animateSlideExtras(slide);
-                // Ensure all bars/animations are visible
-                slide.querySelectorAll('.bar[data-height]').forEach(b => {
-                    b.style.height = b.dataset.height + '%';
-                });
-                slide.querySelectorAll('.tam-bar-fill[data-width], .alloc-bar-fill[data-width]').forEach(b => {
-                    b.style.width = b.dataset.width + '%';
-                });
             });
 
-            // Wait a bit for everything to render
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            try {
-                // Get jsPDF from UMD bundle
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF({
-                    orientation: 'landscape',
-                    unit: 'in',
-                    format: 'a4'
-                });
-
-                const pageWidth = pdf.internal.pageSize.getWidth();
-                const pageHeight = pdf.internal.pageSize.getHeight();
-
-                // Process each slide individually
-                for (let i = 0; i < slides.length; i++) {
-                    const slide = slides[i];
-                    
-                    // Temporarily set slide size to capture correctly
-                    const originalSlideStyle = slide.getAttribute('style') || '';
-                    slide.style.position = 'relative';
-                    slide.style.left = '0';
-                    slide.style.top = '0';
-                    
-                    // Capture slide as canvas with explicit background color
-                    const canvas = await html2canvas(slide, {
-                        scale: 2,
-                        useCORS: true,
-                        backgroundColor: slide.classList.contains('light') ? '#F5F5F2' : '#000000',
-                        logging: false,
-                        allowTaint: true
-                    });
-
-                    const imgData = canvas.toDataURL('image/jpeg', 0.98);
-                    
-                    // Add image to PDF
-                    if (i > 0) {
-                        pdf.addPage();
-                    }
-                    pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
-                    
-                    // Restore original slide style
-                    slide.setAttribute('style', originalSlideStyle);
-                }
-
-                // Save the PDF
-                pdf.save(`${currentPresentation.title}.pdf`);
-            } catch (err) {
-                console.error('PDF generation error:', err);
-                alert('Error generating PDF. Please try again.');
-            } finally {
-                // Restore original styles
-                document.body.classList.remove('pdf-generation');
-                deck.setAttribute('style', originalDeckStyle);
-                document.body.setAttribute('style', originalBodyStyle);
-            }
+            // Give layout a moment to settle before the print dialog opens.
+            requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
         }
 
+        initTheme();
         loadPresentation();
     </script>
 </body>
