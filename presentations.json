@@ -1093,5 +1093,396 @@
         "meta": "MONETIZATION & SKILL POSITIONING<br>Packaging Your Skills, Introduction to Freelancing, Digital Safety & Portfolio Presentation"
       }
     ]
+  },
+  {
+    "id": "ras-lydias-roles",
+    "title": "Key Roles of Administrative Officers",
+    "description": "Roles of RA's & Lydias Administrative Officers - 2nd Jamboree of Kaduna Baptist Conference",
+    "tags": ["LEADERSHIP", "ADMINISTRATION", "ROLES", "ORGANIZATION"],
+    "slides": [
+      {
+        "type": "edu-cover",
+        "title": "KEY ROLES OF ADMINISTRATIVE OFFICERS",
+        "subtitle": "RA's & Lydias 2nd Jamboree of Kaduna Baptist Conference",
+        "facilitator": "Coun. Nuhu Waziri (Post Pleni)",
+        "facilitatorRole": "Lecture Notes Prepared for Friday 4th September, 2026",
+        "targetAudience": "RA's & Lydias Administrative Officers",
+        "meta": "KEY ROLES OF ADMINISTRATIVE OFFICERS<br>RA's & Lydias 2nd Jamboree of Kaduna Baptist Conference"
+      },
+      {
+        "type": "edu-intro",
+        "eyebrow": "PRESIDENT / DIRECTOR",
+        "title": "Roles of the President/Director",
+        "theme": "The Director/president of an organization serves as the chief leader, guiding the group's vision, running meetings, and representing the members.",
+        "points": [
+          "Lead gatherings and keep order during meetings",
+          "Set agendas and ensure discussions follow rules",
+          "Enforce bylaws and oversee committees",
+          "Act as spokesperson and build relationships",
+          "Monitor budgets and authorize contracts",
+          "Chief accounting officer of the organisation"
+        ],
+        "keyPoint": "The President/Director is the chief leader who guides vision, manages operations, and represents the organisation."
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "PRESIDENT / DIRECTOR",
+        "title": "Meeting Management",
+        "sections": [
+          {
+            "title": "Lead Gatherings",
+            "points": ["Preside over all exco meetings and general membership gatherings"]
+          },
+          {
+            "title": "Keep Order",
+            "points": ["Ensure discussions follow the rules and stay on topic"]
+          },
+          {
+            "title": "Set Agendas",
+            "points": ["Plan what topics the group will discuss and vote on, in collaboration with his secretary"]
+          },
+          {
+            "title": "Primary Contact",
+            "points": ["Acts as a primary point of contact for internal and external meetings with other affiliates or sister organisations"]
+          }
+        ]
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "PRESIDENT / DIRECTOR",
+        "title": "Leadership and Governance",
+        "sections": [
+          {
+            "title": "Enforce Bylaws",
+            "points": ["Make sure the organisation follows its own rules and constitution"]
+          },
+          {
+            "title": "Oversee Committees",
+            "points": ["Form committees and help members finish their tasks"]
+          },
+          {
+            "title": "Support the Team",
+            "points": ["Work with other officers like the secretary, commandant and treasurer to keep things running well"]
+          },
+          {
+            "title": "Operational Oversight",
+            "points": ["Manage day-to-day running of the organisation"]
+          }
+        ]
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "PRESIDENT / DIRECTOR",
+        "title": "Representation and Communication",
+        "sections": [
+          {
+            "title": "Be the Spokesperson",
+            "points": ["Act as the public face of the organisation to the media, partners, and community"]
+          },
+          {
+            "title": "Build Relationships",
+            "points": ["Connect with outside groups and stakeholders to help the association grow"]
+          },
+          {
+            "title": "Report to EXCO and MMU",
+            "points": ["Report the organisation performance and challenges to the EXCO and MMU"]
+          }
+        ]
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "PRESIDENT / DIRECTOR",
+        "title": "Financial and Administrative Oversight",
+        "sections": [
+          {
+            "title": "Monitor Budgets",
+            "points": ["Help plan the yearly budget and review financial reports"]
+          },
+          {
+            "title": "Sign Official Papers",
+            "points": ["Authorize contracts and agreements approved by the Exco"]
+          },
+          {
+            "title": "'A' Signatory",
+            "points": ["Receives bank alerts, he and either secretary or treasurer sign the cheques for all payments or any withdrawal"]
+          },
+          {
+            "title": "Financial Approval",
+            "points": ["Gives final approval for all expenses as presented by the finance", "Must give approval before any expenditure by any officer or a committee is carried out"]
+          },
+          {
+            "title": "Chief Accounting Officer",
+            "points": ["He is the chief accounting officer of the organisation"]
+          }
+        ]
+      },
+      {
+        "type": "edu-intro",
+        "eyebrow": "VICE PRESIDENT / DEPUTY DIRECTOR",
+        "title": "Roles of the Vice President/Deputy Director",
+        "theme": "The primary duty of a vice president/deputy Director in an association is to act as second-in-command, supporting the president and stepping in to lead meetings or assume presidential or Directors powers during his absence.",
+        "points": [
+          "Step in for the Director/President during absence",
+          "Assist leadership with daily operations and strategic plans",
+          "Manage specific committees and projects",
+          "Represent the association at public events",
+          "Delegate tasks and support member engagement"
+        ],
+        "keyPoint": "The Vice President/Deputy Director serves as second-in-command, supporting leadership and stepping in when needed."
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "VICE PRESIDENT / DEPUTY DIRECTOR",
+        "title": "Key Responsibilities",
+        "sections": [
+          {
+            "title": "Stepping in for the Director/President",
+            "points": ["Lead board meetings, club activities, or official functions when the president is absent or unable to serve due to illness or punishment"]
+          },
+          {
+            "title": "Assisting Leadership",
+            "points": ["Work closely with the president on daily operations, strategic plans, and organizational goals"]
+          },
+          {
+            "title": "Managing Committees",
+            "points": ["Oversee specific standing committees, Nomination, Programs planning, special projects, or functional areas like compiling membership demographics"]
+          },
+          {
+            "title": "Representing the Association",
+            "points": ["Act as a spokesperson or representative at public events, external partner meetings, or other functions as can be assigned by the director/president or Exco"]
+          },
+          {
+            "title": "Delegating and Supporting",
+            "points": ["Help coordinate member engagement, new officers or members orientation, and EXCO decisions"]
+          }
+        ]
+      },
+      {
+        "type": "edu-intro",
+        "eyebrow": "SECRETARY",
+        "title": "Roles of the Secretary",
+        "theme": "The secretary of an organisation manages administrative operations, maintains official records, and facilitates communication between the leadership, committee and the general membership.",
+        "points": [
+          "Prepare agendas and distribute meeting notices",
+          "Record accurate minutes and maintain records",
+          "Keep membership database and track compliance",
+          "Act as official liaison for communication",
+          "Manage correspondence and meeting venues",
+          "Signatory to organisation accounts"
+        ],
+        "keyPoint": "The Secretary is the administrative backbone, managing records, communication, and ensuring smooth operations."
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "SECRETARY",
+        "title": "Meeting Management",
+        "sections": [
+          {
+            "title": "Agenda Preparation",
+            "points": ["Works with the director/president to set meeting topics"]
+          },
+          {
+            "title": "Notice Distribution",
+            "points": ["Sends timely meeting notices and schedules to members"]
+          },
+          {
+            "title": "Minutes Recording",
+            "points": ["Takes accurate notes during meetings and archives approved records"]
+          },
+          {
+            "title": "Quorum Verification",
+            "points": ["Ensures enough members are present to make legal decisions"]
+          }
+        ]
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "SECRETARY",
+        "title": "Record Keeping and Administration",
+        "sections": [
+          {
+            "title": "Document Custody",
+            "points": ["Maintains the association's governing documents, bylaws, and contracts"]
+          },
+          {
+            "title": "Membership Database",
+            "points": ["Keeps an updated and accurate list of active members"]
+          },
+          {
+            "title": "Compliance Tracking",
+            "points": ["Ensures the group follows its constitution and legal requirements"]
+          }
+        ]
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "SECRETARY",
+        "title": "Communication and Correspondence",
+        "sections": [
+          {
+            "title": "Official Liaison",
+            "points": ["Acts as the main communication bridge between EXCO members and general members"]
+          },
+          {
+            "title": "Incoming and Outgoing Mail",
+            "points": ["Answers official inquiries, distributes memos, and reads important correspondence and announcements at meetings"]
+          },
+          {
+            "title": "Financial Signatory",
+            "points": ["He is a signatory to the organisation accounts", "Transmits the actual EXCO resolutions for all payments to the finance and document all acknowledgment copies for reference purpose"]
+          },
+          {
+            "title": "Attention to Details",
+            "points": ["Ensures he proofreads all minutes, documents, actual EXCO approvals, meeting requirements, to avoid small errors"]
+          },
+          {
+            "title": "Meeting Venues",
+            "points": ["He make arrangements for all meeting venues in collaboration with the deputy director/vice president"]
+          }
+        ]
+      },
+      {
+        "type": "edu-intro",
+        "eyebrow": "ASSISTANT / RECORDING SECRETARY",
+        "title": "Roles of the Assistant/Recording Secretary",
+        "theme": "An assistant secretary in an association supports the primary secretary and helps manage administrative, record-keeping, and governance tasks.",
+        "points": [
+          "Deputize for the Secretary during absence",
+          "Assist in meeting preparation and recording",
+          "Help maintain records and membership lists",
+          "Provide administrative assistance",
+          "Relay messages between EXCO and members"
+        ],
+        "keyPoint": "The Assistant Secretary supports the primary secretary and ensures continuity in administrative operations."
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "ASSISTANT / RECORDING SECRETARY",
+        "title": "Key Responsibilities",
+        "sections": [
+          {
+            "title": "Deputizing for the Secretary",
+            "points": ["Steps in to perform the duties and exercise the powers of the secretary during his absence, illness, or unavailability"]
+          },
+          {
+            "title": "Meeting Support",
+            "points": ["Assists in preparing meeting agendas, organizing venues or virtual calls, sending notices, and recording accurate meeting minutes"]
+          },
+          {
+            "title": "Record Management",
+            "points": ["Helps maintain membership lists, organizational files, bylaws, and official correspondence"]
+          },
+          {
+            "title": "Administrative Assistance",
+            "points": ["Aids in drafting reports, distributing association communications, and ensuring smooth day-to-day operations"]
+          },
+          {
+            "title": "Liaison and Communication",
+            "points": ["Helps relay messages and instructions between the EXCO, the secretary and members or committees based on resolution as captured in his minutes"]
+          }
+        ]
+      },
+      {
+        "type": "edu-intro",
+        "eyebrow": "PUBLIC RELATIONS OFFICER",
+        "title": "Roles of the Public Relations Officer",
+        "theme": "A public relations officer (PRO) in an organisation helps to manages the group's public image, builds relationships with members and the media, and shares the association's goals and updates.",
+        "points": [
+          "Manage media relations and answer press questions",
+          "Create content for press releases and social media",
+          "Keep members informed about events and meetings",
+          "Coordinate press conferences and events",
+          "Protect the group's image and reputation",
+          "Manage all social media handles"
+        ],
+        "keyPoint": "The PRO manages the organisation's public image and builds relationships with stakeholders."
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "PUBLIC RELATIONS OFFICER",
+        "title": "Key Duties of a PRO",
+        "sections": [
+          {
+            "title": "Media Relations",
+            "points": ["Talk to journalists, answer media questions, and share news"]
+          },
+          {
+            "title": "Content Creation",
+            "points": ["Write press releases, newsletters, speeches, and social media posts for the association as approved by the Exco or president"]
+          },
+          {
+            "title": "Member Communication",
+            "points": ["Work closely with the secretary to Keep members informed about events, meetings, and new projects"]
+          },
+          {
+            "title": "Event Planning",
+            "points": ["Coordinate press conferences, annual meetings, and community outreach events"]
+          },
+          {
+            "title": "Reputation Management",
+            "points": ["Protect the group's image and handle any bad press or public issues"]
+          },
+          {
+            "title": "Social Media Management",
+            "points": ["Manages all the organisations social media handles"]
+          }
+        ]
+      },
+      {
+        "type": "edu-intro",
+        "eyebrow": "COMMANDANT",
+        "title": "Roles of the Commandant",
+        "theme": "A commandant in any paramilitary-style organization acts as the primary leader responsible for internal discipline, operational management, and members readiness. He is responsible for the comprehensive training, character development, and operational readiness of the RA's.",
+        "points": [
+          "Enforce discipline and maintain orderliness",
+          "Oversee training sessions and drills",
+          "Manage daily operations and logistics",
+          "Monitor member welfare and safety",
+          "Communicate goals to EXCO and members"
+        ],
+        "keyPoint": "The Commandant ensures discipline, training, and operational readiness of the RA's."
+      },
+      {
+        "type": "edu-role-section",
+        "eyebrow": "COMMANDANT",
+        "title": "Key Responsibilities",
+        "sections": [
+          {
+            "title": "Enforcing Discipline",
+            "points": ["Maintains orderliness during programs, sets behavioural standards, and ensures members follow the rules and protocols of the association"]
+          },
+          {
+            "title": "Overseeing Training",
+            "points": ["Directs skill-building sessions, drills and parade sessions for members"]
+          },
+          {
+            "title": "Managing Operations",
+            "points": ["Coordinates daily physical activities, logistics, and scheduled events duties roster"]
+          },
+          {
+            "title": "Caring for Welfare",
+            "points": ["Monitors the morale, safety, and general well-being of the members under his command"]
+          },
+          {
+            "title": "Liaising with Leadership",
+            "points": ["Communicates to EXCO and members on the set goals as it relates to drills and competitions"]
+          }
+        ]
+      },
+      {
+        "type": "edu-closing",
+        "title": "THANKS FOR LISTENING",
+        "lines": [
+          "Effective leadership requires dedication, integrity, and teamwork.",
+          "Each role is vital to the success of our organisation.",
+          "Let us work together to build a stronger RA's & Lydias.",
+          "God bless our efforts."
+        ],
+        "thanks": "THANK YOU.",
+        "facilitator": "Coun. Waziri Nuhu (Post Pleni)",
+        "facilitatorRole": "Kaduna Baptist Conference",
+        "meta": "KEY ROLES OF ADMINISTRATIVE OFFICERS<br>RA's & Lydias 2nd Jamboree"
+      }
+    ]
   }
 ]
