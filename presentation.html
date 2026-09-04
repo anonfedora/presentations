@@ -14,6 +14,9 @@
             } catch (e) {}
         })();
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --black: #000000;
@@ -48,11 +51,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        @font-face {
-            font-family: 'Archivo Black';
-            src: local('Archivo Black');
         }
 
         html {
@@ -2400,7 +2398,21 @@
             renderSlides();
             initNavigation();
             updateUI();
-            
+
+            // Wait for webfonts (Archivo Black in particular) to finish
+            // loading before measuring headings, otherwise the fit is
+            // computed against the fallback font's metrics.
+            try {
+                await document.fonts.ready;
+            } catch (e) {}
+            fitHeadlinesToOneLine();
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(fitHeadlinesToOneLine, 150);
+            });
+
             // Scroll to first slide after a short delay to allow rendering
             setTimeout(() => {
                 scrollToSlide(0);
@@ -3371,6 +3383,34 @@
 
             slides = Array.from(document.querySelectorAll('.slide'));
             document.getElementById('totalSlides').textContent = String(slides.length).padStart(2, '0');
+        }
+
+        // Shrinks a slide's main heading just enough to fit on one line
+        // (down to a sensible floor) instead of wrapping awkwardly. Titles
+        // that already contain a manual <br> (deliberate multi-line
+        // headlines, e.g. the vision slide) are left untouched, since each
+        // authored line already fits on its own.
+        function fitHeadlinesToOneLine() {
+            document.querySelectorAll('.slide-inner > h2.display').forEach(el => {
+                if (el.classList.contains('vision-text')) return;
+                const container = el.parentElement;
+                if (!container) return;
+
+                el.style.fontSize = '';
+                const baseSize = parseFloat(getComputedStyle(el).fontSize);
+
+                const prevWhiteSpace = el.style.whiteSpace;
+                el.style.whiteSpace = 'nowrap';
+                const naturalWidth = el.scrollWidth;
+                const availableWidth = container.clientWidth;
+                el.style.whiteSpace = prevWhiteSpace;
+
+                if (naturalWidth > availableWidth) {
+                    const minSize = Math.max(20, baseSize * 0.55);
+                    const fitted = Math.max(minSize, Math.floor(baseSize * (availableWidth / naturalWidth) * 0.99));
+                    el.style.fontSize = fitted + 'px';
+                }
+            });
         }
 
         function buildPulseField(containerId, count, cx, cy) {
