@@ -8,15 +8,17 @@
     <script>
         (function () {
             try {
-                if (localStorage.getItem('pref-theme') === 'light') {
-                    document.documentElement.classList.add('app-light');
+                var saved = localStorage.getItem('pref-theme');
+                var known = ['light', 'midnight-navy', 'espresso', 'pine', 'parchment', 'slate-mist', 'editorial', 'swiss-grid', 'terminal', 'bodoni-luxe', 'studio-sans', 'academic-press', 'poster-condensed', 'rounded-studio', 'blueprint', 'slab-authority'];
+                if (saved && known.indexOf(saved) !== -1) {
+                    document.documentElement.setAttribute('data-theme', saved);
                 }
             } catch (e) {}
         })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&family=Archivo:wght@900&family=Work+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&family=Bodoni+Moda:opsz,wght@6..96,600&family=Jost:wght@400;500&family=Sora:wght@700&family=Manrope:wght@400;500&family=Crimson+Pro:wght@400;500&family=Big+Shoulders+Display:wght@700&family=Karla:wght@400;500&family=Figtree:wght@700&family=Nunito+Sans:wght@400;500&family=Space+Mono:wght@700&family=IBM+Plex+Sans:wght@400;500&family=Roboto+Slab:wght@700&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --black: #000000;
@@ -36,15 +38,277 @@
             --panel: var(--grey-1);
             --accent: var(--white);
             --accent-contrast: var(--black);
+            /* Typography tokens: redefined per theme so display/body faces,
+               weight, tracking and case all change together with the palette. */
+            --font-display: 'Archivo Black', 'Arial Narrow Bold', Impact, sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --display-weight: 900;
+            --display-tracking: -0.01em;
+            --display-case: uppercase;
+            --display-line-height: 0.92;
         }
 
-        :is(.slide.light, html.app-light .slide) {
+        :is(.slide.light, html[data-theme="light"] .slide) {
             --line: var(--line-dark);
             --muted: var(--grey-3);
             --muted-soft: var(--grey-2);
             --panel: var(--grey-5);
             --accent: var(--black);
             --accent-contrast: var(--white);
+        }
+
+        /* ===== ALTERNATE THEMES =====
+           Each block fully redefines the same token set the base dark
+           theme declares above (--black/--white/--grey-1…5/--line/
+           --line-dark). Every rule in this file is already built on those
+           tokens, so a theme needs nothing else — the existing .slide /
+           .slide.light pairing (and the --muted/--panel/--accent tokens
+           derived from it) keeps working unchanged, just with a new
+           palette. --black is always the default slide's background and
+           --white its text, even on the two light-leaning themes below,
+           where --black therefore holds the light color. */
+        html[data-theme="midnight-navy"] {
+            --black: #0B0F17;
+            --white: #E6E9F0;
+            --grey-1: #141A24;
+            --grey-2: #12161F;
+            --grey-3: #4C5568;
+            --grey-4: #8891A3;
+            --grey-5: #C7CCDA;
+            --line: rgba(230, 233, 240, 0.16);
+            --line-dark: rgba(11, 15, 23, 0.14);
+        }
+
+        html[data-theme="espresso"] {
+            --black: #1C1712;
+            --white: #F1E8D9;
+            --grey-1: #241E17;
+            --grey-2: #221B15;
+            --grey-3: #6B5C48;
+            --grey-4: #A6957D;
+            --grey-5: #D9C9AF;
+            --line: rgba(241, 232, 217, 0.16);
+            --line-dark: rgba(28, 23, 18, 0.14);
+        }
+
+        html[data-theme="pine"] {
+            --black: #0E1712;
+            --white: #E6EDE7;
+            --grey-1: #17221B;
+            --grey-2: #172119;
+            --grey-3: #4B5C51;
+            --grey-4: #83988B;
+            --grey-5: #C3D2C7;
+            --line: rgba(230, 237, 231, 0.16);
+            --line-dark: rgba(14, 23, 18, 0.14);
+        }
+
+        html[data-theme="parchment"] {
+            --black: #F2ECDC;
+            --white: #2A2118;
+            --grey-1: #E9E1D0;
+            --grey-2: #E4DAC3;
+            --grey-3: #B3A688;
+            --grey-4: #8C7F68;
+            --grey-5: #3C3225;
+            --line: rgba(42, 33, 24, 0.14);
+            --line-dark: rgba(242, 236, 220, 0.16);
+        }
+
+        html[data-theme="slate-mist"] {
+            --black: #EDF0F4;
+            --white: #1C2431;
+            --grey-1: #E3E7EC;
+            --grey-2: #E0E4E9;
+            --grey-3: #9AA3B0;
+            --grey-4: #5E6B7D;
+            --grey-5: #2B3547;
+            --line: rgba(28, 36, 49, 0.14);
+            --line-dark: rgba(237, 240, 244, 0.16);
+        }
+
+        /* ===== TYPOGRAPHIC THEMES =====
+           Batch two: each theme also swaps --font-display/--font-body (and
+           the weight/tracking/case/line-height that go with that face)
+           alongside the same color-token pattern as batch one. */
+        html[data-theme="editorial"] {
+            --black: #F3EFE6;
+            --white: #241F1A;
+            --grey-1: #EAE4D6;
+            --grey-2: #E3DCCB;
+            --grey-3: #B7AC98;
+            --grey-4: #8A8175;
+            --grey-5: #3A322A;
+            --line: rgba(36, 31, 26, 0.14);
+            --line-dark: rgba(243, 239, 230, 0.16);
+            --font-display: 'Fraunces', Georgia, serif;
+            --font-body: 'Source Serif 4', Georgia, serif;
+            --display-weight: 600;
+            --display-tracking: -0.005em;
+            --display-case: none;
+            --display-line-height: 1.05;
+        }
+
+        html[data-theme="swiss-grid"] {
+            --black: #FFFFFF;
+            --white: #0A0A0A;
+            --grey-1: #F0F0F0;
+            --grey-2: #E8E8E8;
+            --grey-3: #999999;
+            --grey-4: #6B6B6B;
+            --grey-5: #1A1A1A;
+            --line: rgba(10, 10, 10, 0.14);
+            --line-dark: rgba(255, 255, 255, 0.16);
+            --font-display: 'Archivo', 'Arial Narrow Bold', sans-serif;
+            --font-body: 'Work Sans', -apple-system, sans-serif;
+            --display-weight: 900;
+            --display-tracking: -0.02em;
+            --display-case: uppercase;
+            --display-line-height: 0.95;
+        }
+
+        html[data-theme="terminal"] {
+            --black: #0B0D0C;
+            --white: #D4DED6;
+            --grey-1: #15201B;
+            --grey-2: #131A16;
+            --grey-3: #56645C;
+            --grey-4: #7C8C82;
+            --grey-5: #B9C7BE;
+            --line: rgba(212, 222, 214, 0.16);
+            --line-dark: rgba(11, 13, 12, 0.14);
+            --font-display: 'JetBrains Mono', 'Courier New', monospace;
+            --font-body: 'JetBrains Mono', 'Courier New', monospace;
+            --display-weight: 700;
+            --display-tracking: -0.01em;
+            --display-case: none;
+            --display-line-height: 1.05;
+        }
+
+        html[data-theme="bodoni-luxe"] {
+            --black: #0A0A0A;
+            --white: #F3EDE2;
+            --grey-1: #171717;
+            --grey-2: #1C1C1C;
+            --grey-3: #6E6459;
+            --grey-4: #9A9086;
+            --grey-5: #DAD2C4;
+            --line: rgba(243, 237, 226, 0.16);
+            --line-dark: rgba(10, 10, 10, 0.14);
+            --font-display: 'Bodoni Moda', Georgia, serif;
+            --font-body: 'Jost', -apple-system, sans-serif;
+            --display-weight: 600;
+            --display-tracking: -0.005em;
+            --display-case: none;
+            --display-line-height: 1.02;
+        }
+
+        html[data-theme="studio-sans"] {
+            --black: #F5F3F0;
+            --white: #201E1C;
+            --grey-1: #ECE9E4;
+            --grey-2: #E4E0D9;
+            --grey-3: #B0A99E;
+            --grey-4: #8D8880;
+            --grey-5: #34302C;
+            --line: rgba(32, 30, 28, 0.13);
+            --line-dark: rgba(245, 243, 240, 0.16);
+            --font-display: 'Sora', -apple-system, sans-serif;
+            --font-body: 'Manrope', -apple-system, sans-serif;
+            --display-weight: 700;
+            --display-tracking: -0.01em;
+            --display-case: none;
+            --display-line-height: 1.05;
+        }
+
+        html[data-theme="academic-press"] {
+            --black: #EFE6D4;
+            --white: #2E2015;
+            --grey-1: #E5D9C2;
+            --grey-2: #DED0B6;
+            --grey-3: #A18F72;
+            --grey-4: #8C7A5E;
+            --grey-5: #44311F;
+            --line: rgba(46, 32, 21, 0.14);
+            --line-dark: rgba(239, 230, 212, 0.16);
+            --font-display: 'Source Serif 4', Georgia, serif;
+            --font-body: 'Crimson Pro', Georgia, serif;
+            --display-weight: 700;
+            --display-tracking: -0.005em;
+            --display-case: none;
+            --display-line-height: 1.05;
+        }
+
+        html[data-theme="poster-condensed"] {
+            --black: #17181A;
+            --white: #F1F0EC;
+            --grey-1: #212325;
+            --grey-2: #E3E2DE;
+            --grey-3: #6C6F72;
+            --grey-4: #8C8F92;
+            --grey-5: #C9CBCC;
+            --line: rgba(241, 240, 236, 0.16);
+            --line-dark: rgba(23, 24, 26, 0.14);
+            --font-display: 'Big Shoulders Display', 'Arial Narrow Bold', sans-serif;
+            --font-body: 'Karla', -apple-system, sans-serif;
+            --display-weight: 700;
+            --display-tracking: 0em;
+            --display-case: uppercase;
+            --display-line-height: 0.95;
+        }
+
+        html[data-theme="rounded-studio"] {
+            --black: #F6F1EA;
+            --white: #2B2724;
+            --grey-1: #ECE5DA;
+            --grey-2: #E2DACB;
+            --grey-3: #B7AC9C;
+            --grey-4: #9A9184;
+            --grey-5: #3F3934;
+            --line: rgba(43, 39, 36, 0.13);
+            --line-dark: rgba(246, 241, 234, 0.16);
+            --font-display: 'Figtree', -apple-system, sans-serif;
+            --font-body: 'Nunito Sans', -apple-system, sans-serif;
+            --display-weight: 700;
+            --display-tracking: -0.01em;
+            --display-case: none;
+            --display-line-height: 1.05;
+        }
+
+        html[data-theme="blueprint"] {
+            --black: #10151C;
+            --white: #EDF1F5;
+            --grey-1: #19212B;
+            --grey-2: #161D25;
+            --grey-3: #566372;
+            --grey-4: #6E7C8C;
+            --grey-5: #A9B7C4;
+            --line: rgba(237, 241, 245, 0.16);
+            --line-dark: rgba(16, 21, 28, 0.14);
+            --font-display: 'Space Mono', 'Courier New', monospace;
+            --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+            --display-weight: 700;
+            --display-tracking: -0.01em;
+            --display-case: none;
+            --display-line-height: 1.05;
+        }
+
+        html[data-theme="slab-authority"] {
+            --black: #1B1815;
+            --white: #EDE6D8;
+            --grey-1: #262220;
+            --grey-2: #211D1A;
+            --grey-3: #66604F;
+            --grey-4: #8F8676;
+            --grey-5: #C9BFA9;
+            --line: rgba(237, 230, 216, 0.16);
+            --line-dark: rgba(27, 24, 21, 0.14);
+            --font-display: 'Roboto Slab', Georgia, serif;
+            --font-body: 'Source Sans 3', -apple-system, sans-serif;
+            --display-weight: 700;
+            --display-tracking: -0.01em;
+            --display-case: none;
+            --display-line-height: 1.02;
         }
 
         * {
@@ -60,7 +324,7 @@
         body {
             background: var(--black);
             color: var(--white);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: var(--font-body);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
@@ -89,11 +353,11 @@
         }
 
         .display {
-            font-family: 'Archivo Black', 'Arial Narrow Bold', Impact, sans-serif;
-            font-weight: 900;
-            letter-spacing: -0.01em;
-            text-transform: uppercase;
-            line-height: 0.92;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
+            letter-spacing: var(--display-tracking);
+            text-transform: var(--display-case);
+            line-height: var(--display-line-height);
         }
 
         /* ===== NAV / PROGRESS ===== */
@@ -103,7 +367,7 @@
             left: 0;
             right: 0;
             height: 48px;
-            background: rgba(0, 0, 0, 0.7);
+            background: color-mix(in srgb, var(--black) 70%, transparent);
             backdrop-filter: blur(12px);
             display: flex;
             justify-content: space-between;
@@ -196,8 +460,8 @@
             align-items: center;
             gap: 14px;
             z-index: 999;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: color-mix(in srgb, var(--black) 20%, transparent);
+            border: 1px solid color-mix(in srgb, var(--white) 10%, transparent);
             border-radius: 40px;
             padding: 10px 18px;
         }
@@ -296,7 +560,7 @@
             color: var(--white);
         }
 
-        :is(.slide.light, html.app-light .slide) {
+        :is(.slide.light, html[data-theme="light"] .slide) {
             background: var(--white);
             color: var(--black);
         }
@@ -313,7 +577,7 @@
             font-size: 28px;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #fff;
+            color: var(--white);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -321,7 +585,7 @@
             font-weight: 800;
         }
 
-        :is(.slide.light, html.app-light .slide) .eyebrow {
+        :is(.slide.light, html[data-theme="light"] .slide) .eyebrow {
             color: var(--grey-3);
         }
 
@@ -344,7 +608,7 @@
             z-index: 3;
         }
 
-        :is(.slide.light, html.app-light .slide) .slide-index {
+        :is(.slide.light, html[data-theme="light"] .slide) .slide-index {
             color: var(--grey-3);
         }
 
@@ -352,7 +616,7 @@
             color: var(--white);
         }
 
-        :is(.slide.light, html.app-light .slide) .slide-index b {
+        :is(.slide.light, html[data-theme="light"] .slide) .slide-index b {
             color: var(--black);
         }
 
@@ -419,7 +683,7 @@
             opacity: 0;
         }
 
-        :is(.slide.light, html.app-light .slide) .pulse-ring {
+        :is(.slide.light, html[data-theme="light"] .slide) .pulse-ring {
             border-color: var(--line-dark);
         }
 
@@ -472,7 +736,7 @@
             font-weight: 400;
         }
 
-        :is(.slide.light, html.app-light .slide) .lede {
+        :is(.slide.light, html[data-theme="light"] .slide) .lede {
             color: var(--grey-2);
         }
 
@@ -482,7 +746,7 @@
             color: var(--grey-4);
         }
 
-        :is(.slide.light, html.app-light .slide) p.body-text {
+        :is(.slide.light, html[data-theme="light"] .slide) p.body-text {
             color: var(--grey-3);
         }
 
@@ -502,7 +766,7 @@
             color: var(--grey-4);
         }
 
-        :is(.slide.light, html.app-light .slide) .tag {
+        :is(.slide.light, html[data-theme="light"] .slide) .tag {
             border-color: var(--line-dark);
             color: var(--grey-3);
         }
@@ -514,7 +778,7 @@
             margin: 36px 0;
         }
 
-        :is(.slide.light, html.app-light .slide) .divider {
+        :is(.slide.light, html[data-theme="light"] .slide) .divider {
             background: var(--line-dark);
         }
 
@@ -529,7 +793,7 @@
             flex-shrink: 0;
         }
 
-        :is(.slide.light, html.app-light .slide) .icon-box {
+        :is(.slide.light, html[data-theme="light"] .slide) .icon-box {
             border-color: var(--line-dark);
         }
 
@@ -601,7 +865,7 @@
             margin-top: 50px;
         }
 
-        :is(.slide.light, html.app-light .slide) .stat-grid {
+        :is(.slide.light, html[data-theme="light"] .slide) .stat-grid {
             background: var(--line-dark);
             border-color: var(--line-dark);
         }
@@ -611,12 +875,13 @@
             padding: 34px 30px;
         }
 
-        :is(.slide.light, html.app-light .slide) .stat-cell {
+        :is(.slide.light, html[data-theme="light"] .slide) .stat-cell {
             background: var(--white);
         }
 
         .stat-num {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: clamp(30px, 4vw, 52px);
             line-height: 1;
             margin-bottom: 10px;
@@ -628,7 +893,7 @@
             line-height: 1.4;
         }
 
-        :is(.slide.light, html.app-light .slide) .stat-label {
+        :is(.slide.light, html[data-theme="light"] .slide) .stat-label {
             color: var(--grey-3);
         }
 
@@ -658,7 +923,7 @@
             padding-top: 16px;
         }
 
-        :is(.slide.light, html.app-light .slide) .col-card {
+        :is(.slide.light, html[data-theme="light"] .slide) .col-card {
             border-color: var(--line-dark);
         }
 
@@ -670,7 +935,8 @@
         }
 
         .col-title {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 22px;
             text-transform: uppercase;
         }
@@ -689,7 +955,7 @@
             color: var(--grey-5);
         }
 
-        :is(.slide.light, html.app-light .slide) .point-list li {
+        :is(.slide.light, html[data-theme="light"] .slide) .point-list li {
             color: var(--grey-2);
         }
 
@@ -720,7 +986,8 @@
         }
 
         .why-item .why-q {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 24px;
             text-transform: uppercase;
             letter-spacing: 0.04em;
@@ -768,7 +1035,8 @@
         }
 
         .bignum {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: clamp(26px, 3.4vw, 44px);
             margin-bottom: 12px;
         }
@@ -802,7 +1070,7 @@
             border-top: 1px solid var(--line);
         }
 
-        :is(.slide.light, html.app-light .slide) .tam-row {
+        :is(.slide.light, html[data-theme="light"] .slide) .tam-row {
             border-color: var(--line-dark);
         }
 
@@ -810,12 +1078,13 @@
             border-bottom: 1px solid var(--line);
         }
 
-        :is(.slide.light, html.app-light .slide) .tam-row:last-child {
+        :is(.slide.light, html[data-theme="light"] .slide) .tam-row:last-child {
             border-color: var(--line-dark);
         }
 
         .tam-label {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 20px;
         }
 
@@ -827,7 +1096,7 @@
             position: relative;
         }
 
-        :is(.slide.light, html.app-light .slide) .tam-bar-track {
+        :is(.slide.light, html[data-theme="light"] .slide) .tam-bar-track {
             background: var(--grey-5);
         }
 
@@ -839,7 +1108,7 @@
             transition: width 1.4s var(--ease);
         }
 
-        :is(.slide.light, html.app-light .slide) .tam-bar-fill {
+        :is(.slide.light, html[data-theme="light"] .slide) .tam-bar-fill {
             background: var(--black);
         }
 
@@ -849,19 +1118,20 @@
             color: var(--grey-4);
         }
 
-        :is(.slide.light, html.app-light .slide) .tam-value {
+        :is(.slide.light, html[data-theme="light"] .slide) .tam-value {
             color: var(--grey-3);
         }
 
         .tam-value b {
             color: var(--white);
             font-size: 20px;
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             display: block;
             margin-bottom: 2px;
         }
 
-        :is(.slide.light, html.app-light .slide) .tam-value b {
+        :is(.slide.light, html[data-theme="light"] .slide) .tam-value b {
             color: var(--black);
         }
 
@@ -895,7 +1165,7 @@
             position: relative;
         }
 
-        :is(.slide.light, html.app-light .slide) .model-card {
+        :is(.slide.light, html[data-theme="light"] .slide) .model-card {
             border-color: var(--line-dark);
         }
 
@@ -904,14 +1174,16 @@
         }
 
         .model-card h4 {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 18px;
             text-transform: uppercase;
             margin-bottom: 10px;
         }
 
         .model-card .figure {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 38px;
             margin: 14px 0 6px;
         }
@@ -922,7 +1194,7 @@
             line-height: 1.5;
         }
 
-        :is(.slide.light, html.app-light .slide) .model-card p {
+        :is(.slide.light, html[data-theme="light"] .slide) .model-card p {
             color: var(--grey-3);
         }
 
@@ -951,7 +1223,7 @@
             border-top: 1px solid var(--line);
         }
 
-        :is(.slide.light, html.app-light .slide) .phase-row {
+        :is(.slide.light, html[data-theme="light"] .slide) .phase-row {
             border-color: var(--line-dark);
         }
 
@@ -959,12 +1231,13 @@
             border-bottom: 1px solid var(--line);
         }
 
-        :is(.slide.light, html.app-light .slide) .phase-row:last-child {
+        :is(.slide.light, html[data-theme="light"] .slide) .phase-row:last-child {
             border-color: var(--line-dark);
         }
 
         .phase-num {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 16px;
             color: var(--grey-4);
             letter-spacing: 0.05em;
@@ -972,7 +1245,8 @@
         }
 
         .phase-title {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 21px;
             text-transform: uppercase;
             margin-bottom: 12px;
@@ -992,7 +1266,7 @@
             padding-left: 16px;
         }
 
-        :is(.slide.light, html.app-light .slide) .phase-points span {
+        :is(.slide.light, html[data-theme="light"] .slide) .phase-points span {
             color: var(--grey-2);
         }
 
@@ -1041,7 +1315,7 @@
             margin-bottom: 30px;
         }
 
-        :is(.slide.light, html.app-light .slide) .live-badge {
+        :is(.slide.light, html[data-theme="light"] .slide) .live-badge {
             border-color: var(--line-dark);
         }
 
@@ -1049,12 +1323,12 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #fff;
+            background: var(--white);
             animation: livePulse 1.6s ease-in-out infinite;
         }
 
-        :is(.slide.light, html.app-light .slide) .live-dot {
-            background: #000;
+        :is(.slide.light, html[data-theme="light"] .slide) .live-dot {
+            background: var(--black);
         }
 
         @keyframes livePulse {
@@ -1076,7 +1350,7 @@
             padding: 20px 10px 0 10px;
         }
 
-        :is(.slide.light, html.app-light .slide) .growth-chart {
+        :is(.slide.light, html[data-theme="light"] .slide) .growth-chart {
             border-color: var(--line-dark);
         }
 
@@ -1107,12 +1381,13 @@
             transition: height 1.2s var(--ease);
         }
 
-        :is(.slide.light, html.app-light .slide) .bar {
+        :is(.slide.light, html[data-theme="light"] .slide) .bar {
             background: linear-gradient(180deg, var(--black), var(--grey-2));
         }
 
         .bar-val {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 16px;
         }
 
@@ -1135,7 +1410,7 @@
             margin-bottom: 0;
         }
 
-        :is(.slide.light, html.app-light .slide) .timeline-track {
+        :is(.slide.light, html[data-theme="light"] .slide) .timeline-track {
             background: var(--line-dark);
         }
 
@@ -1149,7 +1424,7 @@
             transition: width 1.6s var(--ease);
         }
 
-        :is(.slide.light, html.app-light .slide) .timeline-track-fill {
+        :is(.slide.light, html[data-theme="light"] .slide) .timeline-track-fill {
             background: var(--black);
         }
 
@@ -1215,21 +1490,21 @@
             transition: border-color .4s var(--ease), background .4s var(--ease), transform .4s var(--ease);
         }
 
-        :is(.slide.light, html.app-light .slide) .roadmap-node {
+        :is(.slide.light, html[data-theme="light"] .slide) .roadmap-node {
             background: var(--white);
         }
 
         .roadmap-node.lit {
             border-color: var(--white);
             background: var(--white);
-            box-shadow: 0 0 0 4px rgba(245, 245, 242, 0.15);
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--white) 15%, transparent);
             transform: scale(1.15);
         }
 
-        :is(.slide.light, html.app-light .slide) .roadmap-node.lit {
+        :is(.slide.light, html[data-theme="light"] .slide) .roadmap-node.lit {
             border-color: var(--black);
             background: var(--black);
-            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--black) 12%, transparent);
         }
 
         .roadmap-col {
@@ -1253,7 +1528,7 @@
             display: block;
         }
 
-        :is(.slide.light, html.app-light .slide) .roadmap-date {
+        :is(.slide.light, html[data-theme="light"] .slide) .roadmap-date {
             color: var(--grey-3);
         }
 
@@ -1267,7 +1542,7 @@
             transition: background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease);
         }
 
-        :is(.slide.light, html.app-light .slide) .roadmap-card {
+        :is(.slide.light, html[data-theme="light"] .slide) .roadmap-card {
             border-color: var(--line-dark);
         }
 
@@ -1277,7 +1552,7 @@
             border-color: var(--white);
         }
 
-        :is(.slide.light, html.app-light .slide) .roadmap-card.active {
+        :is(.slide.light, html[data-theme="light"] .slide) .roadmap-card.active {
             background: var(--black);
             color: var(--white);
             border-color: var(--black);
@@ -1288,8 +1563,8 @@
             color: var(--grey-2);
         }
 
-        :is(.slide.light, html.app-light .slide) .roadmap-card.active .body-text,
-        :is(.slide.light, html.app-light .slide) .roadmap-card.active p {
+        :is(.slide.light, html[data-theme="light"] .slide) .roadmap-card.active .body-text,
+        :is(.slide.light, html[data-theme="light"] .slide) .roadmap-card.active p {
             color: var(--grey-5);
         }
 
@@ -1312,15 +1587,16 @@
         }
 
         .roadmap-card.active .roadmap-phase {
-            color: #000;
+            color: var(--black);
         }
 
-        :is(.slide.light, html.app-light .slide) .roadmap-card.active .roadmap-phase {
+        :is(.slide.light, html[data-theme="light"] .slide) .roadmap-card.active .roadmap-phase {
             color: var(--grey-4);
         }
 
         .roadmap-title {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 22px;
             font-weight: bold;
             text-transform: uppercase;
@@ -1359,7 +1635,7 @@
             color: var(--grey-2);
         }
 
-        :is(.slide.light, html.app-light .slide) .roadmap-card.active .roadmap-list li {
+        :is(.slide.light, html[data-theme="light"] .slide) .roadmap-card.active .roadmap-list li {
             border-color: var(--line);
             color: var(--grey-5);
         }
@@ -1381,14 +1657,15 @@
             color: var(--grey-3);
         }
 
-        :is(.slide.light, html.app-light .slide) .roadmap-card.active .roadmap-outcome {
+        :is(.slide.light, html[data-theme="light"] .slide) .roadmap-card.active .roadmap-outcome {
             border-color: var(--line);
             color: var(--grey-4);
         }
 
         /* Fundraise */
         .raise-amount {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: clamp(64px, 11vw, 160px);
             line-height: 0.9;
         }
@@ -1415,7 +1692,7 @@
             border-top: 1px solid var(--line);
         }
 
-        :is(.slide.light, html.app-light .slide) .alloc-row {
+        :is(.slide.light, html[data-theme="light"] .slide) .alloc-row {
             border-color: var(--line-dark);
         }
 
@@ -1423,7 +1700,7 @@
             border-bottom: 1px solid var(--line);
         }
 
-        :is(.slide.light, html.app-light .slide) .alloc-row:last-child {
+        :is(.slide.light, html[data-theme="light"] .slide) .alloc-row:last-child {
             border-color: var(--line-dark);
         }
 
@@ -1441,7 +1718,7 @@
             overflow: hidden;
         }
 
-        :is(.slide.light, html.app-light .slide) .alloc-bar-track {
+        :is(.slide.light, html[data-theme="light"] .slide) .alloc-bar-track {
             background: var(--grey-5);
         }
 
@@ -1453,7 +1730,7 @@
             transition: width 1.2s var(--ease);
         }
 
-        :is(.slide.light, html.app-light .slide) .alloc-bar-fill {
+        :is(.slide.light, html[data-theme="light"] .slide) .alloc-bar-fill {
             background: var(--black);
         }
 
@@ -1464,7 +1741,7 @@
             text-align: right;
         }
 
-        :is(.slide.light, html.app-light .slide) .alloc-pct {
+        :is(.slide.light, html[data-theme="light"] .slide) .alloc-pct {
             color: var(--grey-3);
         }
 
@@ -1480,7 +1757,7 @@
             border-top: 1px solid var(--line);
         }
 
-        :is(.slide.light, html.app-light .slide) .target-list li {
+        :is(.slide.light, html[data-theme="light"] .slide) .target-list li {
             border-color: var(--line-dark);
         }
 
@@ -1488,12 +1765,13 @@
             border-bottom: 1px solid var(--line);
         }
 
-        :is(.slide.light, html.app-light .slide) .target-list li:last-child {
+        :is(.slide.light, html[data-theme="light"] .slide) .target-list li:last-child {
             border-color: var(--line-dark);
         }
 
         .target-num {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 26px;
             min-width: 140px;
         }
@@ -1503,7 +1781,7 @@
             color: var(--grey-4);
         }
 
-        :is(.slide.light, html.app-light .slide) .target-desc {
+        :is(.slide.light, html[data-theme="light"] .slide) .target-desc {
             color: var(--grey-3);
         }
 
@@ -1536,7 +1814,7 @@
             transition: transform 0.3s var(--ease);
         }
 
-        :is(.slide.light, html.app-light .slide) .team-card {
+        :is(.slide.light, html[data-theme="light"] .slide) .team-card {
             border-color: var(--line-dark);
         }
 
@@ -1559,7 +1837,8 @@
         }
 
         .team-name {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 17px;
             text-transform: uppercase;
             margin-bottom: 4px;
@@ -1572,7 +1851,7 @@
             margin-bottom: 14px;
         }
 
-        :is(.slide.light, html.app-light .slide) .team-role {
+        :is(.slide.light, html[data-theme="light"] .slide) .team-role {
             color: var(--grey-3);
         }
 
@@ -1583,7 +1862,7 @@
             margin-bottom: 16px;
         }
 
-        :is(.slide.light, html.app-light .slide) .team-bio {
+        :is(.slide.light, html[data-theme="light"] .slide) .team-bio {
             color: var(--grey-2);
         }
 
@@ -1598,7 +1877,7 @@
             padding-bottom: 2px;
         }
 
-        :is(.slide.light, html.app-light .slide) .team-link {
+        :is(.slide.light, html[data-theme="light"] .slide) .team-link {
             color: var(--black);
             border-color: var(--grey-3);
         }
@@ -1623,11 +1902,11 @@
             margin-bottom: 12px;
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-cover-keyverse {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-cover-keyverse {
             color: var(--grey-3);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-cover-verse {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-cover-verse {
             color: var(--black);
         }
 
@@ -1645,7 +1924,7 @@
             line-height: 1.7;
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-intro-points p {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-intro-points p {
             color: var(--grey-2);
         }
 
@@ -1658,7 +1937,8 @@
         }
         
         .faith-digital-item h3 {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 24px;
             text-transform: uppercase;
             margin-bottom: 16px;
@@ -1676,11 +1956,11 @@
             margin-bottom: 10px;
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-digital-item h3 {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-digital-item h3 {
             color: var(--black);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-digital-item li {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-digital-item li {
             color: var(--grey-2);
         }
         
@@ -1705,7 +1985,8 @@
         }
         
         .faith-biblical-char {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 18px;
             text-transform: uppercase;
             margin-bottom: 8px;
@@ -1724,11 +2005,11 @@
             line-height: 1.6;
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-biblical-item {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-biblical-item {
             border-color: var(--line-dark);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-biblical-verse {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-biblical-verse {
             color: var(--black);
         }
         
@@ -1753,7 +2034,8 @@
         }
         
         .faith-threat-item h3 {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 22px;
             text-transform: uppercase;
             margin-bottom: 16px;
@@ -1771,15 +2053,15 @@
             margin-bottom: 10px;
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-threat-item {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-threat-item {
             border-color: var(--line-dark);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-threat-item h3 {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-threat-item h3 {
             color: var(--black);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-threat-item li {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-threat-item li {
             color: var(--grey-2);
         }
         
@@ -1791,7 +2073,7 @@
 
         /* Faith Tool/Idol/Assignment */
         .faith-verse-box {
-            background: rgba(255,255,255,0.05);
+            background: color-mix(in srgb, var(--white) 5%, transparent);
             border: 1px solid var(--line);
             border-radius: 16px;
             padding: 36px;
@@ -1800,7 +2082,8 @@
         
         .faith-verse-box h3,
         .faith-verse-text {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 20px;
             color: var(--white);
             margin-bottom: 12px;
@@ -1819,7 +2102,8 @@
         }
         
         .faith-ways-item h4 {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 20px;
             text-transform: uppercase;
             margin-bottom: 16px;
@@ -1837,25 +2121,25 @@
             margin-bottom: 10px;
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-verse-box {
-            background: rgba(0,0,0,0.02);
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-verse-box {
+            background: color-mix(in srgb, var(--black) 2%, transparent);
             border-color: var(--line-dark);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-verse-box h3,
-        :is(.slide.light, html.app-light .slide) .faith-verse-text {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-verse-box h3,
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-verse-text {
             color: var(--black);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-ways-item {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-ways-item {
             border-color: var(--line-dark);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-ways-item h4 {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-ways-item h4 {
             color: var(--black);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-ways-item li {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-ways-item li {
             color: var(--grey-2);
         }
         
@@ -1880,7 +2164,8 @@
         }
         
         .faith-practice-card h4 {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: 22px;
             text-transform: uppercase;
             margin-bottom: 16px;
@@ -1898,15 +2183,15 @@
             margin-bottom: 10px;
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-practice-card {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-practice-card {
             border-color: var(--line-dark);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-practice-card h4 {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-practice-card h4 {
             color: var(--black);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-practice-card li {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-practice-card li {
             color: var(--grey-2);
         }
         
@@ -1930,11 +2215,11 @@
           margin-bottom: 12px;
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-ambassadors-keyverse {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-ambassadors-keyverse {
           color: var(--grey-3);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-ambassadors-verse {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-ambassadors-verse {
           color: var(--black);
         }
         
@@ -1951,12 +2236,13 @@
           border-radius: 16px;
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-ambassador-item {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-ambassador-item {
           border-color: var(--line-dark);
         }
         
         .faith-ambassador-item h3 {
-          font-family: 'Archivo Black', sans-serif;
+          font-family: var(--font-display);
+          font-weight: var(--display-weight);
           font-size: 20px;
           text-transform: uppercase;
           margin-bottom: 16px;
@@ -1974,11 +2260,11 @@
           margin-bottom: 10px;
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-ambassador-item h3 {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-ambassador-item h3 {
           color: var(--black);
         }
         
-        :is(.slide.light, html.app-light .slide) .faith-ambassador-item li {
+        :is(.slide.light, html[data-theme="light"] .slide) .faith-ambassador-item li {
           color: var(--grey-2);
         }
         
@@ -2008,7 +2294,8 @@
         }
 
         .closing-thanks {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
             font-size: clamp(56px, 9vw, 130px);
             margin-top: 50px;
         }
@@ -2163,95 +2450,99 @@
         }
 
         /* ===== LIGHT MODE (app-wide) ===== */
-        html.app-light,
-        html.app-light body {
+        html[data-theme="light"],
+        html[data-theme="light"] body {
             background: var(--white);
             color: var(--black);
         }
 
-        html.app-light ::selection {
+        html[data-theme="light"] ::selection {
             background: var(--black);
             color: var(--white);
         }
 
-        html.app-light ::-webkit-scrollbar-track {
+        html[data-theme="light"] ::-webkit-scrollbar-track {
             background: var(--white);
         }
 
-        html.app-light .top-nav {
-            background: rgba(245, 245, 242, 0.7);
+        html[data-theme="light"] .top-nav {
+            background: color-mix(in srgb, var(--white) 70%, transparent);
         }
 
-        html.app-light .back-btn {
+        html[data-theme="light"] .back-btn {
             color: var(--black);
         }
 
-        html.app-light .download-btn {
+        html[data-theme="light"] .download-btn {
             border-color: var(--black);
             color: var(--black);
         }
 
-        html.app-light .download-btn:hover {
+        html[data-theme="light"] .download-btn:hover {
             background: var(--black);
             color: var(--white);
         }
 
-        html.app-light .theme-toggle-btn {
+        html[data-theme="light"] .theme-toggle-btn {
             border-color: var(--black);
             color: var(--black);
         }
 
-        html.app-light .theme-toggle-btn:hover {
+        html[data-theme="light"] .theme-toggle-btn:hover {
             background: var(--black);
             color: var(--white);
         }
 
-        html.app-light .progress-rail {
+        html[data-theme="light"] .progress-rail {
             background: var(--grey-5);
         }
 
-        html.app-light .progress-fill {
+        html[data-theme="light"] .progress-fill {
             background: var(--black);
         }
 
-        html.app-light .deck-nav {
-            background: rgba(245, 245, 242, 0.6);
-            border-color: rgba(0, 0, 0, 0.1);
+        html[data-theme="light"] .deck-nav {
+            background: color-mix(in srgb, var(--white) 60%, transparent);
+            border-color: color-mix(in srgb, var(--black) 10%, transparent);
         }
 
-        html.app-light .nav-arrow {
+        html[data-theme="light"] .nav-arrow {
             border-color: var(--line-dark);
             color: var(--black);
         }
 
-        html.app-light .nav-arrow:hover {
+        html[data-theme="light"] .nav-arrow:hover {
             background: var(--black);
             color: var(--white);
         }
 
-        html.app-light .nav-counter {
+        html[data-theme="light"] .nav-counter {
             color: var(--grey-3);
         }
 
-        html.app-light .nav-counter b {
+        html[data-theme="light"] .nav-counter b {
             color: var(--black);
         }
 
-        html.app-light .dot {
+        html[data-theme="light"] .dot {
             background: var(--grey-4);
         }
 
-        html.app-light .dot.active {
+        html[data-theme="light"] .dot.active {
             background: var(--black);
         }
 
         @media (max-width:900px) {
-            html.app-light .top-nav {
+            html[data-theme="light"] .top-nav {
                 background: transparent;
             }
         }
 
-        /* ===== THEME TOGGLE ===== */
+        /* ===== THEME PICKER ===== */
+        .theme-picker {
+            position: relative;
+        }
+
         .theme-toggle-btn {
             width: 36px;
             height: 36px;
@@ -2272,25 +2563,78 @@
             color: var(--black);
         }
 
-        .theme-toggle-btn svg {
+        .theme-toggle-btn .active-theme-icon {
             width: 16px;
             height: 16px;
         }
 
-        .theme-toggle-btn .icon-moon {
-            display: block;
-        }
-
-        .theme-toggle-btn .icon-sun {
+        .theme-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 190px;
+            max-height: min(70vh, 480px);
+            overflow-y: auto;
+            background: var(--black);
+            color: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 6px;
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35);
             display: none;
+            flex-direction: column;
+            gap: 2px;
+            z-index: 1002;
         }
 
-        html.app-light .theme-toggle-btn .icon-moon {
-            display: none;
+        .theme-menu.open {
+            display: flex;
         }
 
-        html.app-light .theme-toggle-btn .icon-sun {
-            display: block;
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 10px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: inherit;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+        }
+
+        .theme-option:hover {
+            background: var(--grey-1);
+        }
+
+        .theme-option.active {
+            font-weight: 700;
+        }
+
+        .theme-option .option-icon {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        .theme-option-name {
+            flex: 1;
+        }
+
+        .theme-option .check {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            opacity: 0;
+        }
+
+        .theme-option.active .check {
+            opacity: 1;
         }
 
         .top-nav-right {
@@ -2310,15 +2654,12 @@
             Back
         </a>
         <div class="top-nav-right">
-            <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle light/dark mode">
-                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="4" />
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-                </svg>
-                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-                </svg>
-            </button>
+            <div class="theme-picker">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-haspopup="true" aria-expanded="false" aria-label="Choose theme">
+                    <span id="themeToggleIcon"></span>
+                </button>
+                <div class="theme-menu" id="themeMenu" role="menu"></div>
+            </div>
             <button class="download-btn" id="downloadBtn">Download PDF</button>
         </div>
     </nav>
@@ -2360,20 +2701,109 @@
         };
 
         // Theme
+        const THEME_ICONS = {
+            dark: '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />',
+            light: '<circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />',
+            'midnight-navy': '<path d="M12 2l2.9 6.3L22 9.3l-5 4.9L18.2 21 12 17.3 5.8 21 7 14.2l-5-4.9 7.1-1L12 2z" />',
+            espresso: '<path d="M3 8h13v6a5 5 0 01-5 5H8a5 5 0 01-5-5V8z" /><path d="M16 9h1.5a2.5 2.5 0 010 5H16" /><path d="M6 2v2M10 2v2" />',
+            pine: '<path d="M12 3L6 12h3l-4 7h5v2h4v-2h5l-4-7h3L12 3z" />',
+            parchment: '<path d="M12 19l7-7a5 5 0 00-7-7l-7 7v7h7z" /><path d="M8 15l7-7" />',
+            'slate-mist': '<path d="M6.5 19a4.5 4.5 0 01-1.5-8.74A6 6 0 0117 8.5a4.5 4.5 0 01-.5 9H6.5z" />',
+            editorial: '<path d="M2 5c3-1.5 6-1.5 9 0v14c-3-1.5-6-1.5-9 0V5z" /><path d="M20 5c-3-1.5-6-1.5-9 0v14c3-1.5 6-1.5 9 0V5z" />',
+            'swiss-grid': '<path d="M3 9h18M3 15h18M9 3v18M15 3v18" />',
+            terminal: '<rect x="3" y="4" width="18" height="16" rx="2" /><path d="M7 10l3 2-3 2M13 14h4" />',
+            'bodoni-luxe': '<path d="M12 2l9 6-9 13L3 8z" /><path d="M3 8h18M8 8l4 13 4-13" />',
+            'studio-sans': '<path d="M12 2l9 5v10l-9 5-9-5V7z" /><path d="M3 7l9 5 9-5M12 12v9" />',
+            'academic-press': '<path d="M12 3L2 8l10 5 10-5-10-5z" /><path d="M6 10.5V16c0 1.5 2.5 3 6 3s6-1.5 6-3v-5.5" />',
+            'poster-condensed': '<path d="M3 10v4l4 1V9l-4 1z" /><path d="M7 9.5l10-3v11l-10-3" /><path d="M9 17l1 3" />',
+            'rounded-studio': '<circle cx="12" cy="12" r="9" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><path d="M9 9h.01M15 9h.01" />',
+            blueprint: '<circle cx="12" cy="12" r="8" /><path d="M12 2v4M12 18v4M2 12h4M18 12h4" />',
+            'slab-authority': '<path d="M4 21h16M6 21V9l6-5 6 5v12M9 21v-6h6v6" />'
+        };
+
+        const THEMES = [
+            { key: 'dark', name: 'Dark' },
+            { key: 'light', name: 'White' },
+            { key: 'midnight-navy', name: 'Midnight Navy' },
+            { key: 'espresso', name: 'Espresso' },
+            { key: 'pine', name: 'Pine' },
+            { key: 'parchment', name: 'Parchment' },
+            { key: 'slate-mist', name: 'Slate Mist' },
+            { key: 'editorial', name: 'Editorial' },
+            { key: 'swiss-grid', name: 'Swiss Grid' },
+            { key: 'terminal', name: 'Terminal' },
+            { key: 'bodoni-luxe', name: 'Bodoni Luxe' },
+            { key: 'studio-sans', name: 'Studio Sans' },
+            { key: 'academic-press', name: 'Academic Press' },
+            { key: 'poster-condensed', name: 'Poster Condensed' },
+            { key: 'rounded-studio', name: 'Rounded Studio' },
+            { key: 'blueprint', name: 'Blueprint' },
+            { key: 'slab-authority', name: 'Slab Authority' }
+        ];
+
+        function themeIconSvg(key, cls) {
+            return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${THEME_ICONS[key] || ''}</svg>`;
+        }
+
         function applyTheme(theme) {
-            document.documentElement.classList.toggle('app-light', theme === 'light');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
             try { localStorage.setItem('pref-theme', theme); } catch (e) {}
+
+            const btnIcon = document.getElementById('themeToggleIcon');
+            if (btnIcon) btnIcon.innerHTML = themeIconSvg(theme, 'active-theme-icon');
+
+            document.querySelectorAll('.theme-option').forEach(el => {
+                el.classList.toggle('active', el.dataset.theme === theme);
+            });
         }
 
         function initTheme() {
             let saved = null;
             try { saved = localStorage.getItem('pref-theme'); } catch (e) {}
-            applyTheme(saved === 'light' ? 'light' : 'dark');
+            const initial = THEMES.some(t => t.key === saved) ? saved : 'dark';
 
+            const picker = document.querySelector('.theme-picker');
             const btn = document.getElementById('themeToggleBtn');
-            btn.addEventListener('click', () => {
-                const isLight = document.documentElement.classList.contains('app-light');
-                applyTheme(isLight ? 'dark' : 'light');
+            const menu = document.getElementById('themeMenu');
+
+            menu.innerHTML = THEMES.map(t => `
+                <button type="button" class="theme-option" data-theme="${t.key}" role="menuitemradio">
+                    ${themeIconSvg(t.key, 'option-icon')}
+                    <span class="theme-option-name">${t.name}</span>
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" /></svg>
+                </button>
+            `).join('');
+
+            applyTheme(initial);
+
+            const closeMenu = () => {
+                menu.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            };
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = menu.classList.toggle('open');
+                btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            menu.addEventListener('click', (e) => {
+                const opt = e.target.closest('.theme-option');
+                if (!opt) return;
+                applyTheme(opt.dataset.theme);
+                closeMenu();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!picker.contains(e.target)) closeMenu();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
             });
         }
 
@@ -2401,9 +2831,10 @@
             initNavigation();
             updateUI();
 
-            // Wait for webfonts (Archivo Black in particular) to finish
-            // loading before measuring headings, otherwise the fit is
-            // computed against the fallback font's metrics.
+            // Wait for webfonts (the active theme's display face in
+            // particular) to finish loading before measuring headings,
+            // otherwise the fit is computed against the fallback font's
+            // metrics.
             try {
                 await document.fonts.ready;
             } catch (e) {}
