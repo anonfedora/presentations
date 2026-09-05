@@ -9,7 +9,7 @@
         (function () {
             try {
                 var saved = localStorage.getItem('pref-theme');
-                var known = ['light', 'midnight-navy', 'espresso', 'pine', 'parchment', 'slate-mist', 'editorial', 'swiss-grid', 'terminal', 'bodoni-luxe', 'studio-sans', 'academic-press', 'poster-condensed', 'rounded-studio', 'blueprint', 'slab-authority'];
+                var known = ['light', 'midnight-navy', 'espresso', 'pine', 'parchment', 'slate-mist', 'editorial', 'swiss-grid', 'terminal', 'bodoni-luxe', 'studio-sans', 'academic-press', 'poster-condensed', 'rounded-studio', 'blueprint', 'slab-authority', 'ledger', 'meridian', 'masthead', 'dog-ear', 'duet'];
                 if (saved && known.indexOf(saved) !== -1) {
                     document.documentElement.setAttribute('data-theme', saved);
                 }
@@ -18,7 +18,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&family=Archivo:wght@900&family=Work+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&family=Bodoni+Moda:opsz,wght@6..96,600&family=Jost:wght@400;500&family=Sora:wght@700&family=Manrope:wght@400;500&family=Crimson+Pro:wght@400;500&family=Big+Shoulders+Display:wght@700&family=Karla:wght@400;500&family=Figtree:wght@700&family=Nunito+Sans:wght@400;500&family=Space+Mono:wght@700&family=IBM+Plex+Sans:wght@400;500&family=Roboto+Slab:wght@700&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&family=Archivo:wght@900&family=Work+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&family=Bodoni+Moda:opsz,wght@6..96,600&family=Jost:wght@400;500&family=Sora:wght@700&family=Manrope:wght@400;500&family=Crimson+Pro:wght@400;500&family=Big+Shoulders+Display:wght@700&family=Karla:wght@400;500&family=Figtree:wght@700&family=Nunito+Sans:wght@400;500&family=Space+Mono:wght@700&family=IBM+Plex+Sans:wght@400;500&family=Roboto+Slab:wght@700&family=Source+Sans+3:wght@400;500&family=Lora:wght@700&family=PT+Serif:wght@400;700&family=Unbounded:wght@700&family=Rubik:wght@400;500&family=Bitter:wght@700&family=Noto+Serif:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Mulish:wght@400;500&family=Instrument+Serif&family=Albert+Sans:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --black: #000000;
@@ -46,6 +46,9 @@
             --display-tracking: -0.01em;
             --display-case: uppercase;
             --display-line-height: 0.92;
+            /* "Split ground" accent layer: a no-op for every normal theme. */
+            --slide-accent: transparent;
+            --slide-accent-clip: none;
         }
 
         :is(.slide.light, html[data-theme="light"] .slide) {
@@ -311,6 +314,113 @@
             --display-line-height: 1.02;
         }
 
+        /* ===== SPLIT-GROUND THEMES =====
+           Batch three: the slide background is two zones instead of one
+           flat field, via the --slide-accent/--slide-accent-clip pair
+           defined above. The accent shape is always confined to a corner,
+           edge or padding gutter, so it never sits under the text column
+           and no slide template needs to change. Each also gets its own
+           font pairing, distinct from every theme before it. */
+        html[data-theme="ledger"] {
+            --black: #F4EFE3;
+            --white: #171A20;
+            --grey-1: #EBE5D8;
+            --grey-2: #E2DAC7;
+            --grey-3: #7D7362;
+            --grey-4: #8F8574;
+            --grey-5: #302921;
+            --line: rgba(23, 26, 32, 0.14);
+            --line-dark: rgba(244, 239, 227, 0.16);
+            --font-display: 'Lora', Georgia, serif;
+            --font-body: 'PT Serif', Georgia, serif;
+            --display-weight: 700;
+            --display-tracking: -0.005em;
+            --display-case: none;
+            --display-line-height: 1.05;
+            --slide-accent: #171A20;
+            --slide-accent-clip: polygon(0 0, 60px 0, 60px 100%, 0 100%);
+        }
+
+        html[data-theme="meridian"] {
+            --black: #EDEAE3;
+            --white: #141A22;
+            --grey-1: #E3DFD5;
+            --grey-2: #D9D4C6;
+            --grey-3: #6E6A61;
+            --grey-4: #87837A;
+            --grey-5: #262C33;
+            --line: rgba(20, 26, 34, 0.14);
+            --line-dark: rgba(237, 234, 227, 0.16);
+            --font-display: 'Unbounded', sans-serif;
+            --font-body: 'Rubik', -apple-system, sans-serif;
+            --display-weight: 700;
+            --display-tracking: 0em;
+            --display-case: uppercase;
+            --display-line-height: 0.98;
+            --slide-accent: #141A22;
+            --slide-accent-clip: polygon(100% 0, 100% 100%, calc(100% - 50px) 100%, calc(100% - 95px) 0);
+        }
+
+        html[data-theme="masthead"] {
+            --black: #F3EEE2;
+            --white: #1B1712;
+            --grey-1: #EAE3D3;
+            --grey-2: #E0D7C0;
+            --grey-3: #6E6250;
+            --grey-4: #8C8067;
+            --grey-5: #2C261E;
+            --line: rgba(27, 23, 18, 0.14);
+            --line-dark: rgba(243, 238, 226, 0.16);
+            --font-display: 'Bitter', Georgia, serif;
+            --font-body: 'Noto Serif', Georgia, serif;
+            --display-weight: 700;
+            --display-tracking: -0.005em;
+            --display-case: uppercase;
+            --display-line-height: 0.98;
+            --slide-accent: #1B1712;
+            --slide-accent-clip: polygon(0 0, 100% 0, 100% 68px, 0 68px);
+        }
+
+        html[data-theme="dog-ear"] {
+            --black: #18181A;
+            --white: #E7E4DE;
+            --grey-1: #212123;
+            --grey-2: #1D1D1F;
+            --grey-3: #565450;
+            --grey-4: #8C8B87;
+            --grey-5: #C9C6BF;
+            --line: rgba(231, 228, 222, 0.16);
+            --line-dark: rgba(24, 24, 26, 0.14);
+            --font-display: 'Libre Baskerville', Georgia, serif;
+            --font-body: 'Mulish', -apple-system, sans-serif;
+            --display-weight: 700;
+            --display-tracking: -0.005em;
+            --display-case: none;
+            --display-line-height: 1.05;
+            --slide-accent: #7A4B36;
+            --slide-accent-clip: polygon(100% 0, 100% 90px, calc(100% - 90px) 0);
+        }
+
+        html[data-theme="duet"] {
+            --black: #472128;
+            --white: #F2E9E7;
+            --grey-1: #542831;
+            --grey-2: #3A2126;
+            --grey-3: #8C6169;
+            --grey-4: #B08790;
+            --grey-5: #DDC7CB;
+            --line: rgba(242, 233, 231, 0.16);
+            --line-dark: rgba(71, 33, 40, 0.14);
+            --font-display: 'Instrument Serif', Georgia, serif;
+            --font-body: 'Albert Sans', -apple-system, sans-serif;
+            --display-weight: 400;
+            --display-tracking: -0.01em;
+            --display-case: none;
+            --display-line-height: 1.05;
+            --slide-accent: #121212;
+            --slide-accent-clip: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -558,6 +668,23 @@
             padding: 72px 100px 110px;
             background: var(--black);
             color: var(--white);
+        }
+
+        /* "Split ground" themes draw a second color zone here, confined to
+           a corner/edge/gutter via clip-path so it never sits under text —
+           every other theme leaves both tokens at their no-op default. */
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: var(--slide-accent);
+            clip-path: var(--slide-accent-clip);
+        }
+
+        .slide.light {
+            --slide-accent: transparent;
         }
 
         :is(.slide.light, html[data-theme="light"] .slide) {
@@ -2718,7 +2845,12 @@
             'poster-condensed': '<path d="M3 10v4l4 1V9l-4 1z" /><path d="M7 9.5l10-3v11l-10-3" /><path d="M9 17l1 3" />',
             'rounded-studio': '<circle cx="12" cy="12" r="9" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><path d="M9 9h.01M15 9h.01" />',
             blueprint: '<circle cx="12" cy="12" r="8" /><path d="M12 2v4M12 18v4M2 12h4M18 12h4" />',
-            'slab-authority': '<path d="M4 21h16M6 21V9l6-5 6 5v12M9 21v-6h6v6" />'
+            'slab-authority': '<path d="M4 21h16M6 21V9l6-5 6 5v12M9 21v-6h6v6" />',
+            ledger: '<rect x="4" y="3" width="16" height="18" rx="1" /><path d="M8 3v18M12 8h6M12 12h6M12 16h6" />',
+            meridian: '<circle cx="12" cy="12" r="9" /><path d="M12 3a15 15 0 010 18M3 12h18" />',
+            masthead: '<rect x="3" y="4" width="18" height="16" rx="1" /><path d="M3 9h18M7 13h4M7 16h4" />',
+            'dog-ear': '<path d="M6 3h9l5 5v13a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" /><path d="M15 3v5h5" />',
+            duet: '<circle cx="9" cy="12" r="6" /><circle cx="15" cy="12" r="6" />'
         };
 
         const THEMES = [
@@ -2738,7 +2870,12 @@
             { key: 'poster-condensed', name: 'Poster Condensed' },
             { key: 'rounded-studio', name: 'Rounded Studio' },
             { key: 'blueprint', name: 'Blueprint' },
-            { key: 'slab-authority', name: 'Slab Authority' }
+            { key: 'slab-authority', name: 'Slab Authority' },
+            { key: 'ledger', name: 'Ledger' },
+            { key: 'meridian', name: 'Meridian' },
+            { key: 'masthead', name: 'Masthead' },
+            { key: 'dog-ear', name: 'Dog-ear' },
+            { key: 'duet', name: 'Duet' }
         ];
 
         function themeIconSvg(key, cls) {
