@@ -18,7 +18,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&family=Archivo:wght@900&family=Work+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&family=Bodoni+Moda:opsz,wght@6..96,600&family=Jost:wght@400;500&family=Sora:wght@700&family=Manrope:wght@400;500&family=Crimson+Pro:wght@400;500&family=Big+Shoulders+Display:wght@700&family=Karla:wght@400;500&family=Figtree:wght@700&family=Nunito+Sans:wght@400;500&family=Space+Mono:wght@700&family=IBM+Plex+Sans:wght@400;500&family=Roboto+Slab:wght@700&family=Source+Sans+3:wght@400;500&family=Lora:wght@700&family=PT+Serif:wght@400;700&family=Unbounded:wght@700&family=Rubik:wght@400;500&family=Bitter:wght@700&family=Noto+Serif:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Mulish:wght@400;500&family=Instrument+Serif&family=Albert+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&family=Archivo:wght@900&family=Work+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&family=Bodoni+Moda:opsz,wght@6..96,600&family=Jost:wght@400;500&family=Sora:wght@700&family=Manrope:wght@400;500&family=Crimson+Pro:wght@400;500&family=Big+Shoulders+Display:wght@700&family=Karla:wght@400;500&family=Figtree:wght@700&family=Nunito+Sans:wght@400;500&family=Space+Mono:wght@700&family=IBM+Plex+Sans:wght@400;500&family=Roboto+Slab:wght@700&family=Source+Sans+3:wght@400;500&family=Lora:wght@700&family=PT+Serif:wght@400;700&family=Unbounded:wght@700&family=Rubik:wght@400;500&family=Bitter:wght@700&family=Noto+Serif:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Mulish:wght@400;500&family=Instrument+Serif&family=Albert+Sans:wght@400;500&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --black: #000000;
@@ -378,7 +378,7 @@
             --display-case: uppercase;
             --display-line-height: 0.98;
             --slide-accent: #1B1712;
-            --slide-accent-clip: polygon(0 0, 100% 0, 100% 68px, 0 68px);
+            --slide-accent-clip: polygon(0 0, 100% 0, 100% 64px, 0 64px);
         }
 
         html[data-theme="dog-ear"] {
@@ -484,6 +484,10 @@
             align-items: center;
             padding: 0 20px;
             z-index: 1001;
+        }
+
+        body.is-fullscreen .top-nav {
+            display: none;
         }
 
         @media (max-width:900px) {
@@ -653,7 +657,7 @@
             height: 100vh;
             overflow-y: scroll;
             scroll-snap-type: y proximity;
-            padding-top: 64px; /* clearance for fixed header */
+            padding-top: 48px; /* clearance for fixed header */
             padding-bottom: 120px; /* for bottom nav */
         }
 
@@ -665,7 +669,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            padding: 72px 100px 110px;
+            padding: 64px 100px 110px;
             background: var(--black);
             color: var(--white);
         }
@@ -2571,8 +2575,24 @@
             }
 
             .top-nav, .dots, .progress-rail, .slide-index, .deck-nav,
-            .theme-toggle-btn, .download-btn, .back-btn {
+            .theme-toggle-btn, .transition-toggle-btn, .download-btn, .back-btn {
                 display: none !important;
+            }
+
+            /* Paginated transition modes use absolute positioning + opacity
+               for on-screen animation; printing always needs every slide
+               laid out in normal flow regardless of the active mode. */
+            .deck.paginated {
+                position: static !important;
+            }
+
+            .deck.paginated .slide {
+                position: relative !important;
+                inset: auto !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
+                pointer-events: auto !important;
             }
         }
 
@@ -2616,6 +2636,16 @@
         }
 
         html[data-theme="light"] .theme-toggle-btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        html[data-theme="light"] .transition-toggle-btn {
+            border-color: var(--black);
+            color: var(--black);
+        }
+
+        html[data-theme="light"] .transition-toggle-btn:hover {
             background: var(--black);
             color: var(--white);
         }
@@ -2764,15 +2794,474 @@
             opacity: 1;
         }
 
+        /* ===== TRANSITION PICKER =====
+           Same list/menu pattern as the theme picker, reusing .theme-menu,
+           .theme-option, .option-icon, .theme-option-name and .check so the
+           two dropdowns stay visually identical; only the toggle button
+           gets its own (smaller) size. */
+        .transition-picker {
+            position: relative;
+        }
+
+        .transition-toggle-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--white);
+            color: var(--white);
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .transition-toggle-btn:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .transition-toggle-btn .active-transition-icon {
+            width: 13px;
+            height: 13px;
+        }
+
+        .transition-menu-divider {
+            height: 1px;
+            background: var(--line);
+            margin: 6px 4px;
+        }
+
+        .transition-speed-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--grey-3);
+            padding: 2px 10px 6px;
+        }
+
+        .transition-speed-row {
+            display: flex;
+            gap: 4px;
+            padding: 0 6px 6px;
+        }
+
+        .transition-speed-btn {
+            flex: 1;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: inherit;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 0;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .transition-speed-btn:hover {
+            background: var(--grey-1);
+        }
+
+        .transition-speed-btn.active {
+            background: var(--white);
+            color: var(--black);
+            border-color: var(--white);
+            font-weight: 700;
+        }
+
+        html[data-theme="light"] .transition-speed-btn.active {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        /* ===== PAGINATED SLIDE TRANSITIONS =====
+           Only engaged when a non-default transition is selected; the
+           default mode leaves .deck/.slide exactly as before (native
+           scroll + snap). */
+        .deck.paginated {
+            position: relative;
+            overflow: hidden;
+            scroll-snap-type: none;
+        }
+
+        .deck.paginated .slide {
+            position: absolute;
+            inset: 0;
+            min-height: 0;
+            overflow-y: auto;
+            scroll-snap-align: none;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .deck.paginated .slide.slide-active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            z-index: 2;
+        }
+
+        .deck.paginated .slide.slide-stacked {
+            visibility: visible;
+            z-index: 3;
+        }
+
+        .deck.paginated[data-transition="flip"] {
+            perspective: 1800px;
+        }
+
+        .deck.paginated[data-transition="flip"] .slide {
+            backface-visibility: hidden;
+        }
+
         .top-nav-right {
             display: flex;
             align-items: center;
             gap: 12px;
         }
+
+        /* ===== ACCESSIBILITY =====
+           Placed last so html[data-dyslexia-font] reliably beats every
+           theme's own --font-body (same specificity, later source wins). */
+        *:focus-visible {
+            outline: 2px solid var(--white);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        *:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        .skip-link {
+            position: fixed;
+            top: -100px;
+            left: 16px;
+            background: var(--white);
+            color: var(--black);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            z-index: 2000;
+            transition: top 0.2s ease;
+        }
+
+        .skip-link:focus {
+            top: 16px;
+        }
+
+        html[data-contrast="high"] {
+            filter: contrast(1.25);
+        }
+
+        html[data-reduced-motion="true"] *,
+        html[data-reduced-motion="true"] *::before,
+        html[data-reduced-motion="true"] *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        html[data-dyslexia-font="true"] {
+            --font-body: 'Atkinson Hyperlegible', -apple-system, sans-serif;
+        }
+
+        .a11y-reading {
+            background-color: color-mix(in srgb, var(--white) 22%, transparent);
+            outline: 2px solid var(--white);
+            outline-offset: 2px;
+            border-radius: 3px;
+        }
+
+        .a11y-widget {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 1003;
+        }
+
+        .a11y-toggle-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            background: var(--black);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .a11y-toggle-btn:hover {
+            transform: scale(1.06);
+        }
+
+        .a11y-toggle-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .a11y-panel {
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            width: 300px;
+            max-width: calc(100vw - 3rem);
+            background: var(--black);
+            color: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+            display: none;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .a11y-panel.open {
+            display: block;
+        }
+
+        .a11y-panel-header {
+            padding: 14px 16px;
+            background: var(--grey-1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .a11y-panel-header p {
+            margin: 0;
+        }
+
+        .a11y-panel-title {
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .a11y-panel-subtitle {
+            font-size: 11px;
+            color: var(--grey-4);
+            margin-top: 2px !important;
+        }
+
+        .a11y-reset-btn {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--white);
+            background: color-mix(in srgb, var(--white) 15%, transparent);
+            border: none;
+            border-radius: 6px;
+            padding: 5px 10px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .a11y-panel-body {
+            padding: 4px 16px 14px;
+        }
+
+        .a11y-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .a11y-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .a11y-row-label {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .a11y-btn-group {
+            display: flex;
+            gap: 4px;
+        }
+
+        .a11y-choice-btn {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1.5px solid var(--line);
+            background: transparent;
+            color: var(--grey-4);
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .a11y-choice-btn.active {
+            border-color: var(--white);
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .a11y-size-btn {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .a11y-switch {
+            width: 40px;
+            height: 22px;
+            border-radius: 20px;
+            border: none;
+            background: var(--grey-1);
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .a11y-switch.on {
+            background: var(--white);
+        }
+
+        .a11y-switch-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--grey-4);
+            transition: left 0.15s ease;
+        }
+
+        .a11y-switch.on .a11y-switch-knob {
+            left: 20px;
+            background: var(--black);
+        }
+
+        .a11y-tts-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .a11y-tts-btn {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1.5px solid var(--white);
+            background: transparent;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .a11y-tts-btn.active {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .a11y-tts-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .a11y-panel-footer {
+            padding-top: 6px;
+            font-size: 10.5px;
+            color: var(--grey-4);
+            text-align: center;
+        }
+
+        @media print {
+            .a11y-widget, .skip-link {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <a href="#deck" class="skip-link">Skip to main content</a>
+
+    <div class="a11y-widget">
+        <button class="a11y-toggle-btn" id="a11yToggleBtn" aria-haspopup="true" aria-expanded="false" aria-label="Accessibility settings" title="Accessibility settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="1" fill="currentColor" stroke="none" />
+                <path d="M9 20l1-5H8l1-4a2 2 0 012-1h2a2 2 0 012 1l1 4h-2l1 5" />
+                <path d="M7 9a5 5 0 0110 0" />
+            </svg>
+        </button>
+        <div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="Accessibility settings">
+            <div class="a11y-panel-header">
+                <div>
+                    <p class="a11y-panel-title">Accessibility</p>
+                    <p class="a11y-panel-subtitle">Adjust your experience</p>
+                </div>
+                <button class="a11y-reset-btn" id="a11yResetBtn">Reset</button>
+            </div>
+            <div class="a11y-panel-body">
+                <div class="a11y-row">
+                    <span class="a11y-row-label">Text Size</span>
+                    <div class="a11y-btn-group" id="a11yFontSizeGroup">
+                        <button class="a11y-choice-btn a11y-size-btn" data-size="normal" style="font-size:11px;" aria-label="Normal text size">A</button>
+                        <button class="a11y-choice-btn a11y-size-btn" data-size="large" style="font-size:13px;" aria-label="Large text size">A</button>
+                        <button class="a11y-choice-btn a11y-size-btn" data-size="xlarge" style="font-size:15px;" aria-label="Extra large text size">A</button>
+                    </div>
+                </div>
+                <div class="a11y-row">
+                    <span class="a11y-row-label">Contrast</span>
+                    <div class="a11y-btn-group" id="a11yContrastGroup">
+                        <button class="a11y-choice-btn" data-contrast="normal">Normal</button>
+                        <button class="a11y-choice-btn" data-contrast="high">High</button>
+                    </div>
+                </div>
+                <div class="a11y-row">
+                    <span class="a11y-row-label">Reduce Motion</span>
+                    <button class="a11y-switch" id="a11yReducedMotionBtn" role="switch" aria-checked="false"><span class="a11y-switch-knob"></span></button>
+                </div>
+                <div class="a11y-row">
+                    <span class="a11y-row-label">Easy-read Font</span>
+                    <button class="a11y-switch" id="a11yDyslexiaBtn" role="switch" aria-checked="false"><span class="a11y-switch-knob"></span></button>
+                </div>
+                <div class="a11y-row">
+                    <span class="a11y-row-label">Read Slide Aloud</span>
+                    <div class="a11y-tts-buttons">
+                        <button class="a11y-tts-btn" id="a11yListenBtn">Listen</button>
+                        <button class="a11y-tts-btn" id="a11yStopBtn" disabled>Stop</button>
+                    </div>
+                </div>
+                <div class="a11y-panel-footer">Settings are saved automatically</div>
+            </div>
+        </div>
+    </div>
+
     <nav class="top-nav">
         <a href="index.html" class="back-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2781,6 +3270,12 @@
             Back
         </a>
         <div class="top-nav-right">
+            <div class="transition-picker">
+                <button class="transition-toggle-btn" id="transitionToggleBtn" aria-haspopup="true" aria-expanded="false" aria-label="Choose slide transition">
+                    <span id="transitionToggleIcon"></span>
+                </button>
+                <div class="theme-menu" id="transitionMenu" role="menu"></div>
+            </div>
             <div class="theme-picker">
                 <button class="theme-toggle-btn" id="themeToggleBtn" aria-haspopup="true" aria-expanded="false" aria-label="Choose theme">
                     <span id="themeToggleIcon"></span>
@@ -2944,6 +3439,392 @@
             });
         }
 
+        // Slide transitions
+        const TRANSITIONS = [
+            { key: 'default', name: 'Default (Scroll)' },
+            { key: 'fade', name: 'Fade' },
+            { key: 'slide', name: 'Slide' },
+            { key: 'zoom', name: 'Zoom' },
+            { key: 'flip', name: 'Flip' }
+        ];
+
+        const TRANSITION_ICONS = {
+            default: '<path d="M12 5v14M5 12l7 7 7-7" />',
+            fade: '<circle cx="12" cy="12" r="4" opacity="0.35" /><circle cx="12" cy="12" r="8.5" />',
+            slide: '<path d="M3 12h13M11 6l6 6-6 6" /><path d="M21 5v14" />',
+            zoom: '<circle cx="11" cy="11" r="7" /><path d="M11 8v6M8 11h6" /><path d="M20.5 20.5L16 16" />',
+            flip: '<path d="M12 3v18" /><path d="M5 8.5L2.5 12 5 15.5M19 8.5L21.5 12 19 15.5" />'
+        };
+
+        const TRANSITION_SPEEDS = [
+            { key: 'slow', name: 'Slow', ms: 900 },
+            { key: 'normal', name: 'Normal', ms: 480 },
+            { key: 'fast', name: 'Fast', ms: 250 }
+        ];
+
+        let TRANSITION_DURATION = 480;
+        let transitionType = 'default';
+        let transitionSpeed = 'normal';
+        let isTransitioningSlide = false;
+
+        const TRANSITION_EFFECTS = {
+            fade: {
+                incoming: () => ({ opacity: '0', transform: 'none' }),
+                outgoing: () => ({ opacity: '0', transform: 'none' }),
+                incomingFinal: { opacity: '1', transform: 'none' }
+            },
+            slide: {
+                incoming: (dir) => ({ opacity: '1', transform: dir === 'next' ? 'translateX(100%)' : 'translateX(-100%)' }),
+                outgoing: (dir) => ({ opacity: '1', transform: dir === 'next' ? 'translateX(-100%)' : 'translateX(100%)' }),
+                incomingFinal: { opacity: '1', transform: 'translateX(0)' }
+            },
+            zoom: {
+                incoming: () => ({ opacity: '0', transform: 'scale(1.08)' }),
+                outgoing: () => ({ opacity: '0', transform: 'scale(0.92)' }),
+                incomingFinal: { opacity: '1', transform: 'scale(1)' }
+            },
+            flip: {
+                incoming: (dir) => ({ opacity: '0', transform: dir === 'next' ? 'rotateY(18deg)' : 'rotateY(-18deg)' }),
+                outgoing: (dir) => ({ opacity: '0', transform: dir === 'next' ? 'rotateY(-18deg)' : 'rotateY(18deg)' }),
+                incomingFinal: { opacity: '1', transform: 'rotateY(0deg)' }
+            }
+        };
+
+        function transitionIconSvg(key, cls) {
+            return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${TRANSITION_ICONS[key] || ''}</svg>`;
+        }
+
+        function setSlideStyle(el, styles) {
+            Object.keys(styles).forEach(k => { el.style[k] = styles[k]; });
+        }
+
+        function applyTransitionMode(type) {
+            transitionType = type;
+            try { localStorage.setItem('pref-transition', type); } catch (e) {}
+
+            deck.classList.toggle('paginated', type !== 'default');
+
+            if (type === 'default') {
+                deck.removeAttribute('data-transition');
+                slides.forEach(s => {
+                    s.classList.remove('slide-active', 'slide-stacked');
+                    s.style.cssText = '';
+                });
+                requestAnimationFrame(() => scrollToSlide(currentIndex));
+            } else {
+                deck.setAttribute('data-transition', type);
+                slides.forEach((s, i) => {
+                    s.style.cssText = '';
+                    s.classList.remove('slide-stacked');
+                    s.classList.toggle('slide-active', i === currentIndex);
+                });
+            }
+
+            const btnIcon = document.getElementById('transitionToggleIcon');
+            if (btnIcon) btnIcon.innerHTML = transitionIconSvg(type, 'active-transition-icon');
+
+            document.querySelectorAll('.transition-option').forEach(el => {
+                el.classList.toggle('active', el.dataset.transition === type);
+            });
+        }
+
+        function applyTransitionSpeed(speed) {
+            const match = TRANSITION_SPEEDS.find(s => s.key === speed);
+            if (!match) return;
+
+            transitionSpeed = speed;
+            TRANSITION_DURATION = match.ms;
+            try { localStorage.setItem('pref-transition-speed', speed); } catch (e) {}
+
+            document.querySelectorAll('.transition-speed-btn').forEach(el => {
+                el.classList.toggle('active', el.dataset.speed === speed);
+            });
+        }
+
+        function goToSlidePaginated(index) {
+            if (index === currentIndex || isTransitioningSlide || !slides[index]) return;
+            const effect = TRANSITION_EFFECTS[transitionType];
+            if (!effect) return;
+
+            const dir = index > currentIndex ? 'next' : 'prev';
+            const outSlide = slides[currentIndex];
+            const inSlide = slides[index];
+            isTransitioningSlide = true;
+
+            inSlide.style.transition = 'none';
+            inSlide.classList.add('slide-stacked');
+            setSlideStyle(inSlide, effect.incoming(dir));
+            inSlide.scrollTop = 0;
+            void inSlide.offsetHeight;
+
+            currentIndex = index;
+            updateUI();
+
+            requestAnimationFrame(() => {
+                outSlide.style.transition = `opacity ${TRANSITION_DURATION}ms ease, transform ${TRANSITION_DURATION}ms ease`;
+                inSlide.style.transition = `opacity ${TRANSITION_DURATION}ms ease, transform ${TRANSITION_DURATION}ms ease`;
+                setSlideStyle(outSlide, effect.outgoing(dir));
+                setSlideStyle(inSlide, effect.incomingFinal);
+            });
+
+            setTimeout(() => {
+                outSlide.classList.remove('slide-active');
+                outSlide.style.cssText = '';
+                inSlide.classList.remove('slide-stacked');
+                inSlide.classList.add('slide-active');
+                inSlide.style.cssText = '';
+                isTransitioningSlide = false;
+            }, TRANSITION_DURATION + 30);
+        }
+
+        function initTransitions() {
+            let saved = null;
+            let savedSpeed = null;
+            try {
+                saved = localStorage.getItem('pref-transition');
+                savedSpeed = localStorage.getItem('pref-transition-speed');
+            } catch (e) {}
+            const initial = TRANSITIONS.some(t => t.key === saved) ? saved : 'default';
+            const initialSpeed = TRANSITION_SPEEDS.some(s => s.key === savedSpeed) ? savedSpeed : 'normal';
+
+            const picker = document.querySelector('.transition-picker');
+            const btn = document.getElementById('transitionToggleBtn');
+            const menu = document.getElementById('transitionMenu');
+
+            menu.innerHTML = TRANSITIONS.map(t => `
+                <button type="button" class="theme-option transition-option" data-transition="${t.key}" role="menuitemradio">
+                    ${transitionIconSvg(t.key, 'option-icon')}
+                    <span class="theme-option-name">${t.name}</span>
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" /></svg>
+                </button>
+            `).join('') + `
+                <div class="transition-menu-divider"></div>
+                <div class="transition-speed-label">Speed</div>
+                <div class="transition-speed-row">
+                    ${TRANSITION_SPEEDS.map(s => `
+                        <button type="button" class="transition-speed-btn" data-speed="${s.key}">${s.name}</button>
+                    `).join('')}
+                </div>
+            `;
+
+            applyTransitionMode(initial);
+            applyTransitionSpeed(initialSpeed);
+
+            const closeMenu = () => {
+                menu.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            };
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = menu.classList.toggle('open');
+                btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            menu.addEventListener('click', (e) => {
+                const speedBtn = e.target.closest('.transition-speed-btn');
+                if (speedBtn) {
+                    applyTransitionSpeed(speedBtn.dataset.speed);
+                    return;
+                }
+                const opt = e.target.closest('.transition-option');
+                if (!opt) return;
+                applyTransitionMode(opt.dataset.transition);
+                closeMenu();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!picker.contains(e.target)) closeMenu();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
+            });
+        }
+
+        // Accessibility
+        const A11Y_DEFAULTS = { fontSize: 'normal', contrast: 'normal', reducedMotion: false, dyslexiaFont: false };
+        let a11yPrefs = { ...A11Y_DEFAULTS };
+        const tts = {
+            synth: ('speechSynthesis' in window) ? window.speechSynthesis : null,
+            elements: [],
+            index: 0,
+            active: false,
+            paused: false
+        };
+
+        function loadA11yPrefs() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('a11y-prefs') || 'null');
+                if (saved) a11yPrefs = { ...A11Y_DEFAULTS, ...saved };
+            } catch (e) {}
+        }
+
+        function saveA11yPrefs() {
+            try { localStorage.setItem('a11y-prefs', JSON.stringify(a11yPrefs)); } catch (e) {}
+        }
+
+        function setSwitch(id, on) {
+            const btn = document.getElementById(id);
+            if (!btn) return;
+            btn.classList.toggle('on', on);
+            btn.setAttribute('aria-checked', on ? 'true' : 'false');
+        }
+
+        function applyA11yPrefs() {
+            const root = document.documentElement;
+            root.style.zoom = a11yPrefs.fontSize === 'xlarge' ? '1.3' : a11yPrefs.fontSize === 'large' ? '1.15' : '';
+
+            if (a11yPrefs.contrast === 'high') root.setAttribute('data-contrast', 'high');
+            else root.removeAttribute('data-contrast');
+
+            if (a11yPrefs.reducedMotion) root.setAttribute('data-reduced-motion', 'true');
+            else root.removeAttribute('data-reduced-motion');
+
+            if (a11yPrefs.dyslexiaFont) root.setAttribute('data-dyslexia-font', 'true');
+            else root.removeAttribute('data-dyslexia-font');
+
+            saveA11yPrefs();
+
+            document.querySelectorAll('#a11yFontSizeGroup .a11y-choice-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.size === a11yPrefs.fontSize);
+            });
+            document.querySelectorAll('#a11yContrastGroup .a11y-choice-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.contrast === a11yPrefs.contrast);
+            });
+            setSwitch('a11yReducedMotionBtn', a11yPrefs.reducedMotion);
+            setSwitch('a11yDyslexiaBtn', a11yPrefs.dyslexiaFont);
+        }
+
+        // Picks the innermost text-bearing elements in document order, so a
+        // slide's wildly different per-template markup (cards, lists, tags,
+        // plain divs) all get read once each, without double-reading a
+        // container and its own children.
+        function getReadableElements(container) {
+            const selector = 'h1, h2, h3, h4, p, li, div, span';
+            const nodes = Array.from(container.querySelectorAll(selector));
+            return nodes.filter((el) => {
+                const text = (el.textContent || '').trim();
+                if (text.length < 2) return false;
+                if (el.querySelector(selector)) return false;
+                return true;
+            });
+        }
+
+        function clearReadingHighlight() {
+            tts.elements.forEach(el => el.classList.remove('a11y-reading'));
+        }
+
+        function updateTtsButtons() {
+            const listenBtn = document.getElementById('a11yListenBtn');
+            const stopBtn = document.getElementById('a11yStopBtn');
+            if (!listenBtn || !stopBtn) return;
+            listenBtn.textContent = tts.paused ? 'Resume' : tts.active ? 'Pause' : 'Listen';
+            listenBtn.classList.toggle('active', tts.active && !tts.paused);
+            listenBtn.disabled = !tts.synth;
+            stopBtn.disabled = !tts.active;
+        }
+
+        function stopSpeech() {
+            tts.active = false;
+            tts.paused = false;
+            clearReadingHighlight();
+            if (tts.synth) tts.synth.cancel();
+            updateTtsButtons();
+        }
+
+        function speakFrom(idx) {
+            if (!tts.synth) return;
+            if (idx >= tts.elements.length) { stopSpeech(); return; }
+
+            tts.index = idx;
+            tts.active = true;
+            clearReadingHighlight();
+
+            const el = tts.elements[idx];
+            const text = (el.textContent || '').trim();
+            if (!text) { speakFrom(idx + 1); return; }
+
+            el.classList.add('a11y-reading');
+            el.scrollIntoView({ block: 'nearest', behavior: a11yPrefs.reducedMotion ? 'auto' : 'smooth' });
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.95;
+            const voices = tts.synth.getVoices();
+            const englishVoice = voices.find(v => v.lang && v.lang.startsWith('en'));
+            if (englishVoice) utterance.voice = englishVoice;
+            utterance.onend = () => { if (tts.active) speakFrom(idx + 1); };
+            tts.synth.speak(utterance);
+            updateTtsButtons();
+        }
+
+        function toggleListen() {
+            if (!tts.synth) return;
+            if (!tts.active) {
+                const activeSlide = slides[currentIndex];
+                if (!activeSlide) return;
+                tts.elements = getReadableElements(activeSlide);
+                if (tts.elements.length === 0) return;
+                speakFrom(0);
+            } else if (tts.synth.paused) {
+                tts.synth.resume();
+                tts.paused = false;
+                updateTtsButtons();
+            } else {
+                tts.synth.pause();
+                tts.paused = true;
+                updateTtsButtons();
+            }
+        }
+
+        function initAccessibility() {
+            loadA11yPrefs();
+
+            const btn = document.getElementById('a11yToggleBtn');
+            const panel = document.getElementById('a11yPanel');
+            const widget = document.querySelector('.a11y-widget');
+
+            applyA11yPrefs();
+            updateTtsButtons();
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = panel.classList.toggle('open');
+                btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!widget.contains(e.target)) panel.classList.remove('open');
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') panel.classList.remove('open');
+            });
+
+            document.querySelectorAll('#a11yFontSizeGroup .a11y-choice-btn').forEach(b => {
+                b.addEventListener('click', () => { a11yPrefs.fontSize = b.dataset.size; applyA11yPrefs(); });
+            });
+            document.querySelectorAll('#a11yContrastGroup .a11y-choice-btn').forEach(b => {
+                b.addEventListener('click', () => { a11yPrefs.contrast = b.dataset.contrast; applyA11yPrefs(); });
+            });
+            document.getElementById('a11yReducedMotionBtn').addEventListener('click', () => {
+                a11yPrefs.reducedMotion = !a11yPrefs.reducedMotion;
+                applyA11yPrefs();
+            });
+            document.getElementById('a11yDyslexiaBtn').addEventListener('click', () => {
+                a11yPrefs.dyslexiaFont = !a11yPrefs.dyslexiaFont;
+                applyA11yPrefs();
+            });
+            document.getElementById('a11yResetBtn').addEventListener('click', () => {
+                a11yPrefs = { ...A11Y_DEFAULTS };
+                applyA11yPrefs();
+                stopSpeech();
+            });
+            document.getElementById('a11yListenBtn').addEventListener('click', toggleListen);
+            document.getElementById('a11yStopBtn').addEventListener('click', stopSpeech);
+        }
+
         let currentPresentation = null;
         let slides = [];
         let deck = null;
@@ -2966,6 +3847,7 @@
             
             renderSlides();
             initNavigation();
+            initTransitions();
             updateUI();
 
             // Wait for webfonts (the active theme's display face in
@@ -4040,9 +4922,48 @@
                 }
             });
 
+            // Hide the top nav (back link, transition/theme pickers,
+            // download button) while presenting in fullscreen.
+            document.addEventListener('fullscreenchange', () => {
+                document.body.classList.toggle('is-fullscreen', !!document.fullscreenElement);
+            });
+
             deck.addEventListener('scroll', () => {
                 window.requestAnimationFrame(updateUI);
             });
+
+            // Paginated (non-default) transition modes replace native
+            // scrolling with a wheel/swipe-driven page flip, since the
+            // slides are absolutely positioned rather than stacked in flow.
+            let wheelLock = false;
+            deck.addEventListener('wheel', (e) => {
+                if (transitionType === 'default') return;
+                e.preventDefault();
+                if (wheelLock || isTransitioningSlide || Math.abs(e.deltaY) < 10) return;
+                wheelLock = true;
+                const target = e.deltaY > 0
+                    ? Math.min(slides.length - 1, currentIndex + 1)
+                    : Math.max(0, currentIndex - 1);
+                scrollToSlide(target);
+                setTimeout(() => { wheelLock = false; }, TRANSITION_DURATION + 60);
+            }, { passive: false });
+
+            let touchStartY = null;
+            deck.addEventListener('touchstart', (e) => {
+                if (transitionType === 'default') return;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            deck.addEventListener('touchend', (e) => {
+                if (transitionType === 'default' || touchStartY === null || isTransitioningSlide) return;
+                const dy = touchStartY - e.changedTouches[0].clientY;
+                touchStartY = null;
+                if (Math.abs(dy) < 40) return;
+                const target = dy > 0
+                    ? Math.min(slides.length - 1, currentIndex + 1)
+                    : Math.max(0, currentIndex - 1);
+                scrollToSlide(target);
+            }, { passive: true });
 
             // Build initial pulse fields
             buildPulseField('pulseVision', 3, '50%', '50%');
@@ -4054,38 +4975,51 @@
         }
 
         function scrollToSlide(index) {
-            const slide = slides[index];
-            // Calculate position: slide's offset inside the deck
-            const position = slide.offsetTop;
-            deck.scrollTo({
-                top: position,
-                behavior: 'smooth'
-            });
+            index = Math.max(0, Math.min(slides.length - 1, index));
+            if (transitionType === 'default') {
+                const slide = slides[index];
+                const position = slide.offsetTop;
+                deck.scrollTo({
+                    top: position,
+                    behavior: 'smooth'
+                });
+            } else {
+                goToSlidePaginated(index);
+            }
         }
 
         function updateUI() {
-            const scrollTop = deck.scrollTop;
-            
-            // Find current slide by checking which slide's top is closest to scrollTop
-            let idx = 0;
-            let minDist = Infinity;
-            slides.forEach((slide, i) => {
-                const dist = Math.abs(slide.offsetTop - scrollTop);
-                if (dist < minDist) {
-                    minDist = dist;
-                    idx = i;
-                }
-            });
-            
+            const previousIndex = currentIndex;
+            let idx = currentIndex;
+
+            if (transitionType === 'default') {
+                const scrollTop = deck.scrollTop;
+                // Find current slide by checking which slide's top is closest to scrollTop
+                let minDist = Infinity;
+                slides.forEach((slide, i) => {
+                    const dist = Math.abs(slide.offsetTop - scrollTop);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        idx = i;
+                    }
+                });
+            }
+
             currentIndex = Math.max(0, Math.min(slides.length - 1, idx));
+
+            if (currentIndex !== previousIndex && typeof stopSpeech === 'function' && tts.active) {
+                stopSpeech();
+            }
 
             document.getElementById('curSlide').textContent = String(currentIndex + 1).padStart(2, '0');
 
             const dotEls = Array.from(document.getElementById('dotsNav').children);
             dotEls.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
 
-            const progress = (scrollTop) / (deck.scrollHeight - deck.clientHeight);
-            document.getElementById('progressFill').style.width = (progress * 100) + '%';
+            const progress = transitionType === 'default'
+                ? deck.scrollTop / (deck.scrollHeight - deck.clientHeight)
+                : (slides.length > 1 ? currentIndex / (slides.length - 1) : 0);
+            document.getElementById('progressFill').style.width = (Math.max(0, Math.min(1, progress || 0)) * 100) + '%';
 
             slides.forEach((s, i) => {
                 if (i === currentIndex) {
@@ -4147,6 +5081,7 @@
         }
 
         initTheme();
+        initAccessibility();
         loadPresentation();
     </script>
 </body>

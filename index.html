@@ -17,7 +17,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&family=Archivo:wght@900&family=Work+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&family=Bodoni+Moda:opsz,wght@6..96,600&family=Jost:wght@400;500&family=Sora:wght@700&family=Manrope:wght@400;500&family=Crimson+Pro:wght@400;500&family=Big+Shoulders+Display:wght@700&family=Karla:wght@400;500&family=Figtree:wght@700&family=Nunito+Sans:wght@400;500&family=Space+Mono:wght@700&family=IBM+Plex+Sans:wght@400;500&family=Roboto+Slab:wght@700&family=Source+Sans+3:wght@400;500&family=Lora:wght@700&family=PT+Serif:wght@400;700&family=Unbounded:wght@700&family=Rubik:wght@400;500&family=Bitter:wght@700&family=Noto+Serif:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Mulish:wght@400;500&family=Instrument+Serif&family=Albert+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&family=Archivo:wght@900&family=Work+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&family=Bodoni+Moda:opsz,wght@6..96,600&family=Jost:wght@400;500&family=Sora:wght@700&family=Manrope:wght@400;500&family=Crimson+Pro:wght@400;500&family=Big+Shoulders+Display:wght@700&family=Karla:wght@400;500&family=Figtree:wght@700&family=Nunito+Sans:wght@400;500&family=Space+Mono:wght@700&family=IBM+Plex+Sans:wght@400;500&family=Roboto+Slab:wght@700&family=Source+Sans+3:wght@400;500&family=Lora:wght@700&family=PT+Serif:wght@400;700&family=Unbounded:wght@700&family=Rubik:wght@400;500&family=Bitter:wght@700&family=Noto+Serif:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Mulish:wght@400;500&family=Instrument+Serif&family=Albert+Sans:wght@400;500&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --black: #000000;
@@ -560,9 +560,331 @@
             background: var(--white);
             color: var(--black);
         }
+
+        /* ===== ACCESSIBILITY =====
+           Placed last so html[data-dyslexia-font] reliably beats every
+           theme's own --font-body (same specificity, later source wins). */
+        *:focus-visible {
+            outline: 2px solid var(--white);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        *:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        .skip-link {
+            position: fixed;
+            top: -100px;
+            left: 16px;
+            background: var(--white);
+            color: var(--black);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            z-index: 2000;
+            transition: top 0.2s ease;
+        }
+
+        .skip-link:focus {
+            top: 16px;
+        }
+
+        html[data-contrast="high"] {
+            filter: contrast(1.25);
+        }
+
+        html[data-reduced-motion="true"] *,
+        html[data-reduced-motion="true"] *::before,
+        html[data-reduced-motion="true"] *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        html[data-dyslexia-font="true"] {
+            --font-body: 'Atkinson Hyperlegible', -apple-system, sans-serif;
+        }
+
+        .a11y-reading {
+            background-color: color-mix(in srgb, var(--white) 22%, transparent);
+            outline: 2px solid var(--white);
+            outline-offset: 2px;
+            border-radius: 3px;
+        }
+
+        .a11y-widget {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 1003;
+        }
+
+        .a11y-toggle-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            background: var(--black);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .a11y-toggle-btn:hover {
+            transform: scale(1.06);
+        }
+
+        .a11y-toggle-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .a11y-panel {
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            width: 300px;
+            max-width: calc(100vw - 3rem);
+            background: var(--black);
+            color: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+            display: none;
+            overflow: hidden;
+        }
+
+        .a11y-panel.open {
+            display: block;
+        }
+
+        .a11y-panel-header {
+            padding: 14px 16px;
+            background: var(--grey-1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .a11y-panel-header p {
+            margin: 0;
+        }
+
+        .a11y-panel-title {
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .a11y-panel-subtitle {
+            font-size: 11px;
+            color: var(--grey-4);
+            margin-top: 2px !important;
+        }
+
+        .a11y-reset-btn {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--white);
+            background: color-mix(in srgb, var(--white) 15%, transparent);
+            border: none;
+            border-radius: 6px;
+            padding: 5px 10px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .a11y-panel-body {
+            padding: 4px 16px 14px;
+        }
+
+        .a11y-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .a11y-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .a11y-row-label {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .a11y-btn-group {
+            display: flex;
+            gap: 4px;
+        }
+
+        .a11y-choice-btn {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1.5px solid var(--line);
+            background: transparent;
+            color: var(--grey-4);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .a11y-choice-btn.active {
+            border-color: var(--white);
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .a11y-size-btn {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .a11y-switch {
+            width: 40px;
+            height: 22px;
+            border-radius: 20px;
+            border: none;
+            background: var(--grey-1);
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .a11y-switch.on {
+            background: var(--white);
+        }
+
+        .a11y-switch-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--grey-4);
+            transition: left 0.15s ease;
+        }
+
+        .a11y-switch.on .a11y-switch-knob {
+            left: 20px;
+            background: var(--black);
+        }
+
+        .a11y-tts-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .a11y-tts-btn {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1.5px solid var(--white);
+            background: transparent;
+            color: var(--white);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .a11y-tts-btn.active {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .a11y-tts-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .a11y-panel-footer {
+            padding-top: 6px;
+            font-size: 10.5px;
+            color: var(--grey-4);
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <a href="#presentationsGrid" class="skip-link">Skip to main content</a>
+
+    <div class="a11y-widget">
+        <button class="a11y-toggle-btn" id="a11yToggleBtn" aria-haspopup="true" aria-expanded="false" aria-label="Accessibility settings" title="Accessibility settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="1" fill="currentColor" stroke="none" />
+                <path d="M9 20l1-5H8l1-4a2 2 0 012-1h2a2 2 0 012 1l1 4h-2l1 5" />
+                <path d="M7 9a5 5 0 0110 0" />
+            </svg>
+        </button>
+        <div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="Accessibility settings">
+            <div class="a11y-panel-header">
+                <div>
+                    <p class="a11y-panel-title">Accessibility</p>
+                    <p class="a11y-panel-subtitle">Adjust your experience</p>
+                </div>
+                <button class="a11y-reset-btn" id="a11yResetBtn">Reset</button>
+            </div>
+            <div class="a11y-panel-body">
+                <div class="a11y-row">
+                    <span class="a11y-row-label">Text Size</span>
+                    <div class="a11y-btn-group" id="a11yFontSizeGroup">
+                        <button class="a11y-choice-btn a11y-size-btn" data-size="normal" style="font-size:11px;" aria-label="Normal text size">A</button>
+                        <button class="a11y-choice-btn a11y-size-btn" data-size="large" style="font-size:13px;" aria-label="Large text size">A</button>
+                        <button class="a11y-choice-btn a11y-size-btn" data-size="xlarge" style="font-size:15px;" aria-label="Extra large text size">A</button>
+                    </div>
+                </div>
+                <div class="a11y-row">
+                    <span class="a11y-row-label">Contrast</span>
+                    <div class="a11y-btn-group" id="a11yContrastGroup">
+                        <button class="a11y-choice-btn" data-contrast="normal">Normal</button>
+                        <button class="a11y-choice-btn" data-contrast="high">High</button>
+                    </div>
+                </div>
+                <div class="a11y-row">
+                    <span class="a11y-row-label">Reduce Motion</span>
+                    <button class="a11y-switch" id="a11yReducedMotionBtn" role="switch" aria-checked="false"><span class="a11y-switch-knob"></span></button>
+                </div>
+                <div class="a11y-row">
+                    <span class="a11y-row-label">Easy-read Font</span>
+                    <button class="a11y-switch" id="a11yDyslexiaBtn" role="switch" aria-checked="false"><span class="a11y-switch-knob"></span></button>
+                </div>
+                <div class="a11y-row">
+                    <span class="a11y-row-label">Read Page Aloud</span>
+                    <div class="a11y-tts-buttons">
+                        <button class="a11y-tts-btn" id="a11yListenBtn">Listen</button>
+                        <button class="a11y-tts-btn" id="a11yStopBtn" disabled>Stop</button>
+                    </div>
+                </div>
+                <div class="a11y-panel-footer">Settings are saved automatically</div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div>
             <h1>Presentations</h1>
@@ -727,7 +1049,187 @@
             });
         }
 
+        // Accessibility
+        const A11Y_DEFAULTS = { fontSize: 'normal', contrast: 'normal', reducedMotion: false, dyslexiaFont: false };
+        let a11yPrefs = { ...A11Y_DEFAULTS };
+        const tts = {
+            synth: ('speechSynthesis' in window) ? window.speechSynthesis : null,
+            elements: [],
+            index: 0,
+            active: false,
+            paused: false
+        };
+
+        function loadA11yPrefs() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('a11y-prefs') || 'null');
+                if (saved) a11yPrefs = { ...A11Y_DEFAULTS, ...saved };
+            } catch (e) {}
+        }
+
+        function saveA11yPrefs() {
+            try { localStorage.setItem('a11y-prefs', JSON.stringify(a11yPrefs)); } catch (e) {}
+        }
+
+        function setSwitch(id, on) {
+            const btn = document.getElementById(id);
+            if (!btn) return;
+            btn.classList.toggle('on', on);
+            btn.setAttribute('aria-checked', on ? 'true' : 'false');
+        }
+
+        function applyA11yPrefs() {
+            const root = document.documentElement;
+            root.style.zoom = a11yPrefs.fontSize === 'xlarge' ? '1.3' : a11yPrefs.fontSize === 'large' ? '1.15' : '';
+
+            if (a11yPrefs.contrast === 'high') root.setAttribute('data-contrast', 'high');
+            else root.removeAttribute('data-contrast');
+
+            if (a11yPrefs.reducedMotion) root.setAttribute('data-reduced-motion', 'true');
+            else root.removeAttribute('data-reduced-motion');
+
+            if (a11yPrefs.dyslexiaFont) root.setAttribute('data-dyslexia-font', 'true');
+            else root.removeAttribute('data-dyslexia-font');
+
+            saveA11yPrefs();
+
+            document.querySelectorAll('#a11yFontSizeGroup .a11y-choice-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.size === a11yPrefs.fontSize);
+            });
+            document.querySelectorAll('#a11yContrastGroup .a11y-choice-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.contrast === a11yPrefs.contrast);
+            });
+            setSwitch('a11yReducedMotionBtn', a11yPrefs.reducedMotion);
+            setSwitch('a11yDyslexiaBtn', a11yPrefs.dyslexiaFont);
+        }
+
+        function getReadableElements(container) {
+            const selector = 'h1, h2, h3, h4, p, li, div, span';
+            const nodes = Array.from(container.querySelectorAll(selector));
+            return nodes.filter((el) => {
+                const text = (el.textContent || '').trim();
+                if (text.length < 2) return false;
+                if (el.querySelector(selector)) return false;
+                return true;
+            });
+        }
+
+        function clearReadingHighlight() {
+            tts.elements.forEach(el => el.classList.remove('a11y-reading'));
+        }
+
+        function updateTtsButtons() {
+            const listenBtn = document.getElementById('a11yListenBtn');
+            const stopBtn = document.getElementById('a11yStopBtn');
+            if (!listenBtn || !stopBtn) return;
+            listenBtn.textContent = tts.paused ? 'Resume' : tts.active ? 'Pause' : 'Listen';
+            listenBtn.classList.toggle('active', tts.active && !tts.paused);
+            listenBtn.disabled = !tts.synth;
+            stopBtn.disabled = !tts.active;
+        }
+
+        function stopSpeech() {
+            tts.active = false;
+            tts.paused = false;
+            clearReadingHighlight();
+            if (tts.synth) tts.synth.cancel();
+            updateTtsButtons();
+        }
+
+        function speakFrom(idx) {
+            if (!tts.synth) return;
+            if (idx >= tts.elements.length) { stopSpeech(); return; }
+
+            tts.index = idx;
+            tts.active = true;
+            clearReadingHighlight();
+
+            const el = tts.elements[idx];
+            const text = (el.textContent || '').trim();
+            if (!text) { speakFrom(idx + 1); return; }
+
+            el.classList.add('a11y-reading');
+            el.scrollIntoView({ block: 'center', behavior: a11yPrefs.reducedMotion ? 'auto' : 'smooth' });
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.95;
+            const voices = tts.synth.getVoices();
+            const englishVoice = voices.find(v => v.lang && v.lang.startsWith('en'));
+            if (englishVoice) utterance.voice = englishVoice;
+            utterance.onend = () => { if (tts.active) speakFrom(idx + 1); };
+            tts.synth.speak(utterance);
+            updateTtsButtons();
+        }
+
+        function toggleListen() {
+            if (!tts.synth) return;
+            if (!tts.active) {
+                const main = document.getElementById('presentationsGrid');
+                if (!main) return;
+                tts.elements = getReadableElements(main);
+                if (tts.elements.length === 0) return;
+                speakFrom(0);
+            } else if (tts.synth.paused) {
+                tts.synth.resume();
+                tts.paused = false;
+                updateTtsButtons();
+            } else {
+                tts.synth.pause();
+                tts.paused = true;
+                updateTtsButtons();
+            }
+        }
+
+        function initAccessibility() {
+            loadA11yPrefs();
+
+            const btn = document.getElementById('a11yToggleBtn');
+            const panel = document.getElementById('a11yPanel');
+            const widget = document.querySelector('.a11y-widget');
+
+            applyA11yPrefs();
+            updateTtsButtons();
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = panel.classList.toggle('open');
+                btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!widget.contains(e.target)) panel.classList.remove('open');
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') panel.classList.remove('open');
+            });
+
+            document.querySelectorAll('#a11yFontSizeGroup .a11y-choice-btn').forEach(b => {
+                b.addEventListener('click', () => { a11yPrefs.fontSize = b.dataset.size; applyA11yPrefs(); });
+            });
+            document.querySelectorAll('#a11yContrastGroup .a11y-choice-btn').forEach(b => {
+                b.addEventListener('click', () => { a11yPrefs.contrast = b.dataset.contrast; applyA11yPrefs(); });
+            });
+            document.getElementById('a11yReducedMotionBtn').addEventListener('click', () => {
+                a11yPrefs.reducedMotion = !a11yPrefs.reducedMotion;
+                applyA11yPrefs();
+            });
+            document.getElementById('a11yDyslexiaBtn').addEventListener('click', () => {
+                a11yPrefs.dyslexiaFont = !a11yPrefs.dyslexiaFont;
+                applyA11yPrefs();
+            });
+            document.getElementById('a11yResetBtn').addEventListener('click', () => {
+                a11yPrefs = { ...A11Y_DEFAULTS };
+                applyA11yPrefs();
+                stopSpeech();
+            });
+            document.getElementById('a11yListenBtn').addEventListener('click', toggleListen);
+            document.getElementById('a11yStopBtn').addEventListener('click', stopSpeech);
+        }
+
         initTheme();
+        initAccessibility();
         loadPresentations();
     </script>
 </body>

@@ -1484,5 +1484,302 @@
         "meta": "KEY ROLES OF ADMINISTRATIVE OFFICERS<br>RA's & Lydias 2nd Jamboree"
       }
     ]
-  }
-]
+  },
+  {
+    "id": "excellence-biblical-pathway",
+      "title": "Excellence: The Biblical Pathway to Success",
+      "description": "A presentation on biblical excellence as the pathway to success, purpose, and impact",
+      "tags": ["EXCELLENCE", "SUCCESS", "PURPOSE", "IMPACT", "LEADERSHIP"],
+      "slides": [
+        {
+          "type": "edu-cover",
+          "title": "EXCELLENCE",
+          "subtitle": "The Biblical Pathway to Success, Purpose and Impact",
+          "facilitator": "Daniel 6:3",
+          "facilitatorRole": "Then this Daniel was preferred above the presidents and princes, because an excellent spirit was in him.",
+          "targetAudience": "All",
+          "meta": "EXCELLENCE<br>The Biblical Pathway to Success"
+        },
+        {
+          "type": "edu-intro",
+          "eyebrow": "Introduction",
+          "title": "What Is Excellence?",
+          "points": [
+            "When we hear success, we think of money, education, career, business, position, recognition, influence",
+            "A person can have money and lack integrity",
+            "A person can have a degree and lack wisdom",
+            "A person can have talent but lack discipline",
+            "A person can become influential but use that influence negatively",
+            "Excellence is consistently giving your best, doing things with integrity, and continually improving what God has entrusted to you",
+            "Excellence is not perfection — it's giving your best, learning from mistakes, and becoming better",
+            "Daniel had competence, character, ability, integrity, position, and faithfulness to God"
+          ]
+        },
+        {
+          "type": "edu-role-section",
+          "eyebrow": "Excellence Starts With Purpose",
+          "title": "What Has God Entrusted to You?",
+          "sections": [
+            {
+              "title": "Stewardship",
+              "points": [
+                "God has given each person abilities, opportunities, time, knowledge and resources",
+                "The question is: What are you doing with what you have?",
+                "Your excellence should ultimately point beyond yourself"
+              ]
+            },
+            {
+              "title": "In Every Role",
+              "points": [
+                "If you are a student, pursue excellence in your studies",
+                "If you are a professional, pursue excellence in your work",
+                "If you are a developer, build things that solve real problems",
+                "If you are a leader, develop people",
+                "If you are a businessperson, create genuine value",
+                "If you have knowledge, use it to help others"
+              ]
+            },
+            {
+              "title": "The Parable of the Talents",
+              "points": [
+                "Each servant was responsible for what had been entrusted to them",
+                "God is not asking you to become somebody else",
+                "He is asking: What did you do with what I gave you?"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "edu-role-section",
+          "eyebrow": "Excellence Through Discipline",
+          "title": "Discipline Is the Bridge Between Potential and Achievement",
+          "sections": [
+            {
+              "title": "Talent vs Discipline",
+              "points": [
+                "Talent is important, but talent without discipline produces very little",
+                "There are naturally gifted people who never develop their gifts",
+                "There are intelligent people who never study",
+                "There are talented people who never practice",
+                "There are people with great ideas who never execute them",
+                "Potential is not achievement"
+              ]
+            },
+            {
+              "title": "The Process",
+              "points": [
+                "2 Timothy 2:15 tells us to study and present ourselves approved",
+                "There is effort, preparation, development, and consistency",
+                "Practice creates competence",
+                "Discipline creates consistency",
+                "Consistency produces results"
+              ]
+            },
+            {
+              "title": "Remember This",
+              "points": [
+                "You cannot pray for excellence while refusing to develop yourself",
+                "You cannot ask God for an opportunity while refusing to prepare for it",
+                "Your future opportunity may be hidden inside today's discipline"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "edu-role-section",
+          "eyebrow": "Character + Competence",
+          "title": "Excellence Is Being Good and Trustworthy",
+          "sections": [
+            {
+              "title": "Daniel's Example",
+              "points": [
+                "Daniel's colleagues tried to find something they could use against him",
+                "Daniel 6:4 says they could find no fault in him because he was faithful",
+                "Someone should be able to say about you: This person can be trusted",
+                "True excellence combines competence and character"
+              ]
+            },
+            {
+              "title": "Character Means",
+              "points": [
+                "Integrity — doing the right thing even when nobody is watching",
+                "Reliability — keeping your word",
+                "Humility — recognizing that your abilities do not make you superior to others",
+                "Responsibility — taking ownership of your actions",
+                "Honesty — refusing to build success through deception"
+              ]
+            },
+            {
+              "title": "Why Character Matters",
+              "points": [
+                "Competence may get you an opportunity, but character determines what you do with that opportunity",
+                "A person may become successful through skill",
+                "But maintaining meaningful success requires character",
+                "Biblical excellence is different from merely becoming successful by society's standards"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "edu-role-section",
+          "eyebrow": "Continuous Learning",
+          "title": "Excellence Requires Continuous Learning",
+          "sections": [
+            {
+              "title": "The World Is Changing",
+              "points": [
+                "Technology is changing",
+                "Artificial intelligence is changing how people work",
+                "Industries are changing",
+                "New skills are becoming valuable",
+                "Old skills are becoming less relevant"
+              ]
+            },
+            {
+              "title": "Ask Yourself",
+              "points": [
+                "What new skill am I developing?",
+                "What am I learning?",
+                "What weakness am I correcting?",
+                "What mistakes have taught me something?",
+                "Am I better today than I was a year ago?"
+              ]
+            },
+            {
+              "title": "Excellence Is a Journey",
+              "points": [
+                "You do not become excellent once and stop",
+                "You continuously improve",
+                "The goal is not: I know everything",
+                "The goal is: I am willing to keep learning"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "edu-intro",
+          "eyebrow": "Avoid Comparison",
+          "title": "Do Not Confuse Excellence With Comparison",
+          "points": [
+            "Another enemy of excellence is comparison",
+            "Social media constantly shows us other people's achievements",
+            "Someone is graduating, getting a job, building a business, travelling, becoming popular",
+            "Suddenly you begin to feel that you are behind",
+            "But you don't know the full story of another person's life",
+            "Your assignment is not to become someone else",
+            "Your assignment is to maximize what God has given you",
+            "Instead of asking: Am I better than them? Ask: Am I becoming better than I was?",
+            "Healthy excellence is measured by growth, not comparison"
+          ]
+        },
+        {
+          "type": "edu-intro",
+          "eyebrow": "Patience and Faith",
+          "title": "Excellence Requires Patience and Faith",
+          "points": [
+            "Sometimes you will do excellent work and nobody will notice",
+            "You will study and still struggle to find an opportunity",
+            "You will build something and nobody will immediately use it",
+            "You will serve faithfully without receiving recognition",
+            "You may even experience rejection",
+            "Do not conclude that your effort is worthless simply because the results are delayed",
+            "Galatians 6:9 says: Let us not be weary in well doing: for in due season we shall reap, if we faint not",
+            "There is a due season",
+            "Our generation often wants instant results, but meaningful success usually takes time",
+            "Keep learning, building, serving, improving, and trusting God",
+            "Do not abandon a good process because the results are taking time"
+          ]
+        },
+        {
+          "type": "edu-role-section",
+          "eyebrow": "Producing Impact",
+          "title": "Excellence Must Produce Impact",
+          "sections": [
+            {
+              "title": "Excellence Should Be About Becoming Useful",
+              "points": [
+                "Your knowledge should solve problems",
+                "Your career should create value",
+                "Your leadership should develop people",
+                "Your success should create opportunities for others",
+                "Your technology should improve lives",
+                "Your influence should benefit people"
+              ]
+            },
+            {
+              "title": "Matthew 5:16",
+              "points": [
+                "Let your light so shine before men...",
+                "Your light is not meant to be hidden",
+                "Ask yourself: Who benefits from my excellence?",
+                "If the answer is only you, you may need to rethink your definition of success"
+              ]
+            },
+            {
+              "title": "The Highest Form of Success",
+              "points": [
+                "It is not simply: I made it",
+                "It is: I became useful, and my life helped others"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "edu-role-section",
+          "eyebrow": "The Excellence Challenge",
+          "title": "Five Things to Remember",
+          "sections": [
+            {
+              "title": "1. Know God",
+              "points": [
+                "Your definition of success must include your relationship with God"
+              ]
+            },
+            {
+              "title": "2. Know Your Purpose",
+              "points": [
+                "Understand what you have been entrusted with"
+              ]
+            },
+            {
+              "title": "3. Develop Yourself",
+              "points": [
+                "Build your skills through learning, practice and discipline"
+              ]
+            },
+            {
+              "title": "4. Build Your Character",
+              "points": [
+                "Be competent, but also be trustworthy"
+              ]
+            },
+            {
+              "title": "5. Create Impact",
+              "points": [
+                "Use your abilities to serve and improve the lives of others"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "edu-closing",
+          "title": "Pursue Excellence",
+          "lines": [
+            "Before you leave today, identify one area of your life where you have been below your potential",
+            "Don't try to change everything at once. Choose one area and make a decision: I will pursue excellence here",
+            "Not perfection. Excellence. Start small. Be consistent. Learn. Correct your mistakes. Stay humble. Trust God. Keep improving",
+            "Excellence is not an event. It is a lifestyle",
+            "Excellence is not simply about being impressive. It is about being useful, trustworthy and impactful",
+            "Excellence is not about competing with everybody else. It is about faithfully stewarding what God has given you",
+            "1 Corinthians 10:31: Whether therefore ye eat, or drink, or whatsoever ye do, do all to the glory of God",
+            "Do it well. Do it with integrity. Do it with discipline. Keep learning. Serve others. Trust God. Pursue excellence",
+            "Excellence is not merely a pathway to success. It is a way of honoring the God who gave you the ability to succeed"
+          ],
+          "thanks": "PURSUE EXCELLENCE",
+          "facilitator": "Biblical Excellence",
+          "facilitatorRole": "Daniel 6:3 • Colossians 3:23 • Proverbs 22:29",
+          "meta": "EXCELLENCE<br>The Biblical Pathway to Success"
+        }
+      ]
+    }
+  ]
