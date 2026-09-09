@@ -1533,7 +1533,7 @@
               "points": [
                 "If you are a student, pursue excellence in your studies",
                 "If you are a professional, pursue excellence in your work",
-                "If you are a developer, build things that solve real problems",
+                "If you are skilled in any way, build things that solve real problems",
                 "If you are a leader, develop people",
                 "If you are a businessperson, create genuine value",
                 "If you have knowledge, use it to help others"
@@ -1628,8 +1628,6 @@
             {
               "title": "The World Is Changing",
               "points": [
-                "Technology is changing",
-                "Artificial intelligence is changing how people work",
                 "Industries are changing",
                 "New skills are becoming valuable",
                 "Old skills are becoming less relevant"
