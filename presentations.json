@@ -1874,67 +1874,6 @@
         ]
       },
       {
-        "type": "soroban-content",
-        "title": "Core idea 4 — Authorization",
-        "blocks": [
-          { "type": "paragraph", "text": "Soroban has a built-in authorization system. Instead of manually checking msg.sender like in Solidity, you declare which addresses must authorize a function call." },
-          {
-            "type": "bullets",
-            "items": [
-              { "label": "How it works", "text": "Call address.require_auth() in your function. The Stellar host checks that the transaction includes a valid signature from that address." },
-              { "label": "Universal auth", "text": "Works identically for classic Stellar accounts (ed25519 keys) and contract accounts (smart contracts can authorize actions too)." },
-              { "label": "Scoped permissions", "text": "require_auth() can be scoped to specific functions and arguments. Users approve exactly what they're signing, not blanket permissions." },
-              { "label": "Security benefits", "text": "No hand-rolled auth logic means fewer bugs. The host handles signature verification, replay protection, and nonce management." },
-              { "label": "Example", "text": "fn transfer(env: Env, from: Address, to: Address, amount: u64) { from.require_auth(); ... } — only 'from' can authorize this transfer." }
-            ]
-          },
-          { "type": "callout", "variant": "info", "text": "This is similar to Ethereum's msg.sender pattern but more explicit and type-safe. The host enforces it, not your contract code." }
-        ]
-      },
-      {
-        "type": "soroban-content",
-        "title": "Core idea 5 — Native assets in contracts",
-        "blocks": [
-          { "type": "paragraph", "text": "Stellar has a native asset system (XLM and custom tokens). Soroban doesn't create new tokens — it lets smart contracts interact with existing Stellar assets through the Stellar Asset Contract (SAC)." },
-          {
-            "type": "bullets",
-            "items": [
-              { "label": "What is the SAC?", "text": "A built-in smart contract that wraps any Stellar asset (XLM, USDC, custom tokens). It's deployed once per asset and provides a standard token interface." },
-              { "label": "SEP-41 interface", "text": "The SAC implements SEP-41, Stellar's equivalent to ERC-20. Methods like approve, allowance, transfer, transfer_from, balance, mint, burn." },
-              { "label": "No bridges needed", "text": "Your contract moves real Stellar assets, not wrapped versions. If you send USDC in a Soroban contract, it's actual USDC on Stellar, not a bridged copy." },
-              { "label": "Issuer rules still apply", "text": "Trustlines, authorization flags, and issuer controls from classic Stellar still work. The SAC enforces these rules at the contract level." },
-              { "label": "Example usage", "text": "let token = Address::from_contract_id(&sac_id); token_client::allowance(&env, &token, &owner, &spender) checks an allowance." }
-            ]
-          },
-          { "type": "callout", "variant": "info", "text": "This means Soroban DeFi can use the same assets that exist in Stellar's payment ecosystem — unified liquidity, no fragmentation." }
-        ]
-      },
-      {
-        "type": "soroban-content",
-        "title": "Core idea 6 — Resource-based fees",
-        "blocks": [
-          { "type": "paragraph", "text": "Soroban fees are based on actual resource usage (CPU, memory, I/O), not gas. You simulate first, declare resources, then pay exactly what you declared. No gas auctions, no surprise fees." },
-          {
-            "type": "steps",
-            "items": [
-              { "title": "Step 1: Simulate", "text": "Call RPC simulateTransaction with your transaction. The host runs it without committing and measures: CPU instructions, memory bytes, storage reads/writes, and ledger footprint." },
-              { "title": "Step 2: Declare", "text": "Include the measured resources in your transaction (cpu_instructions, memory_bytes, etc.). This is your resource budget." },
-              { "title": "Step 3: Pay", "text": "Submit the transaction. You pay fees based on your declared resources, regardless of actual usage (up to the limit). Costs are predictable and bounded." }
-            ]
-          },
-          {
-            "type": "bullets",
-            "items": [
-              { "label": "Why this model?", "text": "Ethereum's gas system has unpredictable fees during congestion. Soroban's resource model gives deterministic pricing — you know the cost before submitting." },
-              { "label": "Resource types", "text": "CPU (computation), Memory (RAM), Storage I/O (reads/writes), Ledger footprint (new entries). Each has a base fee per unit." },
-              { "label": "No gas auctions", "text": "Fees don't spike based on network demand. If you declare enough resources, your transaction will include at the known fee." },
-              { "label": "Client responsibility", "text": "Your frontend or SDK must simulate before submitting. The stellar-cli and JS SDK handle this automatically." }
-            ]
-          },
-          { "type": "callout", "variant": "warning", "text": "If you declare too few resources, the transaction fails. If you declare too many, you overpay but the transaction succeeds. Best practice: use simulation results directly." }
-        ]
-      },
-      {
         "type": "soroban-code",
         "title": "A minimal contract",
         "blocks": [
