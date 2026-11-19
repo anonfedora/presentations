@@ -1779,5 +1779,262 @@
           "meta": "EXCELLENCE<br>The Biblical Pathway to Success"
         }
       ]
-    }
+    },
+  {
+    "id": "soroban-intro",
+    "title": "Introduction to Soroban",
+    "description": "Smart contracts on the Stellar network — Rust and WASM, storage tiers, authorization, fees, a first contract and where to go next.",
+    "tags": ["DEVELOPER", "SMART CONTRACTS", "STELLAR"],
+    "slides": [
+      {
+        "type": "soroban-title",
+        "title": "Introduction to Soroban",
+        "subtitle": "Smart contracts on the Stellar network",
+        "meta": "SOROBAN<br>INTRODUCTION",
+        "blocks": [
+          { "type": "paragraph", "text": "Rust · WebAssembly · Stellar" }
+        ]
+      },
+      {
+        "type": "soroban-content",
+        "title": "What is Soroban?",
+        "blocks": [
+          {
+            "type": "bullets",
+            "items": [
+              { "label": "Stellar's smart contract platform", "text": "built into the core protocol, not a sidechain." },
+              { "label": "Live on mainnet", "text": "since February 20, 2024 (Protocol 20); opened to public dApp deployment in March 2024." },
+              { "label": "Rust → WASM", "text": "contracts are written in Rust, compiled to WebAssembly and executed by Stellar Core." },
+              { "label": "Beyond payments", "text": "extends a payments-first network to DeFi and other financial services." }
+            ]
+          },
+          { "type": "callout", "variant": "info", "text": "Not EVM-compatible: it is a separate design, so Solidity habits do not carry over directly." }
+        ]
+      },
+      {
+        "type": "soroban-content",
+        "title": "Core idea 1 — Rust → WASM",
+        "blocks": [
+          {
+            "type": "bullets",
+            "items": [
+              { "text": "Write contracts with the soroban-sdk crate." },
+              { "text": "Compile to a small WASM binary with: stellar contract build" },
+              { "text": "Target is wasm32v1-none; do not build contracts with plain cargo build." },
+              { "text": "The SDK tracks protocol versions (e.g. SDK v28 shipped alongside Protocol 28)." }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-content",
+        "title": "Core idea 2 — The Env",
+        "blocks": [
+          { "type": "paragraph", "text": "Every contract function receives an Env handle — your gateway to the host." },
+          {
+            "type": "bullets",
+            "items": [
+              { "text": "Storage, events, auth, crypto and ledger info all go through Env." },
+              { "text": "Contracts are #![no_std]." },
+              { "text": "Use SDK types: Symbol, Vec, Map, Address, String, Bytes." }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-table",
+        "title": "Core idea 3 — Storage tiers & state archival",
+        "blocks": [
+          {
+            "type": "table",
+            "columns": ["Tier", "Use it for", "When the TTL runs out"],
+            "rows": [
+              ["Instance", "Small contract config (admin, token name)", "Archived together with the contract instance"],
+              ["Persistent", "Data that must not be lost (balances)", "Archived — must be restored before use"],
+              ["Temporary", "Cheap, short-lived data (nonces, allowances)", "Deleted permanently"]
+            ]
+          },
+          { "type": "callout", "variant": "warning", "text": "State has rent: extend TTLs with extend_ttl(). Living forever is not free." }
+        ]
+      },
+      {
+        "type": "soroban-content",
+        "title": "Core idea 4 — Authorization",
+        "blocks": [
+          {
+            "type": "bullets",
+            "items": [
+              { "text": "Call address.require_auth() — the host verifies the signature." },
+              { "text": "Works for classic Stellar accounts and contract accounts alike." },
+              { "text": "Contracts request specific, limited permissions instead of blanket approvals." },
+              { "text": "No hand-rolled msg.sender checks." }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-content",
+        "title": "Core idea 5 — Native assets in contracts",
+        "blocks": [
+          {
+            "type": "bullets",
+            "items": [
+              { "text": "Every classic Stellar asset (XLM, USDC, …) can be wrapped by the built-in Stellar Asset Contract (SAC)." },
+              { "text": "The SAC implements the SEP-41 token interface (similar to ERC-20)." },
+              { "text": "Contracts move real issued assets — no bridges, no wrapped tokens." },
+              { "text": "Issuer controls and trustline rules still apply." }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-content",
+        "title": "Core idea 6 — Resource-based fees",
+        "blocks": [
+          {
+            "type": "steps",
+            "items": [
+              { "title": "Simulate", "text": "RPC simulateTransaction estimates CPU, memory, reads/writes and ledger footprint." },
+              { "title": "Declare", "text": "The transaction declares exactly those resources." },
+              { "title": "Pay", "text": "Fees are charged for the declared resources — predictable costs." }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-code",
+        "title": "A minimal contract",
+        "blocks": [
+          {
+            "type": "code",
+            "language": "rust",
+            "filename": "src/lib.rs",
+            "highlight": [12, 13, 15, 16],
+            "content": "#![no_std]\nuse soroban_sdk::{contract, contractimpl, symbol_short, Address, Env, Symbol};\n\nconst COUNTER: Symbol = symbol_short!(\"COUNTER\");\n\n#[contract]\npub struct CounterContract;\n\n#[contractimpl]\nimpl CounterContract {\n    pub fn increment(env: Env, caller: Address) -> u32 {\n        caller.require_auth();\n        let mut count: u32 = env.storage().instance().get(&COUNTER).unwrap_or(0);\n        count += 1;\n        env.storage().instance().set(&COUNTER, &count);\n        env.storage().instance().extend_ttl(100, 1000);\n        count\n    }\n}"
+          }
+        ]
+      },
+      {
+        "type": "soroban-code",
+        "title": "Workflow with the Stellar CLI",
+        "blocks": [
+          {
+            "type": "code",
+            "language": "bash",
+            "filename": "terminal",
+            "highlight": [],
+            "content": "# 1. Scaffold a workspace\nstellar contract init my-project\n\n# 2. Compile to .wasm\nstellar contract build\n\n# 3. Create and fund a testnet identity\nstellar keys generate alice --network testnet --fund\n\n# 4. Deploy\nstellar contract deploy \\\n  --wasm target/wasm32v1-none/release/counter.wasm \\\n  --source alice --network testnet\n\n# 5. Invoke\nstellar contract invoke --id <CONTRACT_ID> \\\n  --source alice --network testnet \\\n  -- increment --caller alice"
+          }
+        ]
+      },
+      {
+        "type": "soroban-content",
+        "title": "Testing & client integration",
+        "blocks": [
+          {
+            "type": "bullets",
+            "items": [
+              { "label": "Unit tests", "text": "cargo test runs natively against a mocked Env." },
+              { "label": "Auth in tests", "text": "env.mock_all_auths() makes auth paths easy to exercise." },
+              { "label": "TypeScript", "text": "stellar contract bindings typescript generates a typed client from the contract spec." },
+              { "label": "Network access", "text": "talk to the chain through Stellar RPC." }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-links",
+        "title": "Resources — Start here",
+        "blocks": [
+          {
+            "type": "links",
+            "items": [
+              { "label": "Smart contracts overview", "url": "https://developers.stellar.org/docs/build/smart-contracts", "note": "Main hub: SDK, host environment, FAQs" },
+              { "label": "Getting Started", "url": "https://developers.stellar.org/docs/build/smart-contracts/getting-started", "note": "Official step-by-step track" },
+              { "label": "Setup", "url": "https://developers.stellar.org/docs/build/smart-contracts/getting-started/setup", "note": "Install Rust and the Stellar CLI" },
+              { "label": "1. Hello World", "url": "https://developers.stellar.org/docs/build/smart-contracts/getting-started/hello-world", "note": "" },
+              { "label": "2. Deploy to Testnet", "url": "https://developers.stellar.org/docs/build/smart-contracts/getting-started/deploy-to-testnet", "note": "" },
+              { "label": "Scaffold Stellar", "url": "https://developers.stellar.org/docs/tools/scaffold-stellar", "note": "Fastest path to a full-stack dApp" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-links",
+        "title": "Resources — SDK & tooling",
+        "blocks": [
+          {
+            "type": "links",
+            "items": [
+              { "label": "soroban-sdk (docs.rs)", "url": "https://docs.rs/soroban-sdk", "note": "API reference" },
+              { "label": "stellar/rs-soroban-sdk", "url": "https://github.com/stellar/rs-soroban-sdk", "note": "SDK source" },
+              { "label": "stellar/stellar-cli", "url": "https://github.com/stellar/stellar-cli", "note": "brew install stellar-cli" },
+              { "label": "stellar/stellar-rpc", "url": "https://github.com/stellar/stellar-rpc", "note": "RPC server" },
+              { "label": "RPC docs", "url": "https://developers.stellar.org/docs/data/apis/rpc", "note": "" },
+              { "label": "Stellar Lab", "url": "https://lab.stellar.org", "note": "Build, simulate, submit transactions" },
+              { "label": "Stellar Expert", "url": "https://stellar.expert", "note": "Block explorer" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-links",
+        "title": "Resources — Example contracts",
+        "blocks": [
+          {
+            "type": "links",
+            "items": [
+              { "label": "Example contracts (docs)", "url": "https://developers.stellar.org/docs/build/smart-contracts/example-contracts", "note": "" },
+              { "label": "stellar/soroban-examples", "url": "https://github.com/stellar/soroban-examples", "note": "Token, atomic swap, auth, timelock…" },
+              { "label": "OpenZeppelin Stellar Contracts", "url": "https://docs.openzeppelin.com/stellar-contracts", "note": "Audited building blocks" },
+              { "label": "OpenZeppelin on Stellar docs", "url": "https://developers.stellar.org/docs/tools/openzeppelin-contracts", "note": "" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-links",
+        "title": "Resources — Storage & tokens",
+        "blocks": [
+          {
+            "type": "links",
+            "items": [
+              { "label": "State archival: concepts", "url": "https://developers.stellar.org/docs/learn/fundamentals/contract-development/storage/state-archival", "note": "" },
+              { "label": "State archival how-tos", "url": "https://developers.stellar.org/docs/build/guides/archival", "note": "" },
+              { "label": "State archival in dApps", "url": "https://developers.stellar.org/docs/build/guides/dapps/state-archival", "note": "Client-side restore" },
+              { "label": "Stellar Asset Contract", "url": "https://developers.stellar.org/docs/tokens/stellar-asset-contract", "note": "" },
+              { "label": "SAC how-to guide", "url": "https://developers.stellar.org/docs/build/guides/tokens/stellar-asset-contract", "note": "" },
+              { "label": "Token interface", "url": "https://developers.stellar.org/docs/tokens/token-interface", "note": "" },
+              { "label": "SEP-41 spec", "url": "https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0041.md", "note": "" },
+              { "label": "Anatomy of an asset", "url": "https://developers.stellar.org/docs/tokens/anatomy-of-an-asset", "note": "Asset models compared" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-links",
+        "title": "Resources — Community & funding",
+        "blocks": [
+          {
+            "type": "links",
+            "items": [
+              { "label": "Stellar Developer Discord", "url": "https://discord.gg/stellardev", "note": "" },
+              { "label": "Stellar Community Fund", "url": "https://communityfund.stellar.org", "note": "Grants for builders" },
+              { "label": "Docs index (llms.txt)", "url": "https://developers.stellar.org/llms.txt", "note": "Every docs page in one list" },
+              { "label": "Build hub", "url": "https://developers.stellar.org/docs/build", "note": "Includes payment apps without contracts (Wallet SDK, JS SDK)" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "soroban-title",
+        "title": "Thank you",
+        "subtitle": "Questions?",
+        "meta": "SOROBAN<br>INTRODUCTION",
+        "blocks": [
+          { "type": "paragraph", "text": "Start building: developers.stellar.org/docs/build/smart-contracts" }
+        ]
+      }
+    ]
+  }
   ]

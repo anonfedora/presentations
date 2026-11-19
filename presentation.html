@@ -3204,6 +3204,286 @@
                 display: none !important;
             }
         }
+
+        /* ===== SOROBAN DECK BLOCKS ===== */
+        .soroban-para {
+            font-size: 20px;
+            line-height: 1.6;
+            color: var(--grey-5);
+            max-width: 760px;
+            margin-bottom: 18px;
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-para {
+            color: var(--grey-2);
+        }
+
+        .slide:has(.soroban-title-wrap) {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .soroban-title-wrap .soroban-para {
+            margin: 0 auto 18px;
+        }
+
+        .soroban-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 10px;
+        }
+
+        @media (max-width:900px) {
+            .soroban-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .soroban-step {
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-step {
+            border-color: var(--line-dark);
+        }
+
+        .soroban-step-num {
+            font-family: var(--font-display);
+            font-weight: var(--display-weight);
+            font-size: 28px;
+            color: var(--grey-4);
+            margin-bottom: 10px;
+        }
+
+        .soroban-step-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .soroban-step-text {
+            font-size: 15px;
+            line-height: 1.55;
+            color: var(--grey-4);
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-step-text {
+            color: var(--grey-3);
+        }
+
+        .soroban-callout {
+            margin-top: 20px;
+            padding: 16px 20px;
+            border-left: 4px solid var(--white);
+            background: color-mix(in srgb, var(--white) 6%, transparent);
+            border-radius: 0 10px 10px 0;
+            font-size: 17px;
+            line-height: 1.5;
+            max-width: 820px;
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-callout {
+            border-left-color: var(--black);
+            background: color-mix(in srgb, var(--black) 4%, transparent);
+        }
+
+        .soroban-callout.warning {
+            border-left-color: #d8a33d;
+        }
+
+        .soroban-table-wrap {
+            margin-top: 16px;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .soroban-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .soroban-table th {
+            text-align: left;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--grey-4);
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--line);
+            white-space: nowrap;
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-table th {
+            color: var(--grey-3);
+            border-color: var(--line-dark);
+        }
+
+        .soroban-table td {
+            padding: 14px 16px;
+            font-size: 16px;
+            line-height: 1.5;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-table td {
+            border-color: var(--line-dark);
+        }
+
+        .soroban-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .slide:has(.soroban-code-block) {
+            padding-bottom: 60px;
+        }
+
+        .soroban-code-block {
+            margin-top: 16px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            overflow: hidden;
+            background: color-mix(in srgb, var(--black) 88%, var(--white) 12%);
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-code-block {
+            background: color-mix(in srgb, var(--white) 88%, var(--black) 12%);
+        }
+
+        .soroban-code-filename {
+            padding: 10px 18px;
+            font-size: 13px;
+            color: var(--grey-4);
+            border-bottom: 1px solid var(--line);
+            font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-code-filename {
+            border-color: var(--line-dark);
+        }
+
+        .soroban-code-body {
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+            font-size: 15px;
+            line-height: 1.45;
+            padding: 10px 0;
+        }
+
+        .soroban-code-row {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            white-space: pre;
+            padding: 0 20px;
+        }
+
+        .soroban-code-row.hl {
+            background: color-mix(in srgb, var(--white) 14%, transparent);
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-code-row.hl {
+            background: color-mix(in srgb, var(--black) 10%, transparent);
+        }
+
+        .soroban-code-num {
+            text-align: right;
+            padding-right: 14px;
+            color: var(--grey-4);
+            user-select: none;
+        }
+
+        /* Syntax token colors: each mixes a hue into var(--white), the slide's own
+           ink color, so contrast against the code block's background tracks the
+           active theme instead of being pinned to one palette. */
+        .tok-keyword {
+            color: color-mix(in srgb, var(--white) 55%, #ff6fa0 45%);
+            font-weight: 600;
+        }
+
+        .tok-type {
+            color: color-mix(in srgb, var(--white) 55%, #4fd1c5 45%);
+        }
+
+        .tok-func {
+            color: color-mix(in srgb, var(--white) 55%, #61afef 45%);
+        }
+
+        .tok-string {
+            color: color-mix(in srgb, var(--white) 55%, #98c379 45%);
+        }
+
+        .tok-number {
+            color: color-mix(in srgb, var(--white) 55%, #d19a66 45%);
+        }
+
+        .tok-macro,
+        .tok-attr {
+            color: color-mix(in srgb, var(--white) 55%, #e5c07b 45%);
+        }
+
+        .tok-comment {
+            color: var(--grey-4);
+            font-style: italic;
+        }
+
+        .tok-command {
+            color: color-mix(in srgb, var(--white) 55%, #61afef 45%);
+            font-weight: 600;
+        }
+
+        .tok-flag {
+            color: color-mix(in srgb, var(--white) 55%, #c678dd 45%);
+        }
+
+        .tok-placeholder {
+            color: color-mix(in srgb, var(--white) 55%, #d19a66 45%);
+            font-style: italic;
+        }
+
+        .soroban-links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 26px 48px;
+            margin-top: 10px;
+        }
+
+        @media (max-width:900px) {
+            .soroban-links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .soroban-link-item a {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 2px;
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-link-item a {
+            color: var(--black);
+            border-color: var(--line-dark);
+        }
+
+        .soroban-link-item a:hover {
+            opacity: 0.7;
+        }
+
+        .soroban-link-note {
+            margin-top: 4px;
+            font-size: 14px;
+            color: var(--grey-4);
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .soroban-link-note {
+            color: var(--grey-3);
+        }
     </style>
 </head>
 
@@ -3321,6 +3601,127 @@
             grid: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 17h18M7 3v18M17 3v18"/></svg>`,
             external: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>`
         };
+
+        // Soroban deck: one render function per block `type` (see soroban-intro-slides/README.md),
+        // shared by the soroban-title/content/table/code/links slide layouts below.
+        function escapeCodeHtml(s) {
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        // Minimal token-at-a-time highlighter: at each position, the first rule whose
+        // sticky regex matches right there wins and becomes a span; anything no rule
+        // claims (operators, unrecognized words) is flushed through as plain escaped text.
+        const RUST_RULES = [
+            { cls: 'tok-comment', re: /\/\/.*/y },
+            { cls: 'tok-attr', re: /#!?\[[^\]]*\]/y },
+            { cls: 'tok-string', re: /"(?:[^"\\]|\\.)*"/y },
+            { cls: 'tok-macro', re: /[A-Za-z_][A-Za-z0-9_]*!/y },
+            { cls: 'tok-number', re: /\b\d+\b/y },
+            { cls: 'tok-keyword', re: /\b(?:pub|fn|let|mut|struct|impl|const|use|return|if|else|match|for|while|loop|break|continue|self|Self|as|in|crate|mod|where|unsafe|async|await|move|ref|static|trait|enum|type|dyn|extern)\b/y },
+            { cls: 'tok-type', re: /\b[A-Z][A-Za-z0-9_]*\b/y },
+            { cls: 'tok-func', re: /\b[a-z_][A-Za-z0-9_]*(?=\()/y },
+        ];
+
+        const BASH_RULES = [
+            { cls: 'tok-comment', re: /#.*/y },
+            { cls: 'tok-string', re: /"(?:[^"\\]|\\.)*"/y },
+            { cls: 'tok-placeholder', re: /<[A-Z_][A-Z0-9_]*>/y },
+            { cls: 'tok-flag', re: /(?<=^|\s)--?[A-Za-z][A-Za-z0-9-]*/y },
+            { cls: 'tok-command', re: /\b(?:stellar|cargo)\b/y },
+        ];
+
+        function runTokenizer(line, rules) {
+            let out = '';
+            let buf = '';
+            let pos = 0;
+            const flush = () => { if (buf) { out += escapeCodeHtml(buf); buf = ''; } };
+            while (pos < line.length) {
+                let matched = false;
+                for (const rule of rules) {
+                    rule.re.lastIndex = pos;
+                    const m = rule.re.exec(line);
+                    if (m && m.index === pos && m[0].length > 0) {
+                        flush();
+                        out += `<span class="${rule.cls}">${escapeCodeHtml(m[0])}</span>`;
+                        pos += m[0].length;
+                        matched = true;
+                        break;
+                    }
+                }
+                if (!matched) {
+                    buf += line[pos];
+                    pos++;
+                }
+            }
+            flush();
+            return out;
+        }
+
+        function highlightCode(line, lang) {
+            if (lang === 'rust') return runTokenizer(line, RUST_RULES);
+            if (lang === 'bash') return runTokenizer(line, BASH_RULES);
+            return escapeCodeHtml(line);
+        }
+
+        function renderSorobanBlock(block) {
+            switch (block.type) {
+                case 'paragraph':
+                    return `<p class="soroban-para">${block.text}</p>`;
+
+                case 'bullets':
+                    return `<ul class="point-list">${block.items.map(item =>
+                        `<li>${item.label ? `<strong>${item.label}</strong> — ${item.text}` : item.text}</li>`
+                    ).join('')}</ul>`;
+
+                case 'steps':
+                    return `<div class="soroban-steps">${block.items.map((item, i) => `
+                        <div class="soroban-step">
+                            <div class="soroban-step-num">${String(i + 1).padStart(2, '0')}</div>
+                            <div class="soroban-step-title">${item.title}</div>
+                            <div class="soroban-step-text">${item.text}</div>
+                        </div>
+                    `).join('')}</div>`;
+
+                case 'callout':
+                    return `<div class="soroban-callout${block.variant === 'warning' ? ' warning' : ''}">${block.text}</div>`;
+
+                case 'table':
+                    return `
+                        <div class="soroban-table-wrap">
+                            <table class="soroban-table">
+                                <thead><tr>${block.columns.map(c => `<th>${c}</th>`).join('')}</tr></thead>
+                                <tbody>${block.rows.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join('')}</tbody>
+                            </table>
+                        </div>
+                    `;
+
+                case 'code': {
+                    const lines = block.content.split('\n');
+                    const hl = new Set(block.highlight || []);
+                    return `
+                        <div class="soroban-code-block">
+                            ${block.filename ? `<div class="soroban-code-filename">${block.filename}</div>` : ''}
+                            <div class="soroban-code-body">
+                                ${lines.map((line, i) => `
+                                    <div class="soroban-code-row${hl.has(i + 1) ? ' hl' : ''}"><div class="soroban-code-num">${i + 1}</div><div>${line ? highlightCode(line, block.language) : ' '}</div></div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                case 'links':
+                    return `<div class="soroban-links-grid">${block.items.map(item => `
+                        <div class="soroban-link-item">
+                            <a href="${item.url}" target="_blank" rel="noopener">${item.label}</a>
+                            ${item.note ? `<div class="soroban-link-note">${item.note}</div>` : ''}
+                        </div>
+                    `).join('')}</div>`;
+
+                default:
+                    return '';
+            }
+        }
 
         // Theme
         const THEME_ICONS = {
@@ -4825,6 +5226,41 @@
                                 </div>
                             </div>
                             <div class="cover-meta">${slide.meta}</div>
+                        `;
+                        break;
+
+                    case 'soroban-title':
+                        content = `
+                            <div class="slide-inner soroban-title-wrap">
+                                <h1 class="display cover-headline reveal r1">${slide.title}</h1>
+                                <p class="lede cover-sub reveal r2" style="margin:34px auto 0;">${slide.subtitle}</p>
+                                <div class="reveal r3" style="margin-top:28px;">${(slide.blocks || []).map(renderSorobanBlock).join('')}</div>
+                            </div>
+                            ${slide.meta ? `<div class="cover-meta">${slide.meta}</div>` : ''}
+                        `;
+                        break;
+
+                    case 'soroban-content':
+                    case 'soroban-table':
+                    case 'soroban-links':
+                        content = `
+                            <div class="slide-inner">
+                                <h2 class="display reveal r1">${slide.title}</h2>
+                                <div class="reveal r2" style="margin-top:32px;">
+                                    ${(slide.blocks || []).map(renderSorobanBlock).join('')}
+                                </div>
+                            </div>
+                        `;
+                        break;
+
+                    case 'soroban-code':
+                        content = `
+                            <div class="slide-inner">
+                                <h2 class="display reveal r1" style="font-size:clamp(28px,3.6vw,48px);">${slide.title}</h2>
+                                <div class="reveal r2">
+                                    ${(slide.blocks || []).map(renderSorobanBlock).join('')}
+                                </div>
+                            </div>
                         `;
                         break;
                 }
