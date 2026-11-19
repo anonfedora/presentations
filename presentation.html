@@ -18,6 +18,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.5.2/qrcode.min.js" integrity="sha512-c3HC2N32Up+KwxhFN2dZkoDWSdxWqwzDJCnroUffjS/HBQHf5Ou1uFpqIT0rOIJ5fW8TxHmUpCDndH2A6xNhpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&family=Archivo:wght@900&family=Work+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&family=Bodoni+Moda:opsz,wght@6..96,600&family=Jost:wght@400;500&family=Sora:wght@700&family=Manrope:wght@400;500&family=Crimson+Pro:wght@400;500&family=Big+Shoulders+Display:wght@700&family=Karla:wght@400;500&family=Figtree:wght@700&family=Nunito+Sans:wght@400;500&family=Space+Mono:wght@700&family=IBM+Plex+Sans:wght@400;500&family=Roboto+Slab:wght@700&family=Source+Sans+3:wght@400;500&family=Lora:wght@700&family=PT+Serif:wght@400;700&family=Unbounded:wght@700&family=Rubik:wght@400;500&family=Bitter:wght@700&family=Noto+Serif:wght@400;500&family=Libre+Baskerville:wght@400;700&family=Mulish:wght@400;500&family=Instrument+Serif&family=Albert+Sans:wght@400;500&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -3400,29 +3401,29 @@
            ink color, so contrast against the code block's background tracks the
            active theme instead of being pinned to one palette. */
         .tok-keyword {
-            color: color-mix(in srgb, var(--white) 55%, #ff6fa0 45%);
+            color: color-mix(in srgb, var(--code-popup-fg) 55%, #ff6fa0 45%);
             font-weight: 600;
         }
 
         .tok-type {
-            color: color-mix(in srgb, var(--white) 55%, #4fd1c5 45%);
+            color: color-mix(in srgb, var(--code-popup-fg) 55%, #4fd1c5 45%);
         }
 
         .tok-func {
-            color: color-mix(in srgb, var(--white) 55%, #61afef 45%);
+            color: color-mix(in srgb, var(--code-popup-fg) 55%, #61afef 45%);
         }
 
         .tok-string {
-            color: color-mix(in srgb, var(--white) 55%, #98c379 45%);
+            color: color-mix(in srgb, var(--code-popup-fg) 55%, #98c379 45%);
         }
 
         .tok-number {
-            color: color-mix(in srgb, var(--white) 55%, #d19a66 45%);
+            color: color-mix(in srgb, var(--code-popup-fg) 55%, #d19a66 45%);
         }
 
         .tok-macro,
         .tok-attr {
-            color: color-mix(in srgb, var(--white) 55%, #e5c07b 45%);
+            color: color-mix(in srgb, var(--code-popup-fg) 55%, #e5c07b 45%);
         }
 
         .tok-comment {
@@ -3431,17 +3432,113 @@
         }
 
         .tok-command {
-            color: color-mix(in srgb, var(--white) 55%, #61afef 45%);
+            color: color-mix(in srgb, var(--code-popup-fg) 55%, #61afef 45%);
             font-weight: 600;
         }
 
         .tok-flag {
-            color: color-mix(in srgb, var(--white) 55%, #c678dd 45%);
+            color: color-mix(in srgb, var(--code-popup-fg) 55%, #c678dd 45%);
         }
 
         .tok-placeholder {
-            color: color-mix(in srgb, var(--white) 55%, #d19a66 45%);
+            color: color-mix(in srgb, var(--code-popup-fg) 55%, #d19a66 45%);
             font-style: italic;
+        }
+
+        /* Hoverable code phrases that open the magnifying-glass note popup. */
+        .tok-annotatable {
+            cursor: help;
+            border-radius: 3px;
+            padding: 1px 0;
+            border-bottom: 1px dashed color-mix(in srgb, var(--white) 45%, transparent);
+            transition: background-color 0.15s ease;
+        }
+
+        .tok-annotatable:hover,
+        .tok-annotatable:focus-visible {
+            background: color-mix(in srgb, var(--white) 18%, transparent);
+            outline: none;
+        }
+
+        :is(.slide.light, html[data-theme="light"] .slide) .tok-annotatable:hover,
+        :is(.slide.light, html[data-theme="light"] .slide) .tok-annotatable:focus-visible {
+            background: color-mix(in srgb, var(--black) 12%, transparent);
+        }
+
+        /* The popup lives at <body> level (outside any .slide), so it can't rely on
+           the .slide.light swap for its own colors — and the color-mix()-based
+           .tok-* token colors below need the same fix even though they ARE inside
+           .slide, since that swap only overrides the `color` property, not the
+           --white/--black custom properties a color-mix() ingredient reads. These
+           two tokens carry the right light/dark flip up to :root instead, keyed off
+           the explicit "Light" theme. Named themes that bake their own light palette
+           into --black/--white (parchment, swiss-grid, …) already work with no
+           override, same as the rest of the page. */
+        :root {
+            --code-popup-bg: color-mix(in srgb, var(--black) 90%, var(--white) 10%);
+            --code-popup-fg: var(--white);
+        }
+
+        html[data-theme="light"] {
+            --code-popup-bg: color-mix(in srgb, var(--white) 90%, var(--black) 10%);
+            --code-popup-fg: var(--black);
+        }
+
+        #codeMagnifier {
+            position: fixed;
+            z-index: 80;
+            max-width: 320px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: var(--code-popup-bg);
+            box-shadow: 0 16px 40px color-mix(in srgb, var(--black) 40%, transparent);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 14.5px;
+            line-height: 1.5;
+            font-weight: 500;
+            color: var(--code-popup-fg);
+            opacity: 0;
+            transform: translateY(6px) scale(0.96);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+            pointer-events: none;
+        }
+
+        #codeMagnifier.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        #codeMagnifier .magnifier-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            margin-top: 1px;
+            color: color-mix(in srgb, var(--code-popup-fg) 55%, #61afef 45%);
+        }
+
+        /* A rotated square "flap", half-hidden behind the popup (lower z-index),
+           so it automatically inherits the exact same fill and border as the
+           card instead of needing its own hand-tuned color to stay visible
+           against whatever's behind it. */
+        #codeMagnifierArrow {
+            position: fixed;
+            z-index: 79;
+            width: 14px;
+            height: 14px;
+            background: var(--code-popup-bg);
+            border: 1px solid var(--line);
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.15s ease;
+            pointer-events: none;
+        }
+
+        #codeMagnifierArrow.visible {
+            opacity: 1;
         }
 
         .soroban-links-grid {
@@ -3483,6 +3580,66 @@
 
         :is(.slide.light, html[data-theme="light"] .slide) .soroban-link-note {
             color: var(--grey-3);
+        }
+
+        /* Unlike the title/closing slides, this one is top-anchored rather than
+           vertically centered — with a big QR code in the mix, true centering
+           pushed it further down the slide than the content's own weight suggests. */
+        .slide:has(.soroban-qr-page) {
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+        }
+
+        .soroban-qr-page {
+            width: 100%;
+        }
+
+        .soroban-qr-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 22px;
+            margin-top: 8px;
+        }
+
+        /* Always white-on-black regardless of theme — a QR code needs fixed high
+           contrast to stay scannable, so it can't follow the slide's palette. The
+           shadow is a plain neutral tint for the same reason (--black can itself
+           be a light color in some themes, e.g. swiss-grid). */
+        .soroban-qr-card {
+            width: min(420px, 48vw);
+            aspect-ratio: 1;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .soroban-qr-card svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .soroban-qr-link {
+            font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+            font-size: 17px;
+            font-weight: 700;
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 2px solid currentColor;
+            padding-bottom: 3px;
+            max-width: 90vw;
+            word-break: break-all;
+            text-align: center;
+        }
+
+        .soroban-qr-link:hover {
+            opacity: 0.75;
         }
     </style>
 </head>
@@ -3630,24 +3787,54 @@
             { cls: 'tok-command', re: /\b(?:stellar|cargo)\b/y },
         ];
 
-        function runTokenizer(line, rules) {
+        function escapeAttr(s) {
+            return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+        }
+
+        function escapeRegExp(s) {
+            return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // annotationRules (optional) are tried before the language rules at every
+        // position, so a "magnifying glass" note can wrap a whole phrase (e.g.
+        // ".extend_ttl(100, 1000)") while its insides still get normal token colors.
+        function runTokenizer(line, rules, annotationRules) {
             let out = '';
             let buf = '';
             let pos = 0;
             const flush = () => { if (buf) { out += escapeCodeHtml(buf); buf = ''; } };
             while (pos < line.length) {
                 let matched = false;
-                for (const rule of rules) {
-                    rule.re.lastIndex = pos;
-                    const m = rule.re.exec(line);
-                    if (m && m.index === pos && m[0].length > 0) {
-                        flush();
-                        out += `<span class="${rule.cls}">${escapeCodeHtml(m[0])}</span>`;
-                        pos += m[0].length;
-                        matched = true;
-                        break;
+
+                if (annotationRules) {
+                    for (const ann of annotationRules) {
+                        ann.re.lastIndex = pos;
+                        const m = ann.re.exec(line);
+                        if (m && m.index === pos && m[0].length > 0) {
+                            flush();
+                            const inner = runTokenizer(m[0], rules, null);
+                            out += `<span class="tok-annotatable" data-note="${escapeAttr(ann.note)}" tabindex="0">${inner}</span>`;
+                            pos += m[0].length;
+                            matched = true;
+                            break;
+                        }
                     }
                 }
+
+                if (!matched) {
+                    for (const rule of rules) {
+                        rule.re.lastIndex = pos;
+                        const m = rule.re.exec(line);
+                        if (m && m.index === pos && m[0].length > 0) {
+                            flush();
+                            out += `<span class="${rule.cls}">${escapeCodeHtml(m[0])}</span>`;
+                            pos += m[0].length;
+                            matched = true;
+                            break;
+                        }
+                    }
+                }
+
                 if (!matched) {
                     buf += line[pos];
                     pos++;
@@ -3657,9 +3844,18 @@
             return out;
         }
 
-        function highlightCode(line, lang) {
-            if (lang === 'rust') return runTokenizer(line, RUST_RULES);
-            if (lang === 'bash') return runTokenizer(line, BASH_RULES);
+        function buildAnnotationRules(annotations) {
+            if (!annotations || !annotations.length) return null;
+            return annotations.map(a => ({
+                re: new RegExp(escapeRegExp(a.match), 'y'),
+                note: a.note,
+            }));
+        }
+
+        function highlightCode(line, lang, annotations) {
+            const annotationRules = buildAnnotationRules(annotations);
+            if (lang === 'rust') return runTokenizer(line, RUST_RULES, annotationRules);
+            if (lang === 'bash') return runTokenizer(line, BASH_RULES, annotationRules);
             return escapeCodeHtml(line);
         }
 
@@ -3700,10 +3896,14 @@
                     const hl = new Set(block.highlight || []);
                     return `
                         <div class="soroban-code-block">
-                            ${block.filename ? `<div class="soroban-code-filename">${block.filename}</div>` : ''}
+                            ${block.filename ? `<div class="soroban-code-filename">${
+                                block.filenameNote
+                                    ? `<span class="tok-annotatable" data-note="${escapeAttr(block.filenameNote)}" tabindex="0">${escapeCodeHtml(block.filename)}</span>`
+                                    : escapeCodeHtml(block.filename)
+                            }</div>` : ''}
                             <div class="soroban-code-body">
                                 ${lines.map((line, i) => `
-                                    <div class="soroban-code-row${hl.has(i + 1) ? ' hl' : ''}"><div class="soroban-code-num">${i + 1}</div><div>${line ? highlightCode(line, block.language) : ' '}</div></div>
+                                    <div class="soroban-code-row${hl.has(i + 1) ? ' hl' : ''}"><div class="soroban-code-num">${i + 1}</div><div>${line ? highlightCode(line, block.language, block.annotations) : ' '}</div></div>
                                 `).join('')}
                             </div>
                         </div>
@@ -3717,6 +3917,24 @@
                             ${item.note ? `<div class="soroban-link-note">${item.note}</div>` : ''}
                         </div>
                     `).join('')}</div>`;
+
+                case 'qr': {
+                    let svg = '';
+                    try {
+                        const qr = qrcode(0, 'M');
+                        qr.addData(block.url);
+                        qr.make();
+                        svg = qr.createSvgTag({ scalable: true });
+                    } catch (e) {
+                        svg = ''; // qrcode-generator failed to load — card still shows the plain link below
+                    }
+                    return `
+                        <div class="soroban-qr-wrap">
+                            <div class="soroban-qr-card">${svg}</div>
+                            <a class="soroban-qr-link" href="${escapeAttr(block.url)}" target="_blank" rel="noopener">${escapeCodeHtml(block.label || block.url)}</a>
+                        </div>
+                    `;
+                }
 
                 default:
                     return '';
@@ -5240,6 +5458,17 @@
                         `;
                         break;
 
+                    case 'soroban-qr':
+                        content = `
+                            <div class="slide-inner soroban-qr-page">
+                                <h1 class="display reveal r1" style="font-size:clamp(26px,3.6vw,48px);">${slide.title}</h1>
+                                <p class="lede reveal r2" style="margin:14px auto 0;">${slide.subtitle}</p>
+                                <div class="reveal r3" style="margin-top:20px;">${(slide.blocks || []).map(renderSorobanBlock).join('')}</div>
+                            </div>
+                            ${slide.meta ? `<div class="cover-meta">${slide.meta}</div>` : ''}
+                        `;
+                        break;
+
                     case 'soroban-content':
                     case 'soroban-table':
                     case 'soroban-links':
@@ -5516,8 +5745,96 @@
             requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
         }
 
+        // Magnifying-glass popup for annotated code tokens (.tok-annotatable,
+        // written by highlightCode/runTokenizer above). One popup + one arrow
+        // element shared by every slide, repositioned on each hover.
+        function initCodeMagnifier() {
+            const popup = document.createElement('div');
+            popup.id = 'codeMagnifier';
+            popup.innerHTML = `
+                <svg class="magnifier-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="10.5" cy="10.5" r="6.5"></circle>
+                    <path d="M20 20l-4.8-4.8"></path>
+                </svg>
+                <div class="magnifier-text"></div>
+            `;
+            const arrow = document.createElement('div');
+            arrow.id = 'codeMagnifierArrow';
+            document.body.appendChild(popup);
+            document.body.appendChild(arrow);
+
+            const textEl = popup.querySelector('.magnifier-text');
+
+            function hide() {
+                popup.classList.remove('visible');
+                arrow.classList.remove('visible');
+            }
+
+            function show(target) {
+                const note = target.getAttribute('data-note');
+                if (!note) return;
+                textEl.textContent = note;
+                popup.classList.add('visible');
+
+                const rect = target.getBoundingClientRect();
+                const gap = 8; // space between the token and the popup's edge
+                const flap = 14; // must match the arrow element's CSS size
+
+                // offsetWidth/offsetHeight (layout box) rather than getBoundingClientRect
+                // (visual box) — the popup is mid-transition from its hidden transform
+                // (scale(0.96)) right after .visible is toggled, so the rect would read
+                // a few percent short.
+                const popupWidth = popup.offsetWidth;
+                const popupHeight = popup.offsetHeight;
+
+                // Prefer above the token; flip below when there isn't room above the
+                // fixed top bar (e.g. the first lines of the code block, or the
+                // filename tab right under the slide heading).
+                const topBar = document.querySelector('.top-nav');
+                const minTop = (topBar ? topBar.getBoundingClientRect().bottom : 0) + 8;
+                const placeBelow = rect.top - gap - popupHeight < minTop;
+                const top = placeBelow ? rect.bottom + gap : rect.top - gap - popupHeight;
+                const edgeY = placeBelow ? top : top + popupHeight; // popup edge nearest the token
+
+                let left = rect.left + rect.width / 2 - popupWidth / 2;
+                left = Math.max(8, Math.min(left, window.innerWidth - popupWidth - 8));
+
+                popup.style.left = `${left}px`;
+                popup.style.top = `${top}px`;
+
+                // Center the flap on the popup's near edge so half tucks behind the
+                // card and half points at the token.
+                const arrowLeft = Math.max(
+                    left + 10,
+                    Math.min(rect.left + rect.width / 2 - flap / 2, left + popupWidth - flap - 10)
+                );
+                arrow.style.left = `${arrowLeft}px`;
+                arrow.style.top = `${edgeY - flap / 2}px`;
+                arrow.classList.add('visible');
+            }
+
+            document.addEventListener('mouseover', (e) => {
+                const el = e.target.closest('.tok-annotatable');
+                if (el && !el.contains(e.relatedTarget)) show(el);
+            });
+            document.addEventListener('mouseout', (e) => {
+                const el = e.target.closest('.tok-annotatable');
+                if (el && !el.contains(e.relatedTarget)) hide();
+            });
+            document.addEventListener('focusin', (e) => {
+                const el = e.target.closest('.tok-annotatable');
+                if (el) show(el);
+            });
+            document.addEventListener('focusout', (e) => {
+                if (e.target.closest('.tok-annotatable')) hide();
+            });
+            document.addEventListener('scroll', hide, true);
+            window.addEventListener('resize', hide);
+        }
+
         initTheme();
         initAccessibility();
+        initCodeMagnifier();
         loadPresentation();
     </script>
 </body>
