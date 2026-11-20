@@ -1728,7 +1728,7 @@
       {
         "type": "soroban-title",
         "title": "Thank you",
-        "subtitle": "Questions?",
+        "subtitle": "",
         "meta": "SOROBAN<br>INTRODUCTION",
         "blocks": [
           { "type": "paragraph", "text": "Start building: developers.stellar.org/docs/build/smart-contracts" }
